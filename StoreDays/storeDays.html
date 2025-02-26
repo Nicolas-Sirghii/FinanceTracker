@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Store Date Range</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+            background-color: #121212;
+            color: #ffffff;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            background-color: #1e1e1e;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+        }
+        input, button {
+            margin: 10px;
+            padding: 10px;
+            width: 100%;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        input {
+            background-color: #333;
+            color: #ffffff;
+        }
+        button {
+            background-color: #6200ea;
+            color: #ffffff;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background-color: #3700b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Pick a Date Range</h2>
+        <label for="fromDate">From:</label>
+        <input type="date" id="fromDate">
+        <label for="toDate">To:</label>
+        <input type="date" id="toDate">
+        <button onclick="storeData()">Store</button>
+    </div>
+
+    <script>
+      
+        const daysArray = 
+        [
+    {
+        "date": "2025-02-23",
+        "message": "hallo world",
+        "name": "fdsfd"
+    },
+    {
+        "date": "2025-02-24",
+        "message": "hallo world",
+        "name": "fsfs"
+    },
+    {
+        "date": "2025-02-25",
+        "message": "hallo world",
+        "name": "dadsdd"
+    },
+    {
+        "date": "2025-02-26",
+        "message": "hallo world",
+        "name": "dasasd"
+    }
+]
+
+        function storeData() {
+            let fromDate = document.getElementById("fromDate").value;
+            let toDate = document.getElementById("toDate").value;
+            let storedArray;
+            
+            if (fromDate && toDate) {
+                let filteredArray = daysArray.filter(day => day.date >= fromDate && day.date <= toDate);
+                storedArray = filteredArray;
+            } else {
+                storedArray = daysArray;
+            }
+            
+            localStorage.setItem("LIFE", JSON.stringify(storedArray));
+            alert("Data stored in local storage!");
+            console.log("------------------stored Array-----------------")
+            console.log(storedArray)
+            console.log("-----------------------------------------------")
+        }
+    </script>
+</body>
+</html>
