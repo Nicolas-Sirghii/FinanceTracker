@@ -1,0 +1,168 @@
+#newGoalButton{
+  padding: 0.5vh;
+  border: 1px solid red;
+  
+}
+
+input {
+  padding: 10px;
+  width: 80%;
+  margin-bottom: 15px;
+  background-color: #333333;
+  border: 1px solid #444444;
+  color: #ffffff;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #007BFF;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin: 5px;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.status {
+  margin-top: 15px;
+  font-size: 18px;
+  color: #28a745;
+}
+
+.error {
+  color: #dc3545;
+}
+
+/* Modal Styles */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: #1e1e1e;
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 300px;
+  text-align: center;
+}
+
+.modal input {
+  margin-bottom: 10px;
+}
+
+.modal button {
+  background-color: #28a745;
+}
+
+.modal button:hover {
+  background-color: #218838;
+}
+
+/* Circle Styling */
+.circle-container {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  bottom: 0;
+
+  
+
+}
+
+.circle-wrapper {
+  position: relative;
+  margin: 10px;
+
+}
+
+.circle {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.progress-circle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  
+  transform: rotate(-90deg); /* Start from the top */
+}
+
+.progress-bar {
+  stroke-linecap: round;
+  stroke: #4CAF50;
+  stroke-width: 5;
+  fill: none;
+  transition: stroke-dashoffset 1s ease-out;
+}
+
+
+.item {
+  width: 100%;
+  height: 10vh;
+  background: #1e1e1e;
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+  margin: 10px auto;
+  padding: 10px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+  position: relative;
+}
+.item img {
+  width: 10vh;
+  height: 10vh;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.item .info {
+  margin-left: 20px;
+  text-align: left;
+}
+.progress-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 5px;
+  background-color: #4caf50;
+  transition: width 0.5s ease-in-out;
+}
+.goalSpacificContainer{
+  display: none;
+  position: absolute;
+  width: 100vw;
+  background-color: #121212;
+  border: 1px solid red;
+}

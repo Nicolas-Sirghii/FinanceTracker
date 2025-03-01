@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FinanceTracker</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <link rel="stylesheet" href="Styles/goalsStyles.css">
   <link rel="stylesheet" href="Styles/HeaderStyles.css">
   <link rel="stylesheet" href="Styles/popupsStyle.css">
   <link rel="stylesheet" href="Styles/ChartsStyles.css">
@@ -12,39 +14,45 @@
 </head>
 
 <body>
-<header class="header">
-  <div class="veryTop" id="veryTop">
+<header class="header" id="header">
+  <div class="veryTop" id="veryTop" onclick="We.showGoalStatus()">
     <button class="ExpenseButton" id="ExpenseButton" onclick="We.openNewExpencePopup()">Expese</button>
     <button class="IncomeButton" id="IncomeButton" onclick="We.openNewIncomePopup()">Income</button>
+    <button onclick="We.storeData()">Save</button>
   </div>
+  <div id="circleContainer" class="circle-container"></div>
     <button class="newGoalButton" id="newGoalButton" onclick="We.openGoalPopup()">+</button>
 </header>
 <div class="GoalPopup" id="GoalPopup" >
   <h2>Add goal</h2>
-    <input type="text"   class="goalName"   id="goalName" placeholder="Name">
     <input type="text"   class="goalImge"   id="goalImge" placeholder="Image URL">
-    <input type="number" class="goalAmount" id="goalAmount" placeholder="Amount">
-    <button class="addGoal"  id="addGoal">Add</button>
+    <button class="addGoal"  id="addGoal" onclick="We.setGoalValues()">Add</button>
     <button class="cancelGoalPopup" id="cancelGoalPopup" onclick="We.closeGoalPopup()">Cancel</button>
+</div>
+<div class="UpdateCircle" id="UpdateCircle" >
+  <h2>Update goal</h2>
+    <input type="text"   class="UpdateGoalImge"   id="UpdateGoalImge" placeholder="Image URL">
+    <button class="addGoal"  id="UpdateGoal" onclick="We.updateGoalBackground()">Update Circle</button>
+    <button class="cancelUpdateGoalPopup" id="cancelUpdateGoalPopup" onclick="We.closeUpdateGoalBackground()">Cancel</button>
 </div>
 
 <div class="NewExpencePopup" id="NewExpencePopup">
   <h2>Expenses</h2>
   <div id="newOrExisting">
-    <button id="isItNew">New</button>
-    <button id="isItExisting">Existing</button>
+    <button id="isItNew" onclick="We.ChangeExisting('isItNew')">New</button>
+    <button id="isItExisting" onclick="We.ChangeExisting('isItExisting')">Existing</button>
   </div>
   <div id="currencyButtonsContainer">
-    <button>USD</button>
-    <button>EUR</button>
-    <button>PLN</button>
-    <button>MDL</button>
+    <button id="USD" onclick="We.changeBackgroundButton('USD')">USD</button>
+    <button id="EUR" onclick="We.changeBackgroundButton('EUR')">EUR</button>
+    <button id="PLN" onclick="We.changeBackgroundButton('PLN')">PLN</button>
+    <button id="MDL" onclick="We.changeBackgroundButton('MDL')">MDL</button>
 </div>
   <input type="text" id="name" placeholder="Name">
   <input type="number" id="amount" placeholder="Amount">
   <div id="addButton">
-    <button id="expectedButton" onclick="We.addNewExpence('expected')">Expected</button>
-    <button id="UnExpectedButton" onclick="We.addNewExpence('unexpected')">Unexpected</button>
+    <button id="expectedButton" onclick="We.addNewExpence('expectedExpence')">Expected</button>
+    <button id="UnExpectedButton" onclick="We.addNewExpence('unexpectedExpence')">Unexpected</button>
   </div>
   
   <button id="cancelButton" onclick="We.cancelNewExpencePopup()">Cancel</button>
@@ -54,14 +62,14 @@
 <div class="incomePopup" id="incomePopup">
   <h2>Add income</h2>
   <div id="newOrExisting">
-    <button id="isItNew">New</button>
-    <button id="isItExisting">Existing</button>
+    <button id="isItNew2" onclick="We.ChangeExisting('isItNew2')">New</button>
+    <button id="isItExisting2" onclick="We.ChangeExisting('isItExisting2')">Existing</button>
   </div>
   <div id="currencyButtonsContainer">
-    <button>USD</button>
-    <button>EUR</button>
-    <button>PLN</button>
-    <button>MDL</button>
+    <button id="USD2" onclick="We.changeBackgroundButton('USD2')">USD</button>
+    <button id="EUR2" onclick="We.changeBackgroundButton('EUR2')">EUR</button>
+    <button id="PLN2" onclick="We.changeBackgroundButton('PLN2')">PLN</button>
+    <button id="MDL2" onclick="We.changeBackgroundButton('MDL2')">MDL</button>
 </div>
   <input type="text" id="incomeName" placeholder="Name">
   <input type="number" id="incomeAmount" placeholder="Amount">
@@ -73,6 +81,28 @@
   <button id="cancelButton" onclick="We.closeNewIncomePopup()">Cancel</button>
 
 </div>
+
+<div class="addSpacificsPopup" id="addSpacificsPopup">
+  <input type="text" placeholder="Name" id="nameInput">
+  <input type="text" placeholder="Image URL" id="imageInput">
+  <input type="number" placeholder="Amount" id="amountInput">
+  <button id="setBtn" onclick=" We.addSpacificGoal()">Set</button>
+  <button id="cancelBtn" onclick="We.closeSpacificsGoalPopup ()">Cancel</button>
+</div>
+
+<div id="updateSpacificGoal" class="updateSpacificGoal">
+  <h2>Update</h2>
+  <input type="text" id="SpacificName" placeholder="Name">
+  <input type="text" id="SpacificUrl" placeholder="url-adress">
+  <input type="number" id="SpacificAmount" placeholder="Amount">
+  <button onclick="We.updateSpacificGoal()">Update</button>
+  <button onclick="We.deleteSpacificGoal()">Delete</button>
+  <button onclick="We.closeUpdateSpacificGoal()">Cancel</button>
+</div>
+
+
+
+
 <div class="linearContainer" id="linearContainer">
   <h2>Line Chart Example</h2>
   <canvas id="lineChart" width="100" height=" 50"></canvas>
@@ -90,12 +120,25 @@
   </div>
 </div>
 
+<!-- Container for the circles -->
+
+<div class="goalSpacificContainer" id="goalSpacificContainer">
+  <button onclick="We.openSpacificsGoalPopup()">Add circle</button>
+  <button onclick="We.openGoalBackground()">Update circle</button>
+  <button  onclick=" We.DeleteGoal()">Delete circle</button>
+  <button onclick="We.closeGoalDetails()">Cancel</button>
+  
+  <div class="goalElementContainer" id="goalElementContainer"></div>
+</div>
 
 
+  <script src="Scripts/lifeData.js"></script>
   <script src="Scripts/data.js"></script>
   <script src="Scripts/charts.js"></script>
   <script src="Scripts/methods.js"></script>
   <script src="Scripts/mainScript.js"></script>
+  <script src="Scripts/GoalScript.js"></script>
+
   
 
 
