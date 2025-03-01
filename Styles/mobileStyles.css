@@ -1,0 +1,52 @@
+.mobGoalPopup {
+  display: none;
+  position: fixed;
+  flex-direction: column;
+  align-items: center;
+  color: #ffffff;
+  top: 50%;
+  left: 50%;
+  width: 80vw;
+  transform: translate(-50%, -50%);
+  background: #1e1e1e;
+  padding: 20px;
+  z-index: 2;
+}
+.mobLinearContainer{
+  position: relative;
+  width: 100%;
+  height: 30vh;
+}
+.mobNewEspencesPopup{
+  position: absolute;
+  margin-top: 2vh;
+  border-radius: 10px;
+  display: none;
+  width: 90vw;
+  height: 65vh;
+  flex-direction: column;
+  justify-content: center;
+  gap: 3vh;
+  align-items: center;
+  z-index: 2;
+  background: #1e1e1e;
+
+ }
+.mobExpencePieContainer{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 750px;
+}
+.mobTwoCharts{
+  display: flex;
+  flex-direction: column;
+  
+}
+.mobIncomePopup{
+  position: absolute;
+  top: 10vh;
+  width: 90%;
+  border: 1px solid red;
+}

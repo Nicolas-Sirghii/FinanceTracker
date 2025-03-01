@@ -1,0 +1,29 @@
+
+.expencePieContainer{
+  
+  position: absolute;
+  height: 50vh;
+  width: 50vw;
+  right: 0;
+ 
+}
+
+
+.twoCharts{
+  display: flex;
+  justify-content: space-around;
+  
+ 
+}
+
+.chartsPieWraper{
+  width: 50vw;
+}
+
+.linearContainer{
+  position: absolute;
+  left: 0;
+  width: 50vw;
+  
+  
+}

@@ -4,26 +4,100 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FinanceTracker</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <link rel="stylesheet" href="Styles/HeaderStyles.css">
+  <link rel="stylesheet" href="Styles/popupsStyle.css">
+  <link rel="stylesheet" href="Styles/ChartsStyles.css">
+  <link rel="stylesheet" href="Styles/mobileStyles.css">
 </head>
+
 <body>
-<div class="header">
-    <div class="circle" id="addCircle">+</div>
+<header class="header">
+  <div class="veryTop" id="veryTop">
+    <button class="ExpenseButton" id="ExpenseButton" onclick="We.openNewExpencePopup()">Expese</button>
+    <button class="IncomeButton" id="IncomeButton" onclick="We.openNewIncomePopup()">Income</button>
+  </div>
+    <button class="newGoalButton" id="newGoalButton" onclick="We.openGoalPopup()">+</button>
+</header>
+<div class="GoalPopup" id="GoalPopup" >
+  <h2>Add goal</h2>
+    <input type="text"   class="goalName"   id="goalName" placeholder="Name">
+    <input type="text"   class="goalImge"   id="goalImge" placeholder="Image URL">
+    <input type="number" class="goalAmount" id="goalAmount" placeholder="Amount">
+    <button class="addGoal"  id="addGoal">Add</button>
+    <button class="cancelGoalPopup" id="cancelGoalPopup" onclick="We.closeGoalPopup()">Cancel</button>
 </div>
-<div class="popup" id="popup">
-    <input type="text" id="nameInput" placeholder="Name">
-    <input type="text" id="imageInput" placeholder="Image URL">
-    <input type="number" id="amountInput" placeholder="Amount">
-    <button id="addButton">Add</button>
-    <button id="cancelButton">Cancel</button>
+
+<div class="NewExpencePopup" id="NewExpencePopup">
+  <h2>Expenses</h2>
+  <div id="newOrExisting">
+    <button id="isItNew">New</button>
+    <button id="isItExisting">Existing</button>
+  </div>
+  <div id="currencyButtonsContainer">
+    <button>USD</button>
+    <button>EUR</button>
+    <button>PLN</button>
+    <button>MDL</button>
+</div>
+  <input type="text" id="name" placeholder="Name">
+  <input type="number" id="amount" placeholder="Amount">
+  <div id="addButton">
+    <button id="expectedButton" onclick="We.addNewExpence('expected')">Expected</button>
+    <button id="UnExpectedButton" onclick="We.addNewExpence('unexpected')">Unexpected</button>
+  </div>
+  
+  <button id="cancelButton" onclick="We.cancelNewExpencePopup()">Cancel</button>
+</div>
+
+
+<div class="incomePopup" id="incomePopup">
+  <h2>Add income</h2>
+  <div id="newOrExisting">
+    <button id="isItNew">New</button>
+    <button id="isItExisting">Existing</button>
+  </div>
+  <div id="currencyButtonsContainer">
+    <button>USD</button>
+    <button>EUR</button>
+    <button>PLN</button>
+    <button>MDL</button>
+</div>
+  <input type="text" id="incomeName" placeholder="Name">
+  <input type="number" id="incomeAmount" placeholder="Amount">
+  <input type="number" id="amountOfHours" placeholder="Hours">
+  <input type="number" id="ratePerHour" placeholder="Rate per Hour">
+  <input type="number" id="salary" placeholder="Salary">
+  
+  <button id="addIncome">Add</button>
+  <button id="cancelButton" onclick="We.closeNewIncomePopup()">Cancel</button>
+
+</div>
+<div class="linearContainer" id="linearContainer">
+  <h2>Line Chart Example</h2>
+  <canvas id="lineChart" width="100" height=" 50"></canvas>
+</div>
+<div class="expencePieContainer" id="expencePieContainer">
+   <div class="twoCharts" id="twoCharts">
+    <div class="expencePieWrapper" id="expencePieWrapper">
+      <h2>Expences</h2>
+      <canvas id="expensePieChart" ></canvas>
+    </div>
+    <div class="incomePieWrapper" id="incomePieWrapper">
+      <h2>Income</h2>
+      <canvas id="incomePieChart"></canvas>
+    </div>
+  </div>
 </div>
 
 
 
+  <script src="Scripts/data.js"></script>
+  <script src="Scripts/charts.js"></script>
+  <script src="Scripts/methods.js"></script>
+  <script src="Scripts/mainScript.js"></script>
+  
 
 
-  <script src="Scripts/FinanceScript0.js"></script>
-  <script src="Scripts/FinanceScript1.js"></script>
-  <script src="Scripts/FinanceScript2.js"></script>
 </body>
 </html>

@@ -1,0 +1,62 @@
+.GoalPopup {
+  display: none;
+  position: fixed;
+  flex-direction: column;
+  align-items: center;
+  top: 50%;
+  left: 50%;
+  width: 30vw;
+  transform: translate(-50%, -50%);
+  background: #1e1e1e;
+  padding: 20px;
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
+  border-radius: 10px;
+  z-index: 2;
+}
+.NewExpencePopup {
+  color: white;
+  background: #2a2a2a;
+  padding: 5vh;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 5vh;
+  border-radius: 10px;
+  width: 40vw;
+  height: 70vh;
+  gap: 4%;
+  z-index: 2;
+
+}
+#cancelButton{
+  background-color: rgb(178, 107, 107);
+}
+#currencyButtonsContainer{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 10%;
+}
+.incomePopup{
+  color: white;
+  background: #2a2a2a;
+  padding: 5vh;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 5vh;
+  border-radius: 10px;
+  width: 40vw;
+  height: 75vh;
+  gap: 1%;
+  z-index: 2;
+
+
+}
+
+
+
+
+
+
