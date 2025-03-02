@@ -19,9 +19,8 @@ closeUpdateGoalBackground(){
 closeGoalPopup() {
   GoalPopup.style.display = "none";
 },
-openSpacificsGoalPopup (name) {
+openSpacificsGoalPopup () {
   addSpacificsPopup.style.display = "block";
-  console.log(name)
 },
 closeSpacificsGoalPopup () {
 addSpacificsPopup.style.display = "none";
@@ -77,63 +76,150 @@ closeNewIncomePopup() {
   incomePopup.style.display = "none";
 },
 addNewExpence(type){
-  if (type === 'expectedExpence') {
-    
-   if (name.value && amount.value && existingOrNewExpence && CurrentCurrency) {
-    We.cancelNewExpencePopup()
-    console.log('expectedExpence')
-    console.log(CurrentCurrency)
-    console.log(existingOrNewExpence)
-     console.log( "go")
+  const ExOrUnEx  = (type === 'expectedExpence') ?  [Number(amount.value) , 0] : [ 0 , Number(amount.value)];
+  const last = LifeData[LifeData.length -1];
 
-     const a = {
-      date: dateToday.toISOString().split('T')[0],
-      expenses: [
-        {
-          name: "rent",
-          PLN: [0,10],
-        },
-        {
-          name: "food",
-          EUR: [4,0]
-        }
-      ],
-      income:  [
-              {
-                name: "job",
-                PLN: 30,
-              },
-              {
-                name: "investments",
-                EUR: 40
-              },
-              {
-                name: "something",
-                MDL: 280,   
+ if (name.value && amount.value && CurrentCurrency && existingOrNewExpence) {
+   
+  
+if (todaySDate === LifeData[LifeData.length -1].date) {
+
+
+            let exists = false;
+            last.expenses.forEach(element => {
+              if (element.name === name.value) {
+                if (type === 'expectedExpence') {
+                  if (element[CurrentCurrency]) {
+                    element[CurrentCurrency][0] += Number(amount.value)
+                  } else {
+                    element[CurrentCurrency] = [Number(amount.value) , 0]
+                  }
+                
+                } else {
+                  if (element[CurrentCurrency]) {
+                    element[CurrentCurrency][1] += Number(amount.value)
+                  } else {
+                    element[CurrentCurrency] = [ 0 , Number(amount.value)]
+                  }
+                }
+                exists = true;  
+              } 
+
+            });
+            
+            if (!exists) {
+              last.expenses.push({name: name.value , [CurrentCurrency]: ExOrUnEx});
+              exists = true;
+            }
+
+
+  
+} else {
+
+
+              
+              LifeData.push(
+                {
+                  date: todaySDate,
+                  expenses: [
+                    {name: name.value , [CurrentCurrency]: ExOrUnEx}
+                  ],
+                  income: [],
+                  workHours: [0,0],
+                  salary: 0
               }
-            ],
-      workHours: [8,27
-      ],
-      salary: 0,
-  }
-  a.expenses.push({name: name.value , [CurrentCurrency]: [ Number(amount.value) , 0]})
-  LifeData.push(a);
+              )
+}
 
-   } else {
-    alert("you didn't click the necessary button !!")
-   }
-  } else {
-    if (name.value && amount.value && existingOrNewExpence && CurrentCurrency) {
-      We.cancelNewExpencePopup()
-      console.log('UnexpectedExpence')
-    console.log(CurrentCurrency)
-    console.log(existingOrNewExpence)
-    console.log( "go")
-    } else {
-      alert("you didn't click the necessary button !!")
-    }
-    
-  }
+
+We.cancelNewExpencePopup();
+ } else {
+  alert("try again!!!")
+ }
+
+},
+addNewIncome(){
+  const last = LifeData[LifeData.length -1];
+
+ if (
+  (CurrentCurrency && existingOrNewExpence)
+  
+&& (
+  (incomeName.value && incomeAmount.value)
+  || amountOfHours.value
+  || salary.value
+)
+
+  
+
+  ) {
+
+
+ 
+  
+if (todaySDate === LifeData[LifeData.length -1].date) {
+
+         if (incomeAmount.value) {
+          let exists = false;
+            last.income.forEach(element => {
+              if (element.name === incomeName.value) {
+                
+                  if (element[CurrentCurrency]) {
+                    element[CurrentCurrency] += Number(incomeAmount.value);
+                  } else {
+                    element[CurrentCurrency] = Number(incomeAmount.value);
+                  }
+                
+                
+                exists = true;  
+              } 
+
+            });
+            
+            if (!exists) {
+              last.income.push({name: incomeName.value , [CurrentCurrency]:  Number(incomeAmount.value)});
+              exists = true;
+            }
+         }
+            
+          
+            const lastRate = (LifeData.length > 1) ? LifeData[LifeData.length -2].ratePerHour : 0;
+            
+            
+
+            last.salary = last.salary + Number(salary.value);
+            last.workHours = last.workHours + Number(amountOfHours.value) ;
+            last.ratePerHour = Number(ratePerHour.value) || lastRate ;
+
+  
+} else {
+
+  const lastRate = (LifeData[LifeData.length] > 1) ? LifeData[linearContainer.length -2].ratePerHour : 0;
+               const  ifAmount = incomeAmount.value ? 
+               [
+                {name: incomeName.value || "Insignificant" , [CurrentCurrency]: Number(incomeAmount.value)}
+              ] 
+              : 
+              [];
+              LifeData.push(
+                {
+                  date: todaySDate,
+                  expenses: [],
+                  income: ifAmount,
+                  workHours: Number(amountOfHours.value) || 0 ,
+                  ratePerHour:  Number(ratePerHour.value) || lastRate,
+                  salary: Number(salary.value) || 0 ,
+              }
+              )
+}
+
+
+We.closeNewIncomePopup();
+ } else {
+  alert("try again!!!")
+ }
+ console.log(".......")
+ console.log(LifeData)
 },
 showGoalStatus() {
   let totalProgress = 0;
@@ -299,13 +385,23 @@ We.storeData();
 
 },
 changeBackgroundButton(id) {
-const targetButton = document.getElementById(id)
-targetButton.style.border = "2px solid red";
+
+document.getElementById('USD').style.border = (id === "USD") ? "1px solid red" : "1px solid black";
+document.getElementById('EUR').style.border = (id === "EUR") ? "1px solid red" : "1px solid black";
+document.getElementById('PLN').style.border = (id === "PLN") ? "1px solid red" : "1px solid black";
+document.getElementById('MDL').style.border = (id === "MDL") ? "1px solid red" : "1px solid black";
+
+document.getElementById('USD2').style.border = (id === "USD2") ? "1px solid red" : "1px solid black";
+document.getElementById('EUR2').style.border = (id === "EUR2") ? "1px solid red" : "1px solid black";
+document.getElementById('PLN2').style.border = (id === "PLN2") ? "1px solid red" : "1px solid black";
+document.getElementById('MDL2').style.border = (id === "MDL2") ? "1px solid red" : "1px solid black";
 CurrentCurrency = id.substring(0, 3);
 },
 ChangeExisting(id) {
-const targetButton = document.getElementById(id)
-targetButton.style.border = "2px solid red";
+document.getElementById("isItExisting").style.border = (id === "isItExisting" ) ? "1px solid red" : "1px solid black";
+document.getElementById("isItNew").style.border = (id === "isItNew" ) ? "1px solid red" : "1px solid black";
+document.getElementById("isItExisting2").style.border = (id === "isItExisting2" ) ? "1px solid red" : "1px solid black";
+document.getElementById("isItNew2").style.border = (id === "isItNew2" ) ? "1px solid red" : "1px solid black";
 if (id === "isItExisting"  ) {
   existingOrNewExpence = 1;
   
@@ -319,4 +415,20 @@ if (id === "isItExisting"  ) {
 }
 },
 
+};
+
+const EXP = {
+  NewExpence(){
+    
+   
+  },
+  UpdateNewExpence() {
+    const last = LifeData[LifeData.length -1];
+    console.log("Expect")
+    console.log(last)
+    console.log("Expect")
+
+  },
+
+ 
 }

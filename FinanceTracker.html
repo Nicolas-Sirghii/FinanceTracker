@@ -55,7 +55,7 @@
     <button id="UnExpectedButton" onclick="We.addNewExpence('unexpectedExpence')">Unexpected</button>
   </div>
   
-  <button id="cancelButton" onclick="We.cancelNewExpencePopup()">Cancel</button>
+  <button id="cancelButton" onclick="(We.cancelNewExpencePopup())">Cancel</button>
 </div>
 
 
@@ -77,7 +77,7 @@
   <input type="number" id="ratePerHour" placeholder="Rate per Hour">
   <input type="number" id="salary" placeholder="Salary">
   
-  <button id="addIncome">Add</button>
+  <button id="addIncome" onclick="We.addNewIncome();">Add</button>
   <button id="cancelButton" onclick="We.closeNewIncomePopup()">Cancel</button>
 
 </div>
