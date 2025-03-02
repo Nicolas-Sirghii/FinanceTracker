@@ -97,6 +97,7 @@ const incomeAmount = document.getElementById('incomeAmount');
 const amountOfHours = document.getElementById('amountOfHours');
 const ratePerHour = document.getElementById('ratePerHour');
 const salary = document.getElementById('salary');
+const ExistingOptions = document.getElementById('ExistingOptions');
 
 
 

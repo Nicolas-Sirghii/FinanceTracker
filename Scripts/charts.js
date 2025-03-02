@@ -1,13 +1,13 @@
 
 
-const lineChart = new Chart(firstLinearChart, {
+let lineChart = new Chart(firstLinearChart, {
   type: 'line',
   data: {
-      labels: ['January', 'February', 'March', 'April', 'May' , 'something'],
+      labels: graphLables,
       datasets: [
         {
             label: 'Line A',
-            data: [30, 50, 40, 60, 70, 50, 90],
+            data: graphExpencesNumbers,
             borderColor: 'red',
             backgroundColor: 'rgba(255, 0, 0, 0.2)',
             fill: false,
@@ -15,7 +15,7 @@ const lineChart = new Chart(firstLinearChart, {
         },
         {
             label: 'Line B',
-            data: [20, 40, 50, 30, 60, 80, 70],
+            data: grapgIncomeNumbers,
             borderColor: 'green',
             backgroundColor: 'rgba(0, 255, 0, 0.2)',
             fill: false,
@@ -25,27 +25,27 @@ const lineChart = new Chart(firstLinearChart, {
   },
 });
 
+
 const pieExpenceChart = new Chart(PieExpence, 
   { type: 'pie',
     data: {
-       labels: ["food" , "something" , "three"],
+       labels: ExpencePieLables,
        datasets: [
                    { 
-                   data: [34 , 55 , 4],
+                   data: ExpencePieNumbers,
                    backgroundColor: ['red', 'blue', 'green', 'yellow', 'purple']
                    }
                  ] 
           }, 
   }
 );
-
 const incomePieChart = new Chart(PieIncome, 
   { type: 'pie',
     data: {
-      labels: ["food" , "something"],
+      labels: incomePieLables,
       datasets: [
                   {
-                  data: [34 , 55],
+                  data: incomePieNumbers,
                   backgroundColor: ['red', 'blue', 'green', 'yellow', 'purple']
                   }
                 ]

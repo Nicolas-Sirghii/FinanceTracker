@@ -19,6 +19,25 @@ closeUpdateGoalBackground(){
 closeGoalPopup() {
   GoalPopup.style.display = "none";
 },
+openOptions(op){
+  ExistingOptions.style.display = "flex"
+  ExistingOptions.innerHTML = '';
+  op.forEach(element => {
+    const a = document.createElement('button')
+    a.innerText = element;
+    a.addEventListener("click" ,function (){
+      if (existingOrNewExpence === 1) {
+        name.value = element;
+      } else {
+        incomeName.value = element;
+      }
+    })
+    ExistingOptions.append(a)
+  });
+},
+closeOptions(){
+ExistingOptions.style.display = "none"
+},
 openSpacificsGoalPopup () {
   addSpacificsPopup.style.display = "block";
 },
@@ -68,9 +87,12 @@ openNewExpencePopup() {
 },
 cancelNewExpencePopup() {
   NewExpencePopup.style.display = 'none';
+  
 },
 openNewIncomePopup() {
   incomePopup.style.display = "flex";
+  const lastRate = (LifeData.length > 0) ? LifeData[LifeData.length -1].ratePerHour : 0;
+  ratePerHour.value = lastRate;
 },
 closeNewIncomePopup() {
   incomePopup.style.display = "none";
@@ -116,7 +138,7 @@ if (todaySDate === LifeData[LifeData.length -1].date) {
   
 } else {
 
-
+  const lastRate = (LifeData.length > 0) ? Number(LifeData[LifeData.length -1].ratePerHour) : 0;
               
               LifeData.push(
                 {
@@ -125,14 +147,18 @@ if (todaySDate === LifeData[LifeData.length -1].date) {
                     {name: name.value , [CurrentCurrency]: ExOrUnEx}
                   ],
                   income: [],
-                  workHours: [0,0],
-                  salary: 0
+                  workHours: Number(amountOfHours.value) || 0 ,
+                  ratePerHour:  Number(ratePerHour.value) || lastRate,
+                  salary: Number(salary.value) || 0 ,
               }
               )
 }
 
-
+ name.value = '';
+ amount.value = '';
+ 
 We.cancelNewExpencePopup();
+We.updateCharts();
  } else {
   alert("try again!!!")
  }
@@ -183,7 +209,7 @@ if (todaySDate === LifeData[LifeData.length -1].date) {
          }
             
           
-            const lastRate = (LifeData.length > 1) ? LifeData[LifeData.length -2].ratePerHour : 0;
+            const lastRate = (LifeData.length > 0) ? Number(LifeData[LifeData.length -1].ratePerHour)  : 0;
             
             
 
@@ -194,7 +220,7 @@ if (todaySDate === LifeData[LifeData.length -1].date) {
   
 } else {
 
-  const lastRate = (LifeData[LifeData.length] > 1) ? LifeData[linearContainer.length -2].ratePerHour : 0;
+  const lastRate = (LifeData.length > 0) ? Number(LifeData[LifeData.length -1].ratePerHour) : 0;
                const  ifAmount = incomeAmount.value ? 
                [
                 {name: incomeName.value || "Insignificant" , [CurrentCurrency]: Number(incomeAmount.value)}
@@ -213,13 +239,15 @@ if (todaySDate === LifeData[LifeData.length -1].date) {
               )
 }
 
-
+incomeName.value = '';
+ incomeAmount.value = '';
+ amountOfHours.value = '';
+ salary.value = '';
 We.closeNewIncomePopup();
+We.updateCharts();
  } else {
   alert("try again!!!")
  }
- console.log(".......")
- console.log(LifeData)
 },
 showGoalStatus() {
   let totalProgress = 0;
@@ -404,31 +432,80 @@ document.getElementById("isItExisting2").style.border = (id === "isItExisting2" 
 document.getElementById("isItNew2").style.border = (id === "isItNew2" ) ? "1px solid red" : "1px solid black";
 if (id === "isItExisting"  ) {
   existingOrNewExpence = 1;
+  const op = ["Food" , "Rent" , "Utilityes" , "Grooming" , "Internet" , "Car", "Clothes" , "Alcohol" , "Cigarets" , "Other" ]
+  We.openOptions(op);
   
 } else if(id === "isItExisting2") {
   existingOrNewExpence = 2;
+  const op2 = ["Job","Investments","Business" , "Gift" , "Found"]
+  We.openOptions(op2);
   
 } else if(id === "isItNew") {
   existingOrNewExpence = 3;
 } else {
   existingOrNewExpence = 4;
 }
+ 
 },
+updateCharts(){
+  LifeData.forEach(element => {
+    graphLables.push(element.date);
+     let inc = 0;
+    let out = 0;
+
+    element.expenses.forEach(element => {
+    let r = 0;
+    
+    element.USD && (r += calculateTotals(element ,'USD', "out"));
+    element.EUR && (r += calculateTotals(element ,'EUR', "out"));
+    element.PLN && (r += calculateTotals(element ,'PLN', "out"));
+    element.MDL && (r += calculateTotals(element ,'MDL', "out"));
+
+    if (ExLables[element.name]) {
+        ExLables[element.name] += r
+    } else {
+        ExLables[element.name] = r 
+    }
+
+    out = r;
+    });
+    element.income.forEach(element => {
+        let b = 0;
+        
+        element.USD && (b += calculateTotals(element ,'USD', "inc"));
+        element.EUR && (b += calculateTotals(element ,'EUR', "inc"));
+        element.PLN && (b += calculateTotals(element ,'PLN', "inc"));
+        element.MDL && (b += calculateTotals(element ,'MDL', "inc"));
+    
+        if (IncomLables[element.name]) {
+            IncomLables[element.name] += b
+        } else {
+            IncomLables[element.name] = b 
+        }
+    
+        inc = b;
+        });
+        grapgIncomeNumbers.push(inc)
+        graphExpencesNumbers.push(out)
+        totalWorkHours += element.workHours;
+        totalSalary += element.salary;
+
+});
+
+
+ExpencePieLables = Object.keys(ExLables);
+ExpencePieNumbers = Object.values(ExLables);
+
+ incomePieLables = Object.keys(IncomLables);
+ incomePieNumbers = Object.values(IncomLables);
+
+//  console.log(ExpencePieLables)
+//  console.log(ExpencePieNumbers)
+//  console.log(incomePieLables)
+//  console.log(incomePieNumbers)
+
+ pieExpenceChart.update();
+ incomePieChart.update();
+}
 
 };
-
-const EXP = {
-  NewExpence(){
-    
-   
-  },
-  UpdateNewExpence() {
-    const last = LifeData[LifeData.length -1];
-    console.log("Expect")
-    console.log(last)
-    console.log("Expect")
-
-  },
-
- 
-}
