@@ -11,6 +11,8 @@
   <link rel="stylesheet" href="Styles/popupsStyle.css">
   <link rel="stylesheet" href="Styles/ChartsStyles.css">
   <link rel="stylesheet" href="Styles/mobileStyles.css">
+  <link rel="stylesheet" href="Styles/InfoStyle.css">
+  
 </head>
 
 <body>
@@ -104,9 +106,15 @@
 
 
 <div class="linearContainer" id="linearContainer">
-  <h2>Line Chart Example</h2>
+  <h2>Expence vs Income Chart</h2>
   <canvas id="lineChart" width="100" height=" 50"></canvas>
 </div>
+
+<div class="averageLinearChartContainer" id="averageLinearChartContainer">
+  <h2>Average Expence vs Income Chart</h2>
+  <canvas id="averageLinearChart" width="100" height=" 50"></canvas>
+</div>
+ 
 <div class="expencePieContainer" id="expencePieContainer">
    <div class="twoCharts" id="twoCharts">
     <div class="expencePieWrapper" id="expencePieWrapper">
@@ -133,6 +141,42 @@
 </div>
 
 <div id="ExistingOptions" class="ExistingOptions" onclick="We.closeOptions()"></div>
+
+
+<div  id="informationDiv" class="informationDiv">
+  <h1>Information Board</h1>
+
+  <div class="section">
+      <h2>Expense and Income Overview</h2>
+      <div class="totals">
+          <div><span class="label">Total Expected Expense (USD):</span><span class="value" id="totalExpected">0.00</span></div>
+          <div><span class="label">Total Unexpected Expense (USD):</span><span class="value" id="totalUnexpected">0.00</span></div>
+          <div><span class="label">Total Income (USD):</span><span class="value" id="totalIncome">0.00</span></div>
+          <div><span class="label">Total Earned at Work (USD):</span><span class="value" id="totalEarnedAtWork">0.00</span></div>
+          <div><span class="label">Average Income (USD):</span><span class="value" id="averageIncome">0.00</span></div>
+          <div><span class="label">Average Outcome (USD):</span><span class="value" id="averageOutcome">0.00</span></div>
+      </div>
+  </div>
+
+  <div class="labels-container">
+      <div class="label-section">
+          <h3>Income Labels</h3>
+          <ul id="incomeLabels">
+              <!-- Income labels will be inserted here -->
+          </ul>
+      </div>
+      <div class="label-section">
+          <h3>Outcome Labels</h3>
+          <ul id="outcomeLabels">
+              <!-- Outcome labels will be inserted here -->
+          </ul>
+      </div>
+  </div>
+
+  <div class="footer">
+      <p>&copy; 2025 Information Board - All rights reserved</p>
+  </div>
+</div>
 
 
   <script src="Scripts/lifeData.js"></script>

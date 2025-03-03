@@ -71,6 +71,7 @@ let newLife = JSON.parse(localStorage.getItem("LIFE")) || [];
 
 
 const firstLinearChart = document.getElementById('lineChart').getContext('2d');
+const averageLinearChart = document.getElementById('averageLinearChart').getContext('2d');
 const PieExpence = document.getElementById('expensePieChart').getContext('2d');
 const PieIncome = document.getElementById('incomePieChart').getContext('2d');
 

@@ -147,6 +147,8 @@ if (todaySDate === LifeData[LifeData.length -1].date) {
                     {name: name.value , [CurrentCurrency]: ExOrUnEx}
                   ],
                   income: [],
+                  averExpence: AEX,
+                  averIncome: AIN,
                   workHours: Number(amountOfHours.value) || 0 ,
                   ratePerHour:  Number(ratePerHour.value) || lastRate,
                   salary: Number(salary.value) || 0 ,
@@ -232,6 +234,8 @@ if (todaySDate === LifeData[LifeData.length -1].date) {
                   date: todaySDate,
                   expenses: [],
                   income: ifAmount,
+                  averExpence: AEX,
+                  averIncome: AIN,
                   workHours: Number(amountOfHours.value) || 0 ,
                   ratePerHour:  Number(ratePerHour.value) || lastRate,
                   salary: Number(salary.value) || 0 ,
@@ -448,64 +452,52 @@ if (id === "isItExisting"  ) {
  
 },
 updateCharts(){
-  LifeData.forEach(element => {
-    graphLables.push(element.date);
-     let inc = 0;
-    let out = 0;
+   AEX = 0;
+   AIN = 0;
+totalExpected = 0;
+totalUnexpected = 0
+totalIncome = 0;
+totalExpenceADay = [];
+totalIncomeADay = [];
+dates = [];
+totalHours = 0;
+totalEarnedAtWork =
+totalSpentEUR = 0;
+totalSpentUSD = 0;
+totalSpentPLN = 0;
+totalSpentMDL = 0;
+incomeLabels = {};
+outcomeLabels = {};
 
-    element.expenses.forEach(element => {
-    let r = 0;
-    
-    element.USD && (r += calculateTotals(element ,'USD', "out"));
-    element.EUR && (r += calculateTotals(element ,'EUR', "out"));
-    element.PLN && (r += calculateTotals(element ,'PLN', "out"));
-    element.MDL && (r += calculateTotals(element ,'MDL', "out"));
-
-    if (ExLables[element.name]) {
-        ExLables[element.name] += r
-    } else {
-        ExLables[element.name] = r 
-    }
-
-    out = r;
-    });
-    element.income.forEach(element => {
-        let b = 0;
-        
-        element.USD && (b += calculateTotals(element ,'USD', "inc"));
-        element.EUR && (b += calculateTotals(element ,'EUR', "inc"));
-        element.PLN && (b += calculateTotals(element ,'PLN', "inc"));
-        element.MDL && (b += calculateTotals(element ,'MDL', "inc"));
-    
-        if (IncomLables[element.name]) {
-            IncomLables[element.name] += b
-        } else {
-            IncomLables[element.name] = b 
-        }
-    
-        inc = b;
-        });
-        grapgIncomeNumbers.push(inc)
-        graphExpencesNumbers.push(out)
-        totalWorkHours += element.workHours;
-        totalSalary += element.salary;
-
-});
+ averInc = [];
+ averExp = [];
 
 
-ExpencePieLables = Object.keys(ExLables);
-ExpencePieNumbers = Object.values(ExLables);
+ const a = calculateTotals(EUR, PLN, MDL, LifeData)
 
- incomePieLables = Object.keys(IncomLables);
- incomePieNumbers = Object.values(IncomLables);
 
-//  console.log(ExpencePieLables)
-//  console.log(ExpencePieNumbers)
-//  console.log(incomePieLables)
-//  console.log(incomePieNumbers)
+lineChart.data.labels = dates;
+lineChart.data.datasets[0].data = totalExpenceADay;
+lineChart.data.datasets[1].data = totalIncomeADay;
 
- pieExpenceChart.update();
+averageChrt.data.labels = dates;
+averageChrt.data.datasets[0].data = averExp;
+averageChrt.data.datasets[1].data = averInc;
+
+pieExpenceChart.data.labels = Object.keys(outcomeLabels);
+pieExpenceChart.data.datasets[0].data = Object.values(outcomeLabels);
+
+incomePieChart.data.labels = Object.keys(incomeLabels);
+incomePieChart.data.datasets[0].data = Object.values(incomeLabels);
+
+
+
  incomePieChart.update();
+ pieExpenceChart.update();
+ lineChart.update();
+ averageChrt.update();
+ console.log("LifeData[LifeData.length -1]")
+console.log(LifeData[LifeData.length -1])
 }
 
 };

@@ -3,11 +3,11 @@
 let lineChart = new Chart(firstLinearChart, {
   type: 'line',
   data: {
-      labels: graphLables,
+      labels: dates,
       datasets: [
         {
             label: 'Line A',
-            data: graphExpencesNumbers,
+            data: totalExpenceADay,
             borderColor: 'red',
             backgroundColor: 'rgba(255, 0, 0, 0.2)',
             fill: false,
@@ -15,7 +15,7 @@ let lineChart = new Chart(firstLinearChart, {
         },
         {
             label: 'Line B',
-            data: grapgIncomeNumbers,
+            data: totalIncomeADay,
             borderColor: 'green',
             backgroundColor: 'rgba(0, 255, 0, 0.2)',
             fill: false,
@@ -29,10 +29,10 @@ let lineChart = new Chart(firstLinearChart, {
 const pieExpenceChart = new Chart(PieExpence, 
   { type: 'pie',
     data: {
-       labels: ExpencePieLables,
+       labels: Object.keys(outcomeLabels),
        datasets: [
                    { 
-                   data: ExpencePieNumbers,
+                   data: Object.values(outcomeLabels),
                    backgroundColor: ['red', 'blue', 'green', 'yellow', 'purple']
                    }
                  ] 
@@ -42,13 +42,39 @@ const pieExpenceChart = new Chart(PieExpence,
 const incomePieChart = new Chart(PieIncome, 
   { type: 'pie',
     data: {
-      labels: incomePieLables,
+      labels: Object.keys(incomeLabels),
       datasets: [
                   {
-                  data: incomePieNumbers,
+                  data: Object.values(incomeLabels),
                   backgroundColor: ['red', 'blue', 'green', 'yellow', 'purple']
                   }
                 ]
           }, 
   }
 );
+
+
+let averageChrt = new Chart(averageLinearChart, {
+  type: 'line',
+  data: {
+      labels: dates,
+      datasets: [
+        {
+            label: 'Line A',
+            data: averExp,
+            borderColor: 'red',
+            backgroundColor: 'rgba(255, 0, 0, 0.2)',
+            fill: false,
+            tension: 0.3
+        },
+        {
+            label: 'Line B',
+            data: averInc,
+            borderColor: 'green',
+            backgroundColor: 'rgba(0, 255, 0, 0.2)',
+            fill: false,
+            tension: 0.3
+        }
+    ]
+  },
+});

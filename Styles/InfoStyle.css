@@ -1,0 +1,90 @@
+
+h1 {
+    font-size: 24px;
+    text-align: center;
+    color: #f1c40f;
+    margin-bottom: 20px;
+}
+
+.section {
+    margin-bottom: 20px;
+}
+
+.section h2 {
+    font-size: 18px;
+    color: #f39c12;
+    margin-bottom: 10px;
+}
+
+.section ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.section li {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+    border-bottom: 1px solid #555;
+}
+
+.section li span {
+    font-weight: bold;
+}
+
+.totals {
+    font-size: 16px;
+    color: #ecf0f1;
+    padding: 10px;
+    background-color: #34495e;
+    border-radius: 6px;
+}
+
+.totals div {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.totals .label {
+    font-size: 16px;
+    color: #f39c12;
+}
+
+.totals .value {
+    font-size: 16px;
+    color: #ecf0f1;
+}
+
+.labels-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.labels-container .label-section {
+    width: 45%;
+}
+
+.labels-container .label-section h3 {
+    font-size: 16px;
+    color: #f39c12;
+    margin-bottom: 10px;
+}
+
+.labels-container .label-section ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.labels-container .label-section li {
+    padding: 5px 0;
+    border-bottom: 1px solid #555;
+}
+
+.footer {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 14px;
+    color: #aaa;
+}
