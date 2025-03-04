@@ -2,9 +2,6 @@
 let dateToday = new Date();
  const todaySDate = dateToday.toISOString().split('T')[0];
  
- let PLN = 4;
- let MDL = 18;
- let EUR = 0.9;
 
  let totalWorkedHour = 0;
  let graphLables = [];
@@ -331,6 +328,6 @@ function calculateTotals(EUR, PLN, MDL, array) {
 
   
 
-  calculateTotals(EUR, PLN, MDL, LifeData)
+//   calculateTotals(EUR, PLN, MDL, LifeData)
   
 

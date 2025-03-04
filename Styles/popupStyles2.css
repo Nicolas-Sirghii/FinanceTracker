@@ -1,0 +1,191 @@
+   /* Main Popup Container */
+   .popup {
+    position: fixed;
+    display: none;
+    top: 10vh;
+    z-index: 5;
+    background: linear-gradient(135deg, #2b2b2b, #1a1a1a);
+    border-radius: 12px;
+    padding: 10px 40px;
+    width: 420px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7);
+    text-align: center;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.popup h2 {
+    color: #fff;
+    font-size: 26px;
+    margin-bottom: 20px;
+}
+
+/* Close Button */
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #e53935;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.close-btn:hover {
+    background: #d32f2f;
+}
+
+/* Button Group (List and Currencies) */
+.button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* List Button */
+.list-button {
+    background: #007bff;
+    color: #fff;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+}
+
+.list-button:hover {
+    background: #0056b3;
+    transform: scale(1.05);
+}
+
+/* Currency Buttons */
+.currency-buttons {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 12px;
+}
+
+.currency-buttons button {
+    background: #4d4d4d;
+    color: #fff;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+}
+
+.currency-buttons button.selected {
+    background: #007bff;
+    border: 2px solid #0056b3;
+}
+
+.currency-buttons button.disabled {
+    background: #aaa;
+    cursor: not-allowed;
+}
+
+.currency-buttons button:hover:not(.disabled) {
+    background: #5c5c5c;
+    transform: scale(1.05);
+}
+
+/* Input Fields */
+input {
+    width: 100%;
+    padding: 12px;
+    margin: 4px 0;
+    border: 1px solid #444;
+    border-radius: 10px;
+    background-color: #333;
+    color: #fff;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+input::placeholder {
+    color: #bbb;
+}
+
+/* Action Buttons */
+.action-buttons {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.action-buttons button {
+    padding: 12px 20px;
+    background-color: #28a745;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.action-buttons button:hover {
+    background-color: #218838;
+    transform: scale(1.05);
+}
+
+/* List Popup Styles */
+.list-popup {
+    background: linear-gradient(135deg, #333, #222);
+    border-radius: 12px;
+    padding: 20px;
+    width: 300px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7);
+    position: absolute;
+    top: 30vh;
+    left: 50%;
+    z-index: 6;
+    transform: translateX(-50%);
+    text-align: center;
+    display: none; /* Initially hidden */
+}
+
+.list-popup h3 {
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+/* Dynamically generated list of options */
+.list-popup .list-option {
+    background: #4d4d4d;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    margin: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.list-popup .list-option:hover {
+    background: #007bff;
+    transform: scale(1.05);
+}
+
+.list-popup button {
+    background: #e53935;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 20px;
+}
+
+.list-popup button:hover {
+    background: #d32f2f;
+}

@@ -8,7 +8,8 @@
 
   <link rel="stylesheet" href="Styles/goalsStyles.css">
   <link rel="stylesheet" href="Styles/HeaderStyles.css">
-  <link rel="stylesheet" href="Styles/popupsStyle.css">
+  <!-- <link rel="stylesheet" href="Styles/popupsStyle.css"> -->
+  <link rel="stylesheet" href="Styles/popupStyles2.css">
   <link rel="stylesheet" href="Styles/ChartsStyles.css">
   <link rel="stylesheet" href="Styles/mobileStyles.css">
   <link rel="stylesheet" href="Styles/InfoStyle.css">
@@ -18,73 +19,109 @@
 <body>
 <header class="header" id="header">
   <div class="veryTop" id="veryTop" onclick="We.showGoalStatus()">
-    <button class="ExpenseButton" id="ExpenseButton" onclick="We.openNewExpencePopup()">Expese</button>
-    <button class="IncomeButton" id="IncomeButton" onclick="We.openNewIncomePopup()">Income</button>
+    <button class="ExpenseButton" id="ExpenseButton" onclick="We.openNewExpencePopup('expencePopup')">Expese</button>
+    <button class="IncomeButton" id="IncomeButton" onclick="We.openNewExpencePopup('incomePopup')">Income</button>
     <button onclick="We.storeData()">Save</button>
   </div>
   <div id="circleContainer" class="circle-container"></div>
-    <button class="newGoalButton" id="newGoalButton" onclick="We.openGoalPopup()">+</button>
+    <button class="newGoalButton" id="newGoalButton" onclick="We.openNewExpencePopup('GoalPopup')">+</button>
 </header>
-<div class="GoalPopup" id="GoalPopup" >
+
+
+
+<div class="popup" id="GoalPopup" >
   <h2>Add goal</h2>
     <input type="text"   class="goalImge"   id="goalImge" placeholder="Image URL">
     <button class="addGoal"  id="addGoal" onclick="We.setGoalValues()">Add</button>
     <button class="cancelGoalPopup" id="cancelGoalPopup" onclick="We.closeGoalPopup()">Cancel</button>
 </div>
-<div class="UpdateCircle" id="UpdateCircle" >
+
+
+
+<div class="UpdateCircle popup" id="UpdateCircle" >
   <h2>Update goal</h2>
     <input type="text"   class="UpdateGoalImge"   id="UpdateGoalImge" placeholder="Image URL">
     <button class="addGoal"  id="UpdateGoal" onclick="We.updateGoalBackground()">Update Circle</button>
     <button class="cancelUpdateGoalPopup" id="cancelUpdateGoalPopup" onclick="We.closeUpdateGoalBackground()">Cancel</button>
 </div>
 
-<div class="NewExpencePopup" id="NewExpencePopup">
-  <h2>Expenses</h2>
-  <div id="newOrExisting">
-    <button id="isItNew" onclick="We.ChangeExisting('isItNew')">New</button>
-    <button id="isItExisting" onclick="We.ChangeExisting('isItExisting')">Existing</button>
+<div class="popup" id="incomePopup" >
+  <button class="close-btn" id="close-btn">X</button>
+  <h2>Add Income</h2>
+
+  <!-- Button Group (List and Currencies) -->
+  <div class="button-group">
+      <!-- List Button -->
+      <button class="list-button" id="list-btn">List</button>
+
+      <!-- Currency Buttons (EUR, USD, MDL, PLN) -->
+      <div class="currency-buttons">
+          <button class="currency-btn" id="eur-btn">EUR</button>
+          <button class="currency-btn" id="usd-btn">USD</button>
+          <button class="currency-btn" id="mdl-btn">MDL</button>
+          <button class="currency-btn" id="pln-btn">PLN</button>
+      </div>
   </div>
-  <div id="currencyButtonsContainer">
-    <button id="USD" onclick="We.changeBackgroundButton('USD')">USD</button>
-    <button id="EUR" onclick="We.changeBackgroundButton('EUR')">EUR</button>
-    <button id="PLN" onclick="We.changeBackgroundButton('PLN')">PLN</button>
-    <button id="MDL" onclick="We.changeBackgroundButton('MDL')">MDL</button>
-</div>
+
+  <!-- Input Fields -->
   <input type="text" id="name" placeholder="Name">
-  <input type="number" id="amount" placeholder="Amount">
-  <div id="addButton">
-    <button id="expectedButton" onclick="We.addNewExpence('expectedExpence')">Expected</button>
-    <button id="UnExpectedButton" onclick="We.addNewExpence('unexpectedExpence')">Unexpected</button>
+  <input type="text" id="amount" placeholder="Amount">
+  <input type="number"  placeholder="Hours">
+  <input type="number"  placeholder="Rate per Hour">
+  <input type="number"  placeholder="Salary">
+
+  <!-- Action Buttons (Add and Cancel) -->
+  <div class="action-buttons">
+      <button class="add-btn" id="add-btn">Add</button>
+      <button class="cancel-btn" id="cancel-btn">Cancel</button>
   </div>
-  
-  <button id="cancelButton" onclick="(We.cancelNewExpencePopup())">Cancel</button>
 </div>
 
 
-<div class="incomePopup" id="incomePopup">
-  <h2>Add income</h2>
-  <div id="newOrExisting">
-    <button id="isItNew2" onclick="We.ChangeExisting('isItNew2')">New</button>
-    <button id="isItExisting2" onclick="We.ChangeExisting('isItExisting2')">Existing</button>
+
+
+
+<div class="popup" id="expencePopup" >
+  <button class="close-btn" id="close-btn">X</button>
+  <h2>Add Expence</h2>
+
+  <!-- Button Group (List and Currencies) -->
+  <div class="button-group">
+      <!-- List Button -->
+      <button class="list-button" id="list-btn">List</button>
+
+      <!-- Currency Buttons (EUR, USD, MDL, PLN) -->
+      <div class="currency-buttons">
+          <button class="currency-btn" id="eur-btn">EUR</button>
+          <button class="currency-btn" id="usd-btn">USD</button>
+          <button class="currency-btn" id="mdl-btn">MDL</button>
+          <button class="currency-btn" id="pln-btn">PLN</button>
+      </div>
   </div>
-  <div id="currencyButtonsContainer">
-    <button id="USD2" onclick="We.changeBackgroundButton('USD2')">USD</button>
-    <button id="EUR2" onclick="We.changeBackgroundButton('EUR2')">EUR</button>
-    <button id="PLN2" onclick="We.changeBackgroundButton('PLN2')">PLN</button>
-    <button id="MDL2" onclick="We.changeBackgroundButton('MDL2')">MDL</button>
-</div>
-  <input type="text" id="incomeName" placeholder="Name">
-  <input type="number" id="incomeAmount" placeholder="Amount">
-  <input type="number" id="amountOfHours" placeholder="Hours">
-  <input type="number" id="ratePerHour" placeholder="Rate per Hour">
-  <input type="number" id="salary" placeholder="Salary">
-  
-  <button id="addIncome" onclick="We.addNewIncome();">Add</button>
-  <button id="cancelButton" onclick="We.closeNewIncomePopup()">Cancel</button>
 
+  <!-- Input Fields -->
+  <input type="text" id="name" placeholder="Name">
+  <input type="text" id="amount" placeholder="Amount">
+
+  <!-- Action Buttons (Add and Cancel) -->
+  <div class="action-buttons">
+      <button class="add-btn" id="add-btn">Add</button>
+      <button class="cancel-btn" id="cancel-btn">Cancel</button>
+  </div>
 </div>
 
-<div class="addSpacificsPopup" id="addSpacificsPopup">
+<!-- List Popup -->
+<div class="list-popup" id="list-popup">
+  <h3>Select a Category</h3>
+  <!-- List options will be dynamically generated here -->
+  <div id="list-options"></div>
+  <button id="list-cancel-btn">Cancel</button>
+</div>
+
+
+
+
+<div class="addSpacificsPopup popup" id="addSpacificsPopup">
   <input type="text" placeholder="Name" id="nameInput">
   <input type="text" placeholder="Image URL" id="imageInput">
   <input type="number" placeholder="Amount" id="amountInput">
@@ -92,7 +129,7 @@
   <button id="cancelBtn" onclick="We.closeSpacificsGoalPopup ()">Cancel</button>
 </div>
 
-<div id="updateSpacificGoal" class="updateSpacificGoal">
+<div id="updateSpacificGoal" class="updateSpacificGoal popup" >
   <h2>Update</h2>
   <input type="text" id="SpacificName" placeholder="Name">
   <input type="text" id="SpacificUrl" placeholder="url-adress">
@@ -180,6 +217,7 @@
 
 
   <script src="Scripts/lifeData.js"></script>
+  <script src="Scripts/PopupS.js"></script>
   <script src="Scripts/data.js"></script>
   <script src="Scripts/charts.js"></script>
   <script src="Scripts/methods.js"></script>

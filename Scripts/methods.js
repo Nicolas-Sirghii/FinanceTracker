@@ -82,8 +82,8 @@ deleteSpacificGoal(){
   updateSpacificGoal.style.display = "none";
   
 },
-openNewExpencePopup() {
-  NewExpencePopup.style.display = 'flex';
+openNewExpencePopup(id) {
+  document.getElementById(id).style.display = "flex";
 },
 cancelNewExpencePopup() {
   NewExpencePopup.style.display = 'none';
