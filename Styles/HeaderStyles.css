@@ -18,7 +18,7 @@
             border: 1px solid #444;
             color: #ffffff;
             border-radius: 5px;
-            z-index: 3;
+            
           }
           button {
             background-color: #1f1f1f;
@@ -53,12 +53,10 @@
             align-items: last baseline; 
             gap: 10px;
             background: #1e1e1e;
-            z-index: 5;
+           
             
         }
-        .newGoalButton{
-            z-index: 3;
-        }
+      
        
        
        

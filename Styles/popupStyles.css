@@ -3,7 +3,6 @@
     position: fixed;
     display: none;
     top: 10vh;
-    z-index: 5;
     background: linear-gradient(135deg, #2b2b2b, #1a1a1a);
     border-radius: 12px;
     padding: 10px 40px;
@@ -12,6 +11,7 @@
     text-align: center;
     flex-direction: column;
     gap: 10px;
+    z-index: 2;
 }
 
 .popup h2 {
@@ -20,22 +20,6 @@
     margin-bottom: 20px;
 }
 
-/* Close Button */
-.close-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: #e53935;
-    color: #fff;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 50%;
-    cursor: pointer;
-}
-
-.close-btn:hover {
-    background: #d32f2f;
-}
 
 /* Button Group (List and Currencies) */
 .button-group {
@@ -147,10 +131,10 @@ input::placeholder {
     position: absolute;
     top: 30vh;
     left: 50%;
-    z-index: 6;
     transform: translateX(-50%);
     text-align: center;
     display: none; /* Initially hidden */
+    z-index: 3;
 }
 
 .list-popup h3 {
@@ -188,4 +172,13 @@ input::placeholder {
 
 .list-popup button:hover {
     background: #d32f2f;
+}
+.titleContainer{
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#addSpacificsPopup{
+    top: 20vh;
 }

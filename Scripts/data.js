@@ -1,9 +1,8 @@
 
-let currentGoalId = '';
-let currentSpacificGoal = '';
+
+
 let bankAccountNumber = 600;
-let CurrentCurrency = "";
-let existingOrNewExpence = 0;
+let selectedCurrency = null;
 
 
 let newDay = {
@@ -62,12 +61,37 @@ let newDay = {
 };
 
 
-let goals1 = []
+let goals1 = [
+  {
+      "id": "circle-1741190242089",
+      "imageUrl":'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNSgGbqmow7OzxHkEu_F2x9Z91uA61XZaEHg&s',
+      "data": [
+          {
+              "name": "lizard",
+              "imageUrl":'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXJA32WU4rBpx7maglqeEtt3ot1tPIRWptxA&s',
+              "amount": 200,
+              "id": "item-1741190267295"
+          },
+          {
+              "name": "nothing",
+              "imageUrl":'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFU7U2h0umyF0P6E_yhTX45sGgPEQAbGaJ4g&s',
+              "amount": 300,
+              "id": "item-1741190295195"
+          },
+          {
+              "name": "something",
+              "imageUrl":'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFlLk9mYa6d4a69Y5YTMUFDUaER76hZzkkRg&s', 
+              "amount": 300,
+              "id": "item-1741190314873"
+          }
+      ]
+  }
+]
 
 let goals = JSON.parse(localStorage.getItem("GOOOOL")) || goals1; 
 let newLife = JSON.parse(localStorage.getItem("LIFE")) || [];
 
-
+console.log(goals)
 
 
 const firstLinearChart = document.getElementById('lineChart').getContext('2d');

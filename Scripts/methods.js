@@ -1,23 +1,8 @@
 const We = {
-openGoalPopup() {
-  GoalPopup.style.display = "flex";
-},
-openGoalBackground(){
-  UpdateCircle.style.display = "block";
-  
-},
 updateGoalBackground(){
   const elementId = goals.find(item => item.id === currentGoalId);
-  
   elementId.imageUrl = UpdateGoalImge.value || elementId.imageUrl;
-  
   UpdateCircle.style.display = "none";
-},
-closeUpdateGoalBackground(){
-  UpdateCircle.style.display = "none";
-},
-closeGoalPopup() {
-  GoalPopup.style.display = "none";
 },
 openOptions(op){
   ExistingOptions.style.display = "flex"
@@ -35,23 +20,11 @@ openOptions(op){
     ExistingOptions.append(a)
   });
 },
-closeOptions(){
-ExistingOptions.style.display = "none"
-},
-openSpacificsGoalPopup () {
-  addSpacificsPopup.style.display = "block";
-},
-closeSpacificsGoalPopup () {
-addSpacificsPopup.style.display = "none";
-},
 openUpdateSpacificGoal(id){
   updateSpacificGoal.style.display = "block";
   const goal = goals.find(item => item.id === currentGoalId);
   const elementId = goal.data.find(item => item.name === id);
   currentSpacificGoal = elementId;
-},
-closeUpdateSpacificGoal(){
-  updateSpacificGoal.style.display = "none";
 },
 updateSpacificGoal(){
   const goal = goals.find(item => item.id === currentGoalId);
@@ -82,177 +55,79 @@ deleteSpacificGoal(){
   updateSpacificGoal.style.display = "none";
   
 },
-openNewExpencePopup(id) {
-  document.getElementById(id).style.display = "flex";
+openPopup(id , dis) {
+  document.getElementById(id).style.display = `${dis}`;
 },
-cancelNewExpencePopup() {
-  NewExpencePopup.style.display = 'none';
-  
+closePopup(id){
+  document.getElementById(id).style.display = "none";
 },
-openNewIncomePopup() {
-  incomePopup.style.display = "flex";
-  const lastRate = (LifeData.length > 0) ? LifeData[LifeData.length -1].ratePerHour : 0;
-  ratePerHour.value = lastRate;
-},
-closeNewIncomePopup() {
-  incomePopup.style.display = "none";
-},
-addNewExpence(type){
-  const ExOrUnEx  = (type === 'expectedExpence') ?  [Number(amount.value) , 0] : [ 0 , Number(amount.value)];
-  const last = LifeData[LifeData.length -1];
-
- if (name.value && amount.value && CurrentCurrency && existingOrNewExpence) {
-   
-  
-if (todaySDate === LifeData[LifeData.length -1].date) {
 
 
-            let exists = false;
-            last.expenses.forEach(element => {
-              if (element.name === name.value) {
-                if (type === 'expectedExpence') {
-                  if (element[CurrentCurrency]) {
-                    element[CurrentCurrency][0] += Number(amount.value)
-                  } else {
-                    element[CurrentCurrency] = [Number(amount.value) , 0]
-                  }
-                
-                } else {
-                  if (element[CurrentCurrency]) {
-                    element[CurrentCurrency][1] += Number(amount.value)
-                  } else {
-                    element[CurrentCurrency] = [ 0 , Number(amount.value)]
-                  }
-                }
-                exists = true;  
-              } 
 
-            });
-            
-            if (!exists) {
-              last.expenses.push({name: name.value , [CurrentCurrency]: ExOrUnEx});
-              exists = true;
-            }
+addSomething(nam , amo , typ , id){
+  // Handle "Add" button click
+const name = document.getElementById(`${nam}`).value;
+const amount = document.getElementById(`${amo}`).value;
+const selectedCurrencyBtn = document.querySelector('.currency-buttons .selected');
 
 
-  
-} else {
 
-  const lastRate = (LifeData.length > 0) ? Number(LifeData[LifeData.length -1].ratePerHour) : 0;
-              
-              LifeData.push(
-                {
-                  date: todaySDate,
-                  expenses: [
-                    {name: name.value , [CurrentCurrency]: ExOrUnEx}
-                  ],
-                  income: [],
-                  averExpence: AEX,
-                  averIncome: AIN,
-                  workHours: Number(amountOfHours.value) || 0 ,
-                  ratePerHour:  Number(ratePerHour.value) || lastRate,
-                  salary: Number(salary.value) || 0 ,
-              }
-              )
+if (!name || !amount || !selectedCurrencyBtn) {
+    alert('Please fill in all fields and select a currency!');
+    return;
 }
 
- name.value = '';
- amount.value = '';
- 
-We.cancelNewExpencePopup();
-We.updateCharts();
- } else {
-  alert("try again!!!")
- }
+alert(`Added: Name = ${name}, Amount = ${amount}, Currency = ${selectedCurrencyBtn.textContent}`);
 
-},
-addNewIncome(){
-  const last = LifeData[LifeData.length -1];
-
- if (
-  (CurrentCurrency && existingOrNewExpence)
-  
-&& (
-  (incomeName.value && incomeAmount.value)
-  || amountOfHours.value
-  || salary.value
-)
-
-  
-
-  ) {
+    document.getElementById(`${nam}`).value = '';
+    document.getElementById(`${amo}`).value = '';
+    document.querySelectorAll('.currency-buttons .selected').forEach(function(btn) {
+        btn.classList.remove('selected');
+    });
 
 
- 
-  
-if (todaySDate === LifeData[LifeData.length -1].date) {
 
-         if (incomeAmount.value) {
-          let exists = false;
-            last.income.forEach(element => {
-              if (element.name === incomeName.value) {
-                
-                  if (element[CurrentCurrency]) {
-                    element[CurrentCurrency] += Number(incomeAmount.value);
-                  } else {
-                    element[CurrentCurrency] = Number(incomeAmount.value);
-                  }
-                
-                
-                exists = true;  
-              } 
-
-            });
-            
-            if (!exists) {
-              last.income.push({name: incomeName.value , [CurrentCurrency]:  Number(incomeAmount.value)});
-              exists = true;
-            }
-         }
-            
-          
-            const lastRate = (LifeData.length > 0) ? Number(LifeData[LifeData.length -1].ratePerHour)  : 0;
-            
-            
-
-            last.salary = last.salary + Number(salary.value);
-            last.workHours = last.workHours + Number(amountOfHours.value) ;
-            last.ratePerHour = Number(ratePerHour.value) || lastRate ;
-
-  
+if (dateToday.toISOString().split('T')[0] === LifeData[LifeData.length -1].date) {
+  if (LifeData[LifeData.length -1][`${typ}`][name]) {LifeData[LifeData.length -1][`${typ}`][name] += Number(amount);} else {LifeData[LifeData.length -1][`${typ}`][name] = Number(amount);};
 } else {
+  const a = (typ==="income") ? 
+  {
+      "countNumber" : LifeData[LifeData.length -1].countNumber ++ ,
+      "date": dateToday.toISOString().split('T')[0],
+      "income": {
+        [name]: amount
+      },
+      "outcome": {},
+      "workHours": 0,
+      "ratePerHour": 3,
+      "averageOutcome": 0,
+      "averageIncome" : 0,
+      "salary": 0
+  } : 
+  {
+     "countNumber" : LifeData[LifeData.length -1].countNumber ++ ,
+      "date": dateToday.toISOString().split('T')[0],
+      "income": {},
+      "outcome": {
+        [name]: amount
+      },
+      "workHours": 0,
+      "ratePerHour": 3,
+      "averageOutcome": 0,
+      "averageIncome" : 0,
+      "salary": 0
+  };
 
-  const lastRate = (LifeData.length > 0) ? Number(LifeData[LifeData.length -1].ratePerHour) : 0;
-               const  ifAmount = incomeAmount.value ? 
-               [
-                {name: incomeName.value || "Insignificant" , [CurrentCurrency]: Number(incomeAmount.value)}
-              ] 
-              : 
-              [];
-              LifeData.push(
-                {
-                  date: todaySDate,
-                  expenses: [],
-                  income: ifAmount,
-                  averExpence: AEX,
-                  averIncome: AIN,
-                  workHours: Number(amountOfHours.value) || 0 ,
-                  ratePerHour:  Number(ratePerHour.value) || lastRate,
-                  salary: Number(salary.value) || 0 ,
-              }
-              )
+  LifeData.push(a)
 }
 
-incomeName.value = '';
- incomeAmount.value = '';
- amountOfHours.value = '';
- salary.value = '';
-We.closeNewIncomePopup();
-We.updateCharts();
- } else {
-  alert("try again!!!")
- }
+console.log(LifeData)
+ We.closePopup(id)
 },
+
+
+
+
 showGoalStatus() {
   let totalProgress = 0;
 
@@ -277,7 +152,7 @@ setGoalValues() {
 
   // Store in array & localStorage
   goals.push({ id: circleId, imageUrl , data: [] });
-  We.closeGoalPopup();
+  We.closePopup('GoalPopup');
 
 },
 createGoalElement(id, imageUrl, amount) {
@@ -329,9 +204,6 @@ unvailGoalsDetales(id) {
   currentGoalId = id;
   We.loadGoalItems(element.data)
 
-},
-closeGoalDetails() {
-  goalSpacificContainer.style.display = "none";
 },
 updateGoalProgress(circleId, progress) {
   const circleWrapper = document.getElementById(circleId);
@@ -406,7 +278,7 @@ addSpacificGoal() {
     We.createSpacificGoalItem(name, imageUrl,amount,);
       document.getElementById('addSpacificsPopup').style.display = 'none';
 
-  
+  console.log(goals)
 },
 storeData(){
   localStorage.setItem("GOOOOL" , JSON.stringify(goals));
@@ -416,41 +288,8 @@ goals = goals.filter(item => item.id !== currentGoalId);
 We.storeData();
 
 },
-changeBackgroundButton(id) {
 
-document.getElementById('USD').style.border = (id === "USD") ? "1px solid red" : "1px solid black";
-document.getElementById('EUR').style.border = (id === "EUR") ? "1px solid red" : "1px solid black";
-document.getElementById('PLN').style.border = (id === "PLN") ? "1px solid red" : "1px solid black";
-document.getElementById('MDL').style.border = (id === "MDL") ? "1px solid red" : "1px solid black";
 
-document.getElementById('USD2').style.border = (id === "USD2") ? "1px solid red" : "1px solid black";
-document.getElementById('EUR2').style.border = (id === "EUR2") ? "1px solid red" : "1px solid black";
-document.getElementById('PLN2').style.border = (id === "PLN2") ? "1px solid red" : "1px solid black";
-document.getElementById('MDL2').style.border = (id === "MDL2") ? "1px solid red" : "1px solid black";
-CurrentCurrency = id.substring(0, 3);
-},
-ChangeExisting(id) {
-document.getElementById("isItExisting").style.border = (id === "isItExisting" ) ? "1px solid red" : "1px solid black";
-document.getElementById("isItNew").style.border = (id === "isItNew" ) ? "1px solid red" : "1px solid black";
-document.getElementById("isItExisting2").style.border = (id === "isItExisting2" ) ? "1px solid red" : "1px solid black";
-document.getElementById("isItNew2").style.border = (id === "isItNew2" ) ? "1px solid red" : "1px solid black";
-if (id === "isItExisting"  ) {
-  existingOrNewExpence = 1;
-  const op = ["Food" , "Rent" , "Utilityes" , "Grooming" , "Internet" , "Car", "Clothes" , "Alcohol" , "Cigarets" , "Other" ]
-  We.openOptions(op);
-  
-} else if(id === "isItExisting2") {
-  existingOrNewExpence = 2;
-  const op2 = ["Job","Investments","Business" , "Gift" , "Found"]
-  We.openOptions(op2);
-  
-} else if(id === "isItNew") {
-  existingOrNewExpence = 3;
-} else {
-  existingOrNewExpence = 4;
-}
- 
-},
 updateCharts(){
    AEX = 0;
    AIN = 0;

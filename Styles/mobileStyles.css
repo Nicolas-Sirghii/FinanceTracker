@@ -10,7 +10,7 @@
   transform: translate(-50%, -50%);
   background: #1e1e1e;
   padding: 20px;
-  z-index: 2;
+ 
 }
 .mobLinearContainer{
   position: relative;
@@ -30,7 +30,6 @@
   justify-content: center;
   gap: 3vh;
   align-items: center;
-  z-index: 6;
   background: #1e1e1e;
 
  }
