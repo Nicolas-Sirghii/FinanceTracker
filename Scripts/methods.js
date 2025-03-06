@@ -70,14 +70,25 @@ const name = document.getElementById(`${nam}`).value;
 const amount = document.getElementById(`${amo}`).value;
 const selectedCurrencyBtn = document.querySelector('.currency-buttons .selected');
 
+ let salaryVal = document.getElementById("salaryId").value;
 
 
-if (!name || !amount || !selectedCurrencyBtn) {
-    alert('Please fill in all fields and select a currency!');
-    return;
-}
+  if((!name || !amount || !selectedCurrencyBtn)){
+    if (!salaryVal) {
+      alert('Please fill in all fields and select a currency!');
+       return;
+    } else {
+        if (!selectedCurrencyBtn) {
+          alert('Please select currency!');
+          return;
+      }
+      }
+     
 
-alert(`Added: Name = ${name}, Amount = ${amount}, Currency = ${selectedCurrencyBtn.textContent}`);
+  } 
+
+
+// alert(`Added: Name = ${name}, Amount = ${amount}, Currency = ${selectedCurrencyBtn.textContent}`);
 
     document.getElementById(`${nam}`).value = '';
     document.getElementById(`${amo}`).value = '';
@@ -85,42 +96,61 @@ alert(`Added: Name = ${name}, Amount = ${amount}, Currency = ${selectedCurrencyB
         btn.classList.remove('selected');
     });
 
+const lastObject = LifeData[LifeData.length -1];
+let {countNumber,averageIncome,averageOutcome,ratePerHour,
+  date,allTimeIncome,allTimeOutcome,}= lastObject;
+let coutDay = countNumber;
 
 
-if (dateToday.toISOString().split('T')[0] === LifeData[LifeData.length -1].date) {
-  if (LifeData[LifeData.length -1][`${typ}`][name]) {LifeData[LifeData.length -1][`${typ}`][name] += Number(amount);} else {LifeData[LifeData.length -1][`${typ}`][name] = Number(amount);};
+if (dateToday.toISOString().split('T')[0] === date) {
+  if (!salaryVal) {
+    if ( lastObject[`${typ}`][name]) {
+      lastObject[`${typ}`][name] += Number(amount);
+    } else {
+      lastObject[`${typ}`][name] = Number(amount);
+    };
+  }
+  
+  const a = allTimeOutcome + Number(amount);
+  const b = allTimeIncome + Number(amount);
+  lastObject.workHours += Number(document.getElementById('workedHours').value) || 0 ;
+  lastObject.ratePerHour = Number(document.getElementById('ratePerHour').value) || ratePerHour;
+  lastObject.averageIncome = (typ==="income") ? Number((b /coutDay).toFixed(2)): averageIncome;
+  lastObject.averageOutcome = (typ==="outcome") ? Number((a  /coutDay).toFixed(2)) : averageOutcome;
+  lastObject.salary = salaryVal ? (lastObject.salary + Number(document.getElementById('salaryId').value)) : (Number(document.getElementById('salaryId').value) || lastObject.salary) ;
+  lastObject.allTimeIncome += ((typ==="income") ? Number(amount): 0);
+  lastObject.allTimeOutcome += ((typ==="outcome") ? Number(amount): 0);
+  lastObject.totalIncome += ((typ==="income") ? Number(amount): 0);
+  lastObject.totalOutcome += ((typ==="outcome") ? Number(amount): 0);
 } else {
-  const a = (typ==="income") ? 
-  {
-      "countNumber" : LifeData[LifeData.length -1].countNumber ++ ,
-      "date": dateToday.toISOString().split('T')[0],
-      "income": {
-        [name]: amount
-      },
-      "outcome": {},
-      "workHours": 0,
-      "ratePerHour": 3,
-      "averageOutcome": 0,
-      "averageIncome" : 0,
-      "salary": 0
-  } : 
-  {
-     "countNumber" : LifeData[LifeData.length -1].countNumber ++ ,
-      "date": dateToday.toISOString().split('T')[0],
-      "income": {},
-      "outcome": {
-        [name]: amount
-      },
-      "workHours": 0,
-      "ratePerHour": 3,
-      "averageOutcome": 0,
-      "averageIncome" : 0,
-      "salary": 0
-  };
 
-  LifeData.push(a)
+  coutDay ++
+
+  const c = allTimeIncome + Number(amount);
+  const d = allTimeOutcome + Number(amount);
+
+  let theObj = {
+    countNumber : coutDay ,
+     date: dateToday.toISOString().split('T')[0],
+     income: {},
+     outcome: {},
+     workHours: Number(document.getElementById('workedHours').value) || 0,
+     ratePerHour: Number(document.getElementById('ratePerHour').value) || ratePerHour,
+     averageOutcome: (typ==="outcome") ? Number((d/coutDay).toFixed(2)) : Number((allTimeOutcome/coutDay).toFixed(2)),
+     averageIncome : (typ==="income") ? Number((c/coutDay).toFixed(2)) : Number((allTimeIncome/coutDay).toFixed(2)),
+     salary: Number(document.getElementById('salaryId').value) || 0,
+     allTimeIncome: allTimeIncome += (typ==="income") ? Number(amount): 0,
+     allTimeOutcome: allTimeOutcome += (typ==="outcome") ? Number(amount): 0,
+     totalIncome:  (typ==="income") ? Number(amount): 0,
+     totalOutcome:  (typ==="outcome") ? Number(amount): 0,
+   }
+
+   salaryVal || (theObj[typ][name] = Number(amount));
+ LifeData.push(theObj)
 }
-
+document.getElementById("salaryId").value = '';
+document.getElementById('workedHours').value = '';
+console.log('.................lifedate lll.......')
 console.log(LifeData)
  We.closePopup(id)
 },

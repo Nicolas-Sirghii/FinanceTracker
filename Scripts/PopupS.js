@@ -9,11 +9,12 @@
 
 
 function open2(id,dis,amo,tit,spa){
-
+    targetAmount = amo;
     if (id === 'incomePopup') {
         const lastRate = (LifeData.length > 0) ? LifeData[LifeData.length -1].ratePerHour : 0;
         document.getElementById('ratePerHour').value = lastRate;
     }
+    
 
     // Currency button logic
    const currencyButtons = document.querySelectorAll('.currency-btn');
@@ -21,10 +22,11 @@ function open2(id,dis,amo,tit,spa){
    currencyButtons.forEach(function(button) {
        button.addEventListener('click', function() {
            // Check if the amount field is empty
-           const amount = document.getElementById(`${amo}`).value;
+           const amount = document.getElementById(`${targetAmount}`).value || 0;
+           let salaryValue = document.getElementById('salaryId').value || 0;
            const fixedAmount = Number(document.getElementById(`${tit}`).innerText);
            const currSpan = document.getElementById(`${spa}`);
-           if (!amount) {
+           if (!(amount || salaryValue)) {
                alert('Please enter an amount first!');
                return;
            }
@@ -42,25 +44,39 @@ function open2(id,dis,amo,tit,spa){
            // Get amount and convert to USD
            const numericAmount = parseFloat(amount);
            let convertedAmount = 0;
+           let sal = salaryValue;
            if (button.id === 'eur-btn') {
                convertedAmount = fixedAmount / EUR;
+               sal = salaryValue / EUR;
                currSpan.innerText = '-EUR';
                
            } else if (button.id === 'pln-btn') {
                convertedAmount = fixedAmount / PLN;
+               sal = salaryValue / PLN;
                currSpan.innerText = '-PLN';
                
            } else if (button.id === 'mdl-btn') {
                convertedAmount = fixedAmount / MDL;
+               sal = salaryValue / MDL;
                currSpan.innerText = '-MDL';
                
            }else if (button.id === 'usd-btn'){
             convertedAmount = fixedAmount;
+            sal = salaryValue;
             currSpan.innerText = '-USD';
+            
             
            }
   
-           document.getElementById(`${amo}`).value = convertedAmount.toFixed(2);
+           if (salaryValue) {
+            document.getElementById('salaryId').value = convertedAmount.toFixed(2);
+           } else {
+            document.getElementById(`${amo}`).value = convertedAmount.toFixed(2);
+           }
+            
+            
+           
+           
            
        });
    });
@@ -93,7 +109,19 @@ function open2(id,dis,amo,tit,spa){
     }
 
     function amountTitle(inp , tit) {
+      
         const inputValue = document.getElementById(`${inp}`).value;
         const titleText = document.getElementById(`${tit}`);
         titleText.innerText = inputValue;
     }
+
+    function calculateHoursMoney(){
+     const val = Number(document.getElementById("workedHours").value)  || 0;
+     const rate = Number(document.getElementById("ratePerHour").value)  || 0;
+     const titleText = document.getElementById('incTitle');
+     document.getElementById('incomeAmount').value = Number((val*rate).toFixed(2));
+     document.getElementById('incomeName').value = "Job";
+     titleText.innerText = Number((val*rate).toFixed(2)) 
+
+    }
+

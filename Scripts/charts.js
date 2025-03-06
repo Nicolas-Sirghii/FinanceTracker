@@ -1,18 +1,13 @@
 
 
-const lables = ["first", "second", "third"];
-const inc = [45,23,67];
-const out = [22,216,47];
-
-
 let lineChart = new Chart(firstLinearChart, {
   type: 'line',
   data: {
-      labels: lables,
+      labels: graphLables,
       datasets: [
         {
             label: 'Line A',
-            data: out,
+            data: totalIncomeArray,
             borderColor: 'red',
             backgroundColor: 'rgba(255, 0, 0, 0.2)',
             fill: false,
@@ -20,7 +15,7 @@ let lineChart = new Chart(firstLinearChart, {
         },
         {
             label: 'Line B',
-            data: inc,
+            data: totalOutcomeArray,
             borderColor: 'green',
             backgroundColor: 'rgba(0, 255, 0, 0.2)',
             fill: false,
@@ -30,14 +25,13 @@ let lineChart = new Chart(firstLinearChart, {
   },
 });
 
-
 const pieExpenceChart = new Chart(PieExpence, 
   { type: 'pie',
     data: {
-       labels: ["something",'another',"what"],
+       labels: Object.keys(pieOutcomeData),
        datasets: [
                    { 
-                   data: [45,23,67],
+                   data: Object.values(pieOutcomeData),
                    backgroundColor: ['red', 'blue', 'green', 'yellow', 'purple']
                    }
                  ] 
@@ -47,10 +41,10 @@ const pieExpenceChart = new Chart(PieExpence,
 const incomePieChart = new Chart(PieIncome, 
   { type: 'pie',
     data: {
-      labels: ["something",'another',"what"],
+      labels: Object.keys(pieIncomeData),
       datasets: [
                   {
-                  data: [45,23,67],
+                  data: Object.values(pieIncomeData),
                   backgroundColor: ['red', 'blue', 'green', 'yellow', 'purple']
                   }
                 ]
@@ -62,11 +56,11 @@ const incomePieChart = new Chart(PieIncome,
 let averageChrt = new Chart(averageLinearChart, {
   type: 'line',
   data: {
-      labels: lables,
+      labels: graphLables,
       datasets: [
         {
             label: 'Line A',
-            data: out,
+            data: averageOutcomeArray,
             borderColor: 'red',
             backgroundColor: 'rgba(255, 0, 0, 0.2)',
             fill: false,
@@ -74,7 +68,7 @@ let averageChrt = new Chart(averageLinearChart, {
         },
         {
             label: 'Line B',
-            data: inc,
+            data: averageIncomeArray,
             borderColor: 'green',
             backgroundColor: 'rgba(0, 255, 0, 0.2)',
             fill: false,

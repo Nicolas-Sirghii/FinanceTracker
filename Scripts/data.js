@@ -3,6 +3,7 @@
 
 let bankAccountNumber = 600;
 let selectedCurrency = null;
+let targetAmount= '';
 
 
 let newDay = {

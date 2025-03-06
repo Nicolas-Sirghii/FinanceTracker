@@ -91,9 +91,9 @@
 <!-- Input Fields -->
 <input type="text" id="incomeName" placeholder="Name">
 <input type="number" id="incomeAmount" placeholder="Amount" oninput="amountTitle('incomeAmount','incTitle');">
-<input type="number"  placeholder="Hours">
+<input type="number" id="workedHours" placeholder="Hours" oninput="calculateHoursMoney()">
 <input type="number" id="ratePerHour"  placeholder="Rate per Hour">
-<input type="number"  placeholder="Salary">
+<input type="number" id="salaryId" placeholder="Salary" oninput="amountTitle('salaryId','incTitle');">
 
 <!-- Action Buttons (Add and Cancel) -->
 <div class="action-buttons">
