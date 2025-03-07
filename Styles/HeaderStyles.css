@@ -53,6 +53,7 @@
             align-items: last baseline; 
             gap: 10px;
             background: #1e1e1e;
+            z-index: 2;
            
             
         }

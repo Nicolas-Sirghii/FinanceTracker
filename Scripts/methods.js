@@ -61,9 +61,6 @@ openPopup(id , dis) {
 closePopup(id){
   document.getElementById(id).style.display = "none";
 },
-
-
-
 addSomething(nam , amo , typ , id){
   // Handle "Add" button click
 const name = document.getElementById(`${nam}`).value;
@@ -110,7 +107,7 @@ if (dateToday.toISOString().split('T')[0] === date) {
       lastObject[`${typ}`][name] = Number(amount);
     };
   }
-  
+ 
   const a = allTimeOutcome + Number(amount);
   const b = allTimeIncome + Number(amount);
   lastObject.workHours += Number(document.getElementById('workedHours').value) || 0 ;
@@ -150,14 +147,33 @@ if (dateToday.toISOString().split('T')[0] === date) {
 }
 document.getElementById("salaryId").value = '';
 document.getElementById('workedHours').value = '';
-console.log('.................lifedate lll.......')
-console.log(LifeData)
+
  We.closePopup(id)
+
+ forEachData();
+ 
+lineChart.data.labels = graphLables;
+lineChart.data.datasets[0].data = totalIncomeArray;
+lineChart.data.datasets[1].data = totalOutcomeArray;
+
+averageChrt.data.labels = graphLables;
+averageChrt.data.datasets[0].data = averageOutcomeArray;
+averageChrt.data.datasets[1].data = averageIncomeArray;
+
+pieExpenceChart.data.labels = Object.keys(pieOutcomeData);
+pieExpenceChart.data.datasets[0].data = Object.values(pieOutcomeData);
+
+incomePieChart.data.labels = Object.keys(pieIncomeData);
+incomePieChart.data.datasets[0].data = Object.values(pieIncomeData);
+
+ incomePieChart.update();
+ pieExpenceChart.update();
+ lineChart.update();
+ averageChrt.update();
+ console.log('.........LIFE...........')
+ console.log(LifeData)
+ console.log('........................')
 },
-
-
-
-
 showGoalStatus() {
   let totalProgress = 0;
 
@@ -312,61 +328,12 @@ addSpacificGoal() {
 },
 storeData(){
   localStorage.setItem("GOOOOL" , JSON.stringify(goals));
+  localStorage.setItem('LIFE' , JSON.stringify(LifeData));
 },
 DeleteGoal(){
 goals = goals.filter(item => item.id !== currentGoalId);
 We.storeData();
 
 },
-
-
-updateCharts(){
-   AEX = 0;
-   AIN = 0;
-totalExpected = 0;
-totalUnexpected = 0
-totalIncome = 0;
-totalExpenceADay = [];
-totalIncomeADay = [];
-dates = [];
-totalHours = 0;
-totalEarnedAtWork =
-totalSpentEUR = 0;
-totalSpentUSD = 0;
-totalSpentPLN = 0;
-totalSpentMDL = 0;
-incomeLabels = {};
-outcomeLabels = {};
-
- averInc = [];
- averExp = [];
-
-
- const a = calculateTotals(EUR, PLN, MDL, LifeData)
-
-
-lineChart.data.labels = dates;
-lineChart.data.datasets[0].data = totalExpenceADay;
-lineChart.data.datasets[1].data = totalIncomeADay;
-
-averageChrt.data.labels = dates;
-averageChrt.data.datasets[0].data = averExp;
-averageChrt.data.datasets[1].data = averInc;
-
-pieExpenceChart.data.labels = Object.keys(outcomeLabels);
-pieExpenceChart.data.datasets[0].data = Object.values(outcomeLabels);
-
-incomePieChart.data.labels = Object.keys(incomeLabels);
-incomePieChart.data.datasets[0].data = Object.values(incomeLabels);
-
-
-
- incomePieChart.update();
- pieExpenceChart.update();
- lineChart.update();
- averageChrt.update();
- console.log("LifeData[LifeData.length -1]")
-console.log(LifeData[LifeData.length -1])
-}
 
 };

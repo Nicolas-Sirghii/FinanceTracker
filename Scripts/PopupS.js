@@ -1,7 +1,7 @@
     // Exchange rates against USD
-    const EUR = 0.9;
-    const PLN = 4;
-    const MDL = 18;
+    const EUR = 0.92;
+    const PLN = 3.85;
+    const MDL = 18.15;
 
     
 
@@ -24,7 +24,8 @@ function open2(id,dis,amo,tit,spa){
            // Check if the amount field is empty
            const amount = document.getElementById(`${targetAmount}`).value || 0;
            let salaryValue = document.getElementById('salaryId').value || 0;
-           const fixedAmount = Number(document.getElementById(`${tit}`).innerText);
+           const fix = Number(document.getElementById(`${tit}`).innerText).toFixed(2);
+           const fixedAmount = Number(fix);
            const currSpan = document.getElementById(`${spa}`);
            if (!(amount || salaryValue)) {
                alert('Please enter an amount first!');
@@ -92,7 +93,13 @@ function open2(id,dis,amo,tit,spa){
 
     function createOptionList(pop , nam ){
  // Dynamically generate list options from an array
- const listOptionsArray = ["Food", "Rent", "Car", "Grooming"];
+ let listArray = [];
+ if (nam === 'incomeName') {
+    listArray = Object.keys(pieIncomeData);
+ } else {
+    listArray = Object.keys(pieOutcomeData);
+ }
+ const listOptionsArray = listArray;
  const listOptionsContainer = document.getElementById('list-options');
   listOptionsContainer.innerHTML = '';
  listOptionsArray.forEach(function(optionText) {

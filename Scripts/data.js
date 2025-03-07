@@ -92,8 +92,6 @@ let goals1 = [
 let goals = JSON.parse(localStorage.getItem("GOOOOL")) || goals1; 
 let newLife = JSON.parse(localStorage.getItem("LIFE")) || [];
 
-console.log(goals)
-
 
 const firstLinearChart = document.getElementById('lineChart').getContext('2d');
 const averageLinearChart = document.getElementById('averageLinearChart').getContext('2d');

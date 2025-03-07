@@ -6,17 +6,17 @@ let lineChart = new Chart(firstLinearChart, {
       labels: graphLables,
       datasets: [
         {
-            label: 'Line A',
+            label: 'Income',
             data: totalIncomeArray,
-            borderColor: 'red',
+            borderColor: 'green',
             backgroundColor: 'rgba(255, 0, 0, 0.2)',
             fill: false,
             tension: 0.3
         },
         {
-            label: 'Line B',
+            label: 'Outcome',
             data: totalOutcomeArray,
-            borderColor: 'green',
+            borderColor: 'red',
             backgroundColor: 'rgba(0, 255, 0, 0.2)',
             fill: false,
             tension: 0.3
@@ -59,7 +59,7 @@ let averageChrt = new Chart(averageLinearChart, {
       labels: graphLables,
       datasets: [
         {
-            label: 'Line A',
+            label: 'Outcome',
             data: averageOutcomeArray,
             borderColor: 'red',
             backgroundColor: 'rgba(255, 0, 0, 0.2)',
@@ -67,7 +67,7 @@ let averageChrt = new Chart(averageLinearChart, {
             tension: 0.3
         },
         {
-            label: 'Line B',
+            label: 'Income',
             data: averageIncomeArray,
             borderColor: 'green',
             backgroundColor: 'rgba(0, 255, 0, 0.2)',
