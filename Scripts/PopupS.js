@@ -38,8 +38,7 @@ function open2(id,dis,amo,tit,spa){
            // Add 'selected' class to the clicked currency button
            button.classList.add('selected');
            amountTobeAdded = fix;
-           chosenButton =  button.innerText.toLowerCase()
-           console.log(chosenButton)
+           chosenButton =  button.innerText.toLowerCase();
            
   
 

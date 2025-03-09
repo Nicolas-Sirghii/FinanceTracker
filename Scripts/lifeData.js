@@ -25,16 +25,28 @@ let LifeData = JSON.parse(localStorage.getItem('LIFE')) || [
         USDstatement: parseFloat(document.getElementById('usd').value) || 0,
         balanceInUSD: parseFloat(document.getElementById('usdTotal').value) || 0,
         actualFinanceStatement: parseFloat(document.getElementById('usdTotal').value) || 0,
-        exchange: [0.92,18.00,3.85,]
     }
 ]
+
+
+
+
+function formatDate(dateString) {
+  const date = new Date(dateString);
+  const options = { month: 'short', day: 'numeric' };
+  const month = date.toLocaleDateString('en-US', { month: 'short' });
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${month} ${day}`;
+}
+
  const lastElem = LifeData[LifeData.length -1];
- const EUR = lastElem.exchange[0];
- const MDL = lastElem.exchange[1];
- const PLN = lastElem.exchange[2];
-
-
-
+ const firsElem = LifeData[0];
+ let perioudFrom = formatDate(firsElem.date);
+ let perioudTo = formatDate(lastElem.date);
+ const exchange = JSON.parse(localStorage.getItem("exchange")) || [0.92 , 18 , 3.87];
+ const EUR = exchange[0];
+ const MDL = exchange[1];
+ const PLN = exchange[2];
 
 
 

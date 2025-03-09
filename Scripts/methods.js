@@ -139,14 +139,13 @@ if (dateToday.toISOString().split('T')[0] === date) {
   lastObject.allTimeOutcome += ((typ==="outcome") ? Number(amount): 0);
   lastObject.totalIncome += ((typ==="income") ? Number(amount): 0);
   lastObject.totalOutcome += ((typ==="outcome") ? Number(amount): 0);
-  lastObject.freedom = 0;
   lastObject.MDLstatement = parseFloat(document.getElementById('mdl').value) || 0;
   lastObject.PLNstatement = parseFloat(document.getElementById('pln').value) || 0;
   lastObject.EURstatement = parseFloat(document.getElementById('eur').value) || 0;
   lastObject.USDstatement = parseFloat(document.getElementById('usd').value) || 0;
   lastObject.balanceInUSD = parseFloat(document.getElementById('usdTotal').innerText) || 0;
-  lastObject.exchange = [EUR,MDL,PLN];
   lastObject.actualFinanceStatement = actU;
+  lastObject.freedom = calculateSustainability(lastObject.actualFinanceStatement, lastObject.averageOutcome);
    
 
     
@@ -172,14 +171,15 @@ if (dateToday.toISOString().split('T')[0] === date) {
      allTimeOutcome: allTimeOutcome += (typ==="outcome") ? Number(amount): 0,
      totalIncome:  (typ==="income") ? Number(amount): 0,
      totalOutcome:  (typ==="outcome") ? Number(amount): 0,
-     freedom: 0,
      MDLstatement: parseFloat(document.getElementById('mdl').value) || 0,
      PLNstatement: parseFloat(document.getElementById('pln').value) || 0,
      EURstatement: parseFloat(document.getElementById('eur').value) || 0,
      USDstatement: parseFloat(document.getElementById('usd').value) || 0,
      balanceInUSD: parseFloat(document.getElementById('usdTotal').innerText) || 0,
      actualFinanceStatement: actU,
-     exchange: [EUR,MDL,PLN],
+     freedom: calculateSustainability(this.actualFinanceStatement, this.averageOutcome),
+     
+     
    }
 
    salaryVal || (theObj[typ][name] = Number(amount));
@@ -192,24 +192,19 @@ document.getElementById('workedHours').value = '';
 
  forEachData();
  
-lineChart.data.labels = graphLables;
-lineChart.data.datasets[0].data = totalIncomeArray;
-lineChart.data.datasets[1].data = totalOutcomeArray;
 
-averageChrt.data.labels = graphLables;
-averageChrt.data.datasets[0].data = averageOutcomeArray;
-averageChrt.data.datasets[1].data = averageIncomeArray;
 
-pieExpenceChart.data.labels = Object.keys(pieOutcomeData);
-pieExpenceChart.data.datasets[0].data = Object.values(pieOutcomeData);
 
-incomePieChart.data.labels = Object.keys(pieIncomeData);
-incomePieChart.data.datasets[0].data = Object.values(pieIncomeData);
+perioudFrom = formatDate(LifeData[0].date);
+perioudTo = formatDate(LifeData[LifeData.length -1].date);
 
- incomePieChart.update();
- pieExpenceChart.update();
- lineChart.update();
- averageChrt.update();
+
+We.highlightDays();
+
+
+
+
+ 
  console.log('.........LIFE...........')
  console.log(LifeData)
  console.log('........................')
@@ -369,6 +364,7 @@ addSpacificGoal() {
 storeData(){
   localStorage.setItem("GOOOOL" , JSON.stringify(goals));
   We.saveBankData()
+  localStorage.setItem( "exchange",JSON.stringify(exchange))
   localStorage.setItem('LIFE' , JSON.stringify(LifeData));
 },
 DeleteGoal(){
@@ -393,10 +389,11 @@ saveBankData() {
   lastElement.EURstatement = parseFloat(document.getElementById('eur').value) || 0;
   lastElement.MDLstatement = parseFloat(document.getElementById('mdl').value) || 0;
   lastElement.PLNstatement = parseFloat(document.getElementById('pln').value) || 0;
-  lastElement.exchange[0] = parseFloat(document.getElementById('usdToEur').value) || 0.91;
-  lastElement.exchange[1] = parseFloat(document.getElementById('usdToMdl').value) || 17.6;
-  lastElement.exchange[2] = parseFloat(document.getElementById('usdToPln').value) || 4.1;
   lastElement.balanceInUSD = parseFloat(document.getElementById('usdTotal').innerText || 0);
+
+  exchange[0] = parseFloat(document.getElementById('usdToEur').value) || 0.91;
+  exchange[1] = parseFloat(document.getElementById('usdToMdl').value) || 17.6;
+  exchange[2] = parseFloat(document.getElementById('usdToPln').value) || 4.1;
 
 },
 calculateBankTotal() {
@@ -432,8 +429,115 @@ calculateBankTotal() {
 
 },
 choosePeriod(from , to){
-  console.log(from)
-  console.log(to)
+ 
+  function convertDate(dateStr) {
+    // Define the current year
+    const year = 2025;
+    
+    // Parse the input date string (month and day)
+    const [monthName, day] = dateStr.split(" ");
+    
+    // Create a map of month names to month numbers (0-based index)
+    const monthMap = {
+        Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5,
+        Jul: 6, Aug: 7, Sep: 8, Oct: 9, Nov: 10, Dec: 11
+    };
+    
+    // Create a new Date object using UTC to avoid timezone issues
+    const date = new Date(Date.UTC(year, monthMap[monthName], parseInt(day)));
+    
+    // Format the date into "YYYY-MM-DD"
+    const formattedDate = date.toISOString().split('T')[0];
+    
+    return formattedDate;
 }
+
+  const start = convertDate(from);
+  const end = convertDate(to)
+
+ 
+  const filteredData = LifeData.filter(item => {
+    return item.date >= start && item.date <= end;
+  });
+ (filteredData.length > 0) && (LifeData = filteredData);
+
+   perioudFrom = formatDate(LifeData[0].date);
+   perioudTo = formatDate(LifeData[LifeData.length -1].date);
+console.log("lifeData")
+console.log(LifeData)
+  
+  We.highlightDays();
+},
+highlightDays() {
+  const input = LifeData[LifeData.length -1].freedom;
+  const today = new Date();
+  const endDate = new Date(today);
+  const t = (input <= 0)  ? (0) : (input-1);
+  endDate.setDate(today.getDate() + t); // Calculate the end date (today + input days)
+  // Clear previous highlights
+  dayElements.forEach(dayElement => {
+      dayElement.classList.remove("highlight");
+      // console.log(dayElement.id)
+  });
+  // Highlight days within the range
+
+  let start = false;
+  let secondLoop = false;
+  dayElements.forEach(dayElement => {
+
+      if (`${today}`.slice(4,10) === dayElement.id) {
+          dayElement.classList.add("highlight");
+          start = true;
+      }
+      if (start) {
+          dayElement.classList.add("highlight"); // Add the highlight class 
+      }
+
+      if (`${endDate}`.slice(4,10) === dayElement.id) {
+          start = false;
+      }
+      
+      if (dayElement.id === 'Dec 31' && start) {
+          console.log('we need second loop')
+          secondLoop = true;
+      }
+  });
+  if (secondLoop) {
+       dayElements.forEach(dayElement => {
+
+      if (`${today}`.slice(4,10) === dayElement.id) {
+          dayElement.classList.add("highlight");
+      }
+      if (start) {
+          dayElement.classList.add("highlight"); // Add the highlight class 
+      }
+
+      if (`${endDate}`.slice(4,10) === dayElement.id) {
+          start = false;
+      }
+      
+  });
+  }
+},
+openChart(id , typ){
+document.getElementById(id).style.display = "block";
+forEachData();
+
+if (typ === "incomeVSoutcome") {
+  lineChart.data.labels = graphLables;
+lineChart.data.datasets[0].data = totalIncomeArray;
+lineChart.data.datasets[1].data = totalOutcomeArray;
+lineChart.update();
+} else if (typ === "average"){
+  lineChart.data.labels = graphLables;
+  lineChart.data.datasets[0].data = averageOutcomeArray;
+  lineChart.data.datasets[1].data = averageIncomeArray;
+  lineChart.update();
+}
+
+
+},
+
+
 
 };

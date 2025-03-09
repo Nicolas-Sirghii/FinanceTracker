@@ -1,37 +1,37 @@
    // Array of month names
   
-   function convertToDate(dateStr) {
-    // Get the current year
-    const currentYear = new Date().getFullYear();
+//    function convertToDate(dateStr) {
+//     // Get the current year
+//     const currentYear = new Date().getFullYear();
     
-    // Month abbreviations
-    const monthMap = {
-      Jan: 1,
-      Feb: 2,
-      Mar: 3,
-      Apr: 4,
-      May: 5,
-      Jun: 6,
-      Jul: 7,
-      Aug: 8,
-      Sep: 9,
-      Oct: 10,
-      Nov: 11,
-      Dec: 12
-    };
+//     // Month abbreviations
+//     const monthMap = {
+//       Jan: 1,
+//       Feb: 2,
+//       Mar: 3,
+//       Apr: 4,
+//       May: 5,
+//       Jun: 6,
+//       Jul: 7,
+//       Aug: 8,
+//       Sep: 9,
+//       Oct: 10,
+//       Nov: 11,
+//       Dec: 12
+//     };
     
-    // Split the input string by space and extract month and day
-    const [monthAbbr, day] = dateStr.split(' ');
+//     // Split the input string by space and extract month and day
+//     const [monthAbbr, day] = dateStr.split(' ');
   
-    // Get the numeric month value from the abbreviation
-    const month = monthMap[monthAbbr];
+//     // Get the numeric month value from the abbreviation
+//     const month = monthMap[monthAbbr];
   
-    // Format the day to ensure it's two digits (e.g., '05' instead of '5')
-    const formattedDay = day.padStart(2, '0');
+//     // Format the day to ensure it's two digits (e.g., '05' instead of '5')
+//     const formattedDay = day.padStart(2, '0');
     
-    // Return the date in the format "YYYY-MM-DD"
-    return `${currentYear}-${month.toString().padStart(2, '0')}-${formattedDay}`;
-  }
+//     // Return the date in the format "YYYY-MM-DD"
+//     return `${currentYear}-${month.toString().padStart(2, '0')}-${formattedDay}`;
+//   }
 
 
 
@@ -53,6 +53,8 @@ let dayElements = [];
 
 // Function to generate the calendar
 function generateCalendar() {
+
+    
     const calendarContainer = document.getElementById("calendar");
     dayElements = []; // Clear the array before regenerating the calendar
 
@@ -94,10 +96,24 @@ function generateCalendar() {
             const date = new Date(2023, index, day);
             dayElement.id = `${date}`.slice(4,10);
             dayElement.dataset.date = date.toISOString(); // Store the actual Date object in ISO format
+
+            
+            if (dayElement.id === perioudFrom) {
+                dayElement.classList.add("passed")
+                startLife = true; 
+            }
+            if (dayElement.id === perioudTo) {
+                dayElement.classList.add("passed")
+                startLife = false;  
+            }
+            if (startLife) {
+                dayElement.classList.add("passed")
+            }
             dayElement.addEventListener("click", () => {
+                
                 dayElement.classList.toggle("selected");
                 if (chooseDate) {
-                    We.choosePeriod(convertToDate(chosenDateBegining),convertToDate(`${date}`.slice(4,10)))
+                    We.choosePeriod(chosenDateBegining , `${date}`.slice(4,10))
                     dayElements.forEach(element => {
                         if (element.id === chosenDateBegining) {
                             chosenStart = true;
@@ -126,6 +142,7 @@ function generateCalendar() {
                         });
                     }
                     chosenDateBegining = '';
+                    
                 } else{
                     chosenDateBegining = `${date}`.slice(4,10);
                 }
@@ -146,61 +163,7 @@ function generateCalendar() {
         monthContainer.appendChild(daysContainer);
         calendarContainer.appendChild(monthContainer);
     });
-}
-
-// Function to highlight the days from today to the entered number of days
-function highlightDays() {
-    const input = parseInt(document.getElementById("daysInput").value);
-    const today = new Date();
-    const endDate = new Date(today);
-    const t = (input <= 0)  ? (0) : (input-1);
-    endDate.setDate(today.getDate() + t); // Calculate the end date (today + input days)
-
-  
-    // Clear previous highlights
-    dayElements.forEach(dayElement => {
-        dayElement.classList.remove("highlight");
-        // console.log(dayElement.id)
-    });
-    // Highlight days within the range
-
-    let start = false;
-    let secondLoop = false;
-    dayElements.forEach(dayElement => {
-
-        if (`${today}`.slice(4,10) === dayElement.id) {
-            dayElement.classList.add("highlight");
-            start = true;
-        }
-        if (start) {
-            dayElement.classList.add("highlight"); // Add the highlight class 
-        }
-
-        if (`${endDate}`.slice(4,10) === dayElement.id) {
-            start = false;
-        }
-        
-        if (dayElement.id === 'Dec 31' && start) {
-            console.log('we need second loop')
-            secondLoop = true;
-        }
-    });
-    if (secondLoop) {
-         dayElements.forEach(dayElement => {
-
-        if (`${today}`.slice(4,10) === dayElement.id) {
-            dayElement.classList.add("highlight");
-        }
-        if (start) {
-            dayElement.classList.add("highlight"); // Add the highlight class 
-        }
-
-        if (`${endDate}`.slice(4,10) === dayElement.id) {
-            start = false;
-        }
-        
-    });
-    }
+    We.highlightDays();
 }
 
 // Generate the calendar when the page loads

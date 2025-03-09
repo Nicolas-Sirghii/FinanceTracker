@@ -6,6 +6,7 @@
   width: 50vw;
   right: 0;
   top: 105vh;
+  display: none;
  
 }
 
@@ -23,9 +24,13 @@
 
 .linearContainer{
   position: absolute;
-  left: 0;
-  width: 50vw;
-  top: 105vh;
+  left: 5px;
+  height: 70vh;
+  width: 70vw;
+  top: 5px;
+  background-color: rgb(220, 205, 255);
+  display: none;
+  z-index: 2;
   
 }
 .averageLinearChartContainer{

@@ -9,7 +9,7 @@ let lineChart = new Chart(firstLinearChart, {
             label: 'Income',
             data: totalIncomeArray,
             borderColor: 'green',
-            backgroundColor: 'rgba(255, 0, 0, 0.2)',
+            backgroundColor: 'greed',
             fill: false,
             tension: 0.3
         },
@@ -17,7 +17,7 @@ let lineChart = new Chart(firstLinearChart, {
             label: 'Outcome',
             data: totalOutcomeArray,
             borderColor: 'red',
-            backgroundColor: 'rgba(0, 255, 0, 0.2)',
+            backgroundColor: 'red',
             fill: false,
             tension: 0.3
         }
@@ -53,27 +53,3 @@ const incomePieChart = new Chart(PieIncome,
 );
 
 
-let averageChrt = new Chart(averageLinearChart, {
-  type: 'line',
-  data: {
-      labels: graphLables,
-      datasets: [
-        {
-            label: 'Outcome',
-            data: averageOutcomeArray,
-            borderColor: 'red',
-            backgroundColor: 'rgba(255, 0, 0, 0.2)',
-            fill: false,
-            tension: 0.3
-        },
-        {
-            label: 'Income',
-            data: averageIncomeArray,
-            borderColor: 'green',
-            backgroundColor: 'rgba(0, 255, 0, 0.2)',
-            fill: false,
-            tension: 0.3
-        }
-    ]
-  },
-});

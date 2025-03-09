@@ -153,8 +153,6 @@
 <!--____________________________________________________________________________------------------------------------___-->
 <header class="header" id="header">
   <div class="veryTop" id="veryTop" onclick="We.showGoalStatus()">
-    <input type="number" id="daysInput" min="1">
-    <button onclick="highlightDays()">Highlight Days</button>
     <button class="ExpenseButton" id="ExpenseButton" onclick="open2('expencePopup','flex','expenceAmount','expTitle','expCurrSpan')">Expese</button>
     <button class="IncomeButton" id="IncomeButton" onclick="open2('incomePopup','flex','incomeAmount','incTitle','incCurrSpan')">Income</button>
     <button onclick="We.storeData()">Save</button>
@@ -170,20 +168,14 @@
 <!--_______________________________________________________________________________-->
 <!--_______________________________________________________________________________-->
 <!--_______________________________________________________________________________-->
-<div class="linearContainer" id="linearContainer">
+<div class="linearContainer" id="linearContainer" ondblclick="We.closePopup('linearContainer')">
   <h2>Expence vs Income Chart</h2>
   <canvas id="lineChart" width="100" height=" 50"></canvas>
 </div>
 <!--_______________________________________________________________________________-->
 <!--___________________________________   CHARTS   ________________________________-->
 <!--_______________________________________________________________________________-->
-<div class="averageLinearChartContainer" id="averageLinearChartContainer">
-  <h2>Average Expence vs Income Chart</h2>
-  <canvas id="averageLinearChart" width="100" height=" 50"></canvas>
-</div>
- <!--_______________________________________________________________________________-->
-<!--___________________________________   CHARTS   ________________________________-->
-<!--_______________________________________________________________________________-->
+
 <div class="expencePieContainer" id="expencePieContainer">
    <div class="twoCharts" id="twoCharts">
     <!--_______________________________________________________________________________-->
@@ -202,19 +194,7 @@
  <!--_______________________________________________________________________________-->
 <!--_________________________________  INFORMATION  ________________________________-->
 <!--_______________________________________________________________________________-->
-<div  id="informationDiv" class="informationDiv">
-  
-    
-    
-   
 
-
-
-
-</div>
- <!--_______________________________________________________________________________-->
-<!--_________________________________  INFORMATION  ________________________________-->
-<!--_______________________________________________________________________________-->
 <div id="MainInformationContainer">
   <div id="infomationBoard">
     <div id="totalResults">
@@ -257,6 +237,8 @@
         >
       </div>
   </div>
+  <button onclick="We.openChart('linearContainer', 'incomeVSoutcome')">Open Chart</button>
+  <button onclick="We.openChart('linearContainer', 'average')">average</button>
   </div>
 <!-- Input for the number of days -->
 <div class="container" id="calendar"></div>
