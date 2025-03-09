@@ -1,7 +1,5 @@
     // Exchange rates against USD
-    const EUR = 0.92;
-    const PLN = 3.85;
-    const MDL = 18.15;
+
 
     
 
@@ -39,6 +37,10 @@ function open2(id,dis,amo,tit,spa){
   
            // Add 'selected' class to the clicked currency button
            button.classList.add('selected');
+           amountTobeAdded = fix;
+           chosenButton =  button.innerText.toLowerCase()
+           console.log(chosenButton)
+           
   
 
            

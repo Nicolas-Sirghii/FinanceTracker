@@ -4,6 +4,12 @@
 let bankAccountNumber = 600;
 let selectedCurrency = null;
 let targetAmount= '';
+let chooseDate = false;
+let chosenDateBegining = '';
+let chosenStart = false;
+let chooseSecondLoop = false;
+let amountTobeAdded = 0;
+let chosenButton = ''
 
 
 let newDay = {

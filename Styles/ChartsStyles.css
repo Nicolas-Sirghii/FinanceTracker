@@ -5,6 +5,7 @@
   height: 50vh;
   width: 50vw;
   right: 0;
+  top: 105vh;
  
 }
 
@@ -24,26 +25,26 @@
   position: absolute;
   left: 0;
   width: 50vw;
-  
+  top: 105vh;
   
 }
 .averageLinearChartContainer{
   position: absolute;
   left: 0;
   width: 50vw;
-  top: 80vh;
+  top: 185vh;
  
 }
 .informationDiv{
   position: absolute;
   right: 0;
-  top: 80vh;
+  top: 185vh;
   width: 750px;
   height: 412px;
-
  background-color: #1f1f1f;
  padding: 20px;
  border-radius: 8px;
  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
  overflow: auto;
 }
+

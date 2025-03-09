@@ -1,0 +1,101 @@
+
+#daysInput{
+    width: 100px;
+}
+.container {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: nowrap;
+    width: 100%;
+    overflow-x: auto;
+    padding: 5px;
+    box-sizing: border-box;
+   
+    
+}
+#MainInformationContainer{
+    position: relative;
+    padding: 0;
+    width: 98vw;
+    height: 79vh;
+    border: 1px solid green;
+}
+#infomationBoard{
+    position: relative;
+    width: 100%;
+    height: 67%;
+   
+    border: 1px solid red;
+}
+.month {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 3px;
+    width: 120px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    font-size: 0.6em;
+    
+}
+.month-name {
+    text-align: center;
+    font-size: 1em;
+    margin-bottom: 5px;
+}
+.days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(7, 1fr);
+    gap: 1px;
+    height: 160px;
+}
+.day {
+    text-align: center;
+    padding: 1px;
+    cursor: pointer;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    font-size: 0.5em;
+}
+.day:hover {
+    background-color: #f0f0f0;
+}
+.highlight {
+    background-color: green;
+    color: white;
+}
+.selected{
+    box-sizing: border-box;
+    border: 2px solid rgb(0, 183, 255);
+}
+
+
+.totals{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#MainInformationContainer input{
+    background-color: transparent;
+    border: none;
+    color: red;
+}
+#exchangeRates{
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+#bankAccounts{
+    position: absolute;
+    top: 30%;
+    right: 0;
+}
+#totalResults{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    border: 1px solid red;
+}
+

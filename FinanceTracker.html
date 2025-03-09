@@ -7,10 +7,13 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <link rel="stylesheet" href="Styles/goalsStyles.css">
+  <link rel="stylesheet" href="Styles/bankStyles.css">
   <link rel="stylesheet" href="Styles/HeaderStyles.css">
   <link rel="stylesheet" href="Styles/popupStyles.css">
   <link rel="stylesheet" href="Styles/ChartsStyles.css">
   <link rel="stylesheet" href="Styles/mobileStyles.css">
+  <link rel="stylesheet" href="Styles/MonthDaysStyles.css">
+  
 
 
 </head>
@@ -150,6 +153,8 @@
 <!--____________________________________________________________________________------------------------------------___-->
 <header class="header" id="header">
   <div class="veryTop" id="veryTop" onclick="We.showGoalStatus()">
+    <input type="number" id="daysInput" min="1">
+    <button onclick="highlightDays()">Highlight Days</button>
     <button class="ExpenseButton" id="ExpenseButton" onclick="open2('expencePopup','flex','expenceAmount','expTitle','expCurrSpan')">Expese</button>
     <button class="IncomeButton" id="IncomeButton" onclick="open2('incomePopup','flex','incomeAmount','incTitle','incCurrSpan')">Income</button>
     <button onclick="We.storeData()">Save</button>
@@ -198,10 +203,69 @@
 <!--_________________________________  INFORMATION  ________________________________-->
 <!--_______________________________________________________________________________-->
 <div  id="informationDiv" class="informationDiv">
+  
+    
+    
+   
+
+
+
+
 </div>
  <!--_______________________________________________________________________________-->
 <!--_________________________________  INFORMATION  ________________________________-->
 <!--_______________________________________________________________________________-->
+<div id="MainInformationContainer">
+  <div id="infomationBoard">
+    <div id="totalResults">
+      <div class="totals">Total<p id="usdTotal"></p></div>
+      <div class="totals">Total <p id="eurTotal"></p></div>
+      <div class="totals">Total <p id="mdlTotal"></p></div>
+      <div class="totals">Total <p id="plnTotal"></p></div>
+    </div>
+  <div id="exchangeRates">
+    <div class="totals">USD/EUR
+      <input class="bankInput" type="number" id="usdToEur" oninput="We.calculateBankTotal()" >
+    </div>
+    <div class="totals">USD/MDL
+    <input class="bankInput" type="number" id="usdToMdl" oninput="We.calculateBankTotal()" >
+    </div>
+
+    <div class="totals">USD/PLN
+    <input class="bankInput" type="number" id="usdToPln" oninput="We.calculateBankTotal()">
+    </div>
+  </div>
+  <div id="bankAccounts">
+    <div class="totals"> USD balance:
+      <input class="bankInput" type="number" id="usd" placeholder="Enter USD balance" required
+      oninput="We.calculateBankTotal()"
+      >
+    </div>
+      <div class="totals">EUR balance:
+        <input class="bankInput" type="number" id="eur" placeholder="Enter EUR balance" required
+        oninput="We.calculateBankTotal()"
+        > 
+      </div>
+      <div class="totals">MDL balance:
+        <input class="bankInput" type="number" id="mdl" placeholder="Enter MDL balance" required
+        oninput="We.calculateBankTotal()"
+        >
+      </div>
+      <div class="totals">PLN balance:
+        <input class="bankInput" type="number" id="pln" placeholder="Enter PLN balance" required
+        oninput="We.calculateBankTotal()"
+        >
+      </div>
+  </div>
+  </div>
+<!-- Input for the number of days -->
+<div class="container" id="calendar"></div>
+</div>
+  
+   
+  
+  
+
 
   <script src="Scripts/lifeData.js"></script>
   <script src="Scripts/PopupS.js"></script>
@@ -209,6 +273,8 @@
   <script src="Scripts/charts.js"></script>
   <script src="Scripts/methods.js"></script>
   <script src="Scripts/mainScript.js"></script>
+  <script src="Scripts/calendar.js"></script>
+  
 
   
 

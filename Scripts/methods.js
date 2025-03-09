@@ -68,6 +68,12 @@ const amount = document.getElementById(`${amo}`).value;
 const selectedCurrencyBtn = document.querySelector('.currency-buttons .selected');
 
  let salaryVal = document.getElementById("salaryId").value;
+ let actU = 0;
+ if(salaryVal){
+  actU = lastElem.actualFinanceStatement
+ } else {
+  actU = (typ==="outcome") ? (lastElem.actualFinanceStatement -= Number(amount)) : (lastElem.actualFinanceStatement += Number(amount))
+ }
 
 
   if((!name || !amount || !selectedCurrencyBtn)){
@@ -85,7 +91,16 @@ const selectedCurrencyBtn = document.querySelector('.currency-buttons .selected'
   } 
 
 
-// alert(`Added: Name = ${name}, Amount = ${amount}, Currency = ${selectedCurrencyBtn.textContent}`);
+if (typ === "outcome") {
+  document.getElementById(chosenButton).value =
+   parseFloat(document.getElementById(chosenButton).value) - parseFloat(amountTobeAdded);
+} else {
+ 
+  
+  document.getElementById(chosenButton).value =
+    parseFloat(document.getElementById(chosenButton).value) + parseFloat(amountTobeAdded);
+}
+We.calculateBankTotal();
 
     document.getElementById(`${nam}`).value = '';
     document.getElementById(`${amo}`).value = '';
@@ -114,17 +129,34 @@ if (dateToday.toISOString().split('T')[0] === date) {
   lastObject.ratePerHour = Number(document.getElementById('ratePerHour').value) || ratePerHour;
   lastObject.averageIncome = (typ==="income") ? Number((b /coutDay).toFixed(2)): averageIncome;
   lastObject.averageOutcome = (typ==="outcome") ? Number((a  /coutDay).toFixed(2)) : averageOutcome;
-  lastObject.salary = salaryVal ? (lastObject.salary + Number(document.getElementById('salaryId').value)) : (Number(document.getElementById('salaryId').value) || lastObject.salary) ;
+
+  lastObject.salary = salaryVal ? (lastObject.salary + Number(document.getElementById('salaryId').value)) : 
+  (Number(document.getElementById('salaryId').value) || 
+  lastObject.salary) ;
+
+
   lastObject.allTimeIncome += ((typ==="income") ? Number(amount): 0);
   lastObject.allTimeOutcome += ((typ==="outcome") ? Number(amount): 0);
   lastObject.totalIncome += ((typ==="income") ? Number(amount): 0);
   lastObject.totalOutcome += ((typ==="outcome") ? Number(amount): 0);
+  lastObject.freedom = 0;
+  lastObject.MDLstatement = parseFloat(document.getElementById('mdl').value) || 0;
+  lastObject.PLNstatement = parseFloat(document.getElementById('pln').value) || 0;
+  lastObject.EURstatement = parseFloat(document.getElementById('eur').value) || 0;
+  lastObject.USDstatement = parseFloat(document.getElementById('usd').value) || 0;
+  lastObject.balanceInUSD = parseFloat(document.getElementById('usdTotal').innerText) || 0;
+  lastObject.exchange = [EUR,MDL,PLN];
+  lastObject.actualFinanceStatement = actU;
+   
+
+    
 } else {
 
   coutDay ++
 
   const c = allTimeIncome + Number(amount);
   const d = allTimeOutcome + Number(amount);
+
 
   let theObj = {
     countNumber : coutDay ,
@@ -140,6 +172,14 @@ if (dateToday.toISOString().split('T')[0] === date) {
      allTimeOutcome: allTimeOutcome += (typ==="outcome") ? Number(amount): 0,
      totalIncome:  (typ==="income") ? Number(amount): 0,
      totalOutcome:  (typ==="outcome") ? Number(amount): 0,
+     freedom: 0,
+     MDLstatement: parseFloat(document.getElementById('mdl').value) || 0,
+     PLNstatement: parseFloat(document.getElementById('pln').value) || 0,
+     EURstatement: parseFloat(document.getElementById('eur').value) || 0,
+     USDstatement: parseFloat(document.getElementById('usd').value) || 0,
+     balanceInUSD: parseFloat(document.getElementById('usdTotal').innerText) || 0,
+     actualFinanceStatement: actU,
+     exchange: [EUR,MDL,PLN],
    }
 
    salaryVal || (theObj[typ][name] = Number(amount));
@@ -328,6 +368,7 @@ addSpacificGoal() {
 },
 storeData(){
   localStorage.setItem("GOOOOL" , JSON.stringify(goals));
+  We.saveBankData()
   localStorage.setItem('LIFE' , JSON.stringify(LifeData));
 },
 DeleteGoal(){
@@ -335,5 +376,64 @@ goals = goals.filter(item => item.id !== currentGoalId);
 We.storeData();
 
 },
+loadBankData() {
+   document.getElementById('usd').value = lastElem .USDstatement;
+   document.getElementById('eur').value = lastElem .EURstatement;;
+   document.getElementById('mdl').value = lastElem .MDLstatement;
+   document.getElementById('pln').value = lastElem .PLNstatement;
+   document.getElementById('usdToEur').value = EUR;
+   document.getElementById('usdToMdl').value = MDL;
+   document.getElementById('usdToPln').value = PLN;
+},
+saveBankData() {
+
+  const lastElement = LifeData[LifeData.length -1];
+
+  lastElement.USDstatement = parseFloat(document.getElementById('usd').value) || 0;
+  lastElement.EURstatement = parseFloat(document.getElementById('eur').value) || 0;
+  lastElement.MDLstatement = parseFloat(document.getElementById('mdl').value) || 0;
+  lastElement.PLNstatement = parseFloat(document.getElementById('pln').value) || 0;
+  lastElement.exchange[0] = parseFloat(document.getElementById('usdToEur').value) || 0.91;
+  lastElement.exchange[1] = parseFloat(document.getElementById('usdToMdl').value) || 17.6;
+  lastElement.exchange[2] = parseFloat(document.getElementById('usdToPln').value) || 4.1;
+  lastElement.balanceInUSD = parseFloat(document.getElementById('usdTotal').innerText || 0);
+
+},
+calculateBankTotal() {
+  // Get the values from the form inputs
+  let usd = parseFloat(document.getElementById('usd').value) || 0;
+  let eur = parseFloat(document.getElementById('eur').value) || 0;
+  let mdl = parseFloat(document.getElementById('mdl').value) || 0;
+  let pln = parseFloat(document.getElementById('pln').value) || 0;
+
+  // Get the exchange rates from input fields
+  let usdToEur = parseFloat(document.getElementById('usdToEur').value) || 0.91;
+  let usdToMdl = parseFloat(document.getElementById('usdToMdl').value) || 17.6;
+  let usdToPln = parseFloat(document.getElementById('usdToPln').value) || 4.1;
+
+  // Convert all balances to USD
+  let usdFromEur = eur / usdToEur;
+  let usdFromMdl = mdl / usdToMdl;
+  let usdFromPln = pln / usdToPln;
+
+  // Calculate the total in USD
+  let totalUsd = usd + usdFromEur + usdFromMdl + usdFromPln;
+
+  // Convert the total USD to other currencies
+  let totalEur = totalUsd * usdToEur;
+  let totalMdl = totalUsd * usdToMdl;
+  let totalPln = totalUsd * usdToPln;
+
+  // Display the results
+  document.getElementById('usdTotal').innerText = totalUsd.toFixed(2) + ' USD';
+  document.getElementById('eurTotal').innerText = totalEur.toFixed(2) + ' EUR';
+  document.getElementById('mdlTotal').innerText = totalMdl.toFixed(2) + ' MDL';
+  document.getElementById('plnTotal').innerText = totalPln.toFixed(2) + ' PLN';
+
+},
+choosePeriod(from , to){
+  console.log(from)
+  console.log(to)
+}
 
 };

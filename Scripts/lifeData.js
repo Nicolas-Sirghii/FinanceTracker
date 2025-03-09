@@ -2,11 +2,7 @@
 let dateToday = new Date();
  const todaySDate = dateToday.toISOString().split('T')[0];
  
-
  
-
-
-
 let LifeData = JSON.parse(localStorage.getItem('LIFE')) || [
     {
         "countNumber": 1,
@@ -21,9 +17,22 @@ let LifeData = JSON.parse(localStorage.getItem('LIFE')) || [
         "allTimeOutcome": 0,
         "totalIncome": 0,
         "totalOutcome": 0,
-        "salary": 0
+        "salary": 0,
+        freedom: 0,
+        MDLstatement: parseFloat(document.getElementById('mdl').value) || 0,
+        PLNstatement: parseFloat(document.getElementById('pln').value) || 0,
+        EURstatement: parseFloat(document.getElementById('eur').value) || 0,
+        USDstatement: parseFloat(document.getElementById('usd').value) || 0,
+        balanceInUSD: parseFloat(document.getElementById('usdTotal').value) || 0,
+        actualFinanceStatement: parseFloat(document.getElementById('usdTotal').value) || 0,
+        exchange: [0.92,18.00,3.85,]
     }
 ]
+ const lastElem = LifeData[LifeData.length -1];
+ const EUR = lastElem.exchange[0];
+ const MDL = lastElem.exchange[1];
+ const PLN = lastElem.exchange[2];
+
 
 
 
