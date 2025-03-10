@@ -66,14 +66,11 @@ addSomething(nam , amo , typ , id){
 const name = document.getElementById(`${nam}`).value;
 const amount = document.getElementById(`${amo}`).value;
 const selectedCurrencyBtn = document.querySelector('.currency-buttons .selected');
+let salaryVal = document.getElementById("salaryId").value;
+ 
 
- let salaryVal = document.getElementById("salaryId").value;
- let actU = 0;
- if(salaryVal){
-  actU = lastElem.actualFinanceStatement
- } else {
-  actU = (typ==="outcome") ? (lastElem.actualFinanceStatement -= Number(amount)) : (lastElem.actualFinanceStatement += Number(amount))
- }
+
+
 
 
   if((!name || !amount || !selectedCurrencyBtn)){
@@ -90,15 +87,35 @@ const selectedCurrencyBtn = document.querySelector('.currency-buttons .selected'
 
   } 
 
+  
+const takeActual = LifeData[LifeData.length -1].actualFinanceStatement;
+let actU = 0;
+
 
 if (typ === "outcome") {
   document.getElementById(chosenButton).value =
    parseFloat(document.getElementById(chosenButton).value) - parseFloat(amountTobeAdded);
+   actU =parseFloat((takeActual - parseFloat(amount)).toFixed(2));
 } else {
- 
-  
-  document.getElementById(chosenButton).value =
+  if (name === "Job") {
+   actU = parseFloat((takeActual + parseFloat(amount)).toFixed(2));
+  } else {
+    if (salaryVal) {
+      actU = LifeData[LifeData.length -1].actualFinanceStatement;
+      
+    } else{
+         if (typ === "outcome") {
+          actU = parseFloat((LifeData[LifeData.length -1].actualFinanceStatement - parseFloat(amount)).toFixed(2)) ;
+         } else {
+          actU = parseFloat((LifeData[LifeData.length -1].actualFinanceStatement + parseFloat(amount)).toFixed(2))  ;
+         }
+     
+    }
+    document.getElementById(chosenButton).value =
     parseFloat(document.getElementById(chosenButton).value) + parseFloat(amountTobeAdded);
+  }
+  
+  
 }
 We.calculateBankTotal();
 
@@ -134,11 +151,10 @@ if (dateToday.toISOString().split('T')[0] === date) {
   (Number(document.getElementById('salaryId').value) || 
   lastObject.salary) ;
 
-
-  lastObject.allTimeIncome += ((typ==="income") ? Number(amount): 0);
-  lastObject.allTimeOutcome += ((typ==="outcome") ? Number(amount): 0);
-  lastObject.totalIncome += ((typ==="income") ? Number(amount): 0);
-  lastObject.totalOutcome += ((typ==="outcome") ? Number(amount): 0);
+  lastObject.allTimeIncome += parseFloat(((typ==="income") ? Number(amount): 0).toFixed(2));
+  lastObject.allTimeOutcome += parseFloat(((typ==="outcome") ? Number(amount): 0).toFixed(2));
+  lastObject.totalIncome += parseFloat(((typ==="income") ? Number(amount): 0).toFixed(2));
+  lastObject.totalOutcome += parseFloat(((typ==="outcome") ? Number(amount): 0).toFixed(2));
   lastObject.MDLstatement = parseFloat(document.getElementById('mdl').value) || 0;
   lastObject.PLNstatement = parseFloat(document.getElementById('pln').value) || 0;
   lastObject.EURstatement = parseFloat(document.getElementById('eur').value) || 0;
@@ -156,6 +172,8 @@ if (dateToday.toISOString().split('T')[0] === date) {
   const c = allTimeIncome + Number(amount);
   const d = allTimeOutcome + Number(amount);
 
+  const gt = (typ==="outcome") ? Number((d/coutDay).toFixed(2)) : Number((allTimeOutcome/coutDay).toFixed(2));
+
 
   let theObj = {
     countNumber : coutDay ,
@@ -167,17 +185,17 @@ if (dateToday.toISOString().split('T')[0] === date) {
      averageOutcome: (typ==="outcome") ? Number((d/coutDay).toFixed(2)) : Number((allTimeOutcome/coutDay).toFixed(2)),
      averageIncome : (typ==="income") ? Number((c/coutDay).toFixed(2)) : Number((allTimeIncome/coutDay).toFixed(2)),
      salary: Number(document.getElementById('salaryId').value) || 0,
-     allTimeIncome: allTimeIncome += (typ==="income") ? Number(amount): 0,
-     allTimeOutcome: allTimeOutcome += (typ==="outcome") ? Number(amount): 0,
-     totalIncome:  (typ==="income") ? Number(amount): 0,
-     totalOutcome:  (typ==="outcome") ? Number(amount): 0,
+     allTimeIncome: parseFloat((allTimeIncome += (typ==="income") ? Number(amount): 0).toFixed(2)),
+     allTimeOutcome: parseFloat((allTimeOutcome += (typ==="outcome") ? Number(amount): 0).toFixed(2)),
+     totalIncome: parseFloat(((typ==="income") ? Number(amount): 0).toFixed(2)),
+     totalOutcome: parseFloat(((typ==="outcome") ? Number(amount): 0).toFixed(2)),
      MDLstatement: parseFloat(document.getElementById('mdl').value) || 0,
      PLNstatement: parseFloat(document.getElementById('pln').value) || 0,
      EURstatement: parseFloat(document.getElementById('eur').value) || 0,
      USDstatement: parseFloat(document.getElementById('usd').value) || 0,
      balanceInUSD: parseFloat(document.getElementById('usdTotal').innerText) || 0,
      actualFinanceStatement: actU,
-     freedom: calculateSustainability(this.actualFinanceStatement, this.averageOutcome),
+     freedom: calculateSustainability(actU, gt),
      
      
    }
