@@ -89,6 +89,7 @@ function generateCalendar() {
         }
 
         // Add the actual days of the month
+        let nextSelect = false;
         for (let day = 1; day <= daysInMonth[index]; day++) {
             const dayElement = document.createElement("div");
             dayElement.classList.add("day");
@@ -110,10 +111,18 @@ function generateCalendar() {
                 dayElement.classList.add("passed")
             }
             dayElement.addEventListener("click", () => {
-                
+
+                if (clearChosen) {
+                    
+                     clearTheBorders();
+
+                    clearChosen = false; 
+                }
+             
                 dayElement.classList.toggle("selected");
                 if (chooseDate) {
-                    We.choosePeriod(chosenDateBegining , `${date}`.slice(4,10))
+                    clearChosen = true;
+                     We.choosePeriod(chosenDateBegining , `${date}`.slice(4,10))
                     dayElements.forEach(element => {
                         if (element.id === chosenDateBegining) {
                             chosenStart = true;
@@ -147,11 +156,19 @@ function generateCalendar() {
                     chosenDateBegining = `${date}`.slice(4,10);
                 }
                 chooseDate = !chooseDate;
+               
+                
+                
             });
             daysContainer.appendChild(dayElement);
             dayElements.push(dayElement); // Store the day element
         }
-
+        function clearTheBorders() {
+            LifeData = JSON.parse(localStorage.getItem("LIFE"));
+            dayElements.forEach(element => {
+                element.classList.remove("selected")
+            });
+        }
         // Ensure that the remaining empty cells fill the grid to make 7 rows
         const remainingDays = 7 - (daysInMonth[index] + firstDay) % 7;
         for (let i = 0; i < remainingDays && remainingDays !== 7; i++) {

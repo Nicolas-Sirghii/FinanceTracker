@@ -5,6 +5,7 @@ let bankAccountNumber = 600;
 let selectedCurrency = null;
 let targetAmount= '';
 let chooseDate = false;
+let clearChosen = false;
 let chosenDateBegining = '';
 let chosenStart = false;
 let startLife = false;

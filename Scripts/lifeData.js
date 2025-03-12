@@ -38,17 +38,26 @@ function formatDate(dateString) {
   const day = String(date.getDate()).padStart(2, '0');
   return `${month} ${day}`;
 }
+function formatDate2(dateString) {
+  const date = new Date(dateString);
+  // Increment the date by 1 day
+  date.setDate(date.getDate() + 1);
+  const options = { month: 'short', day: 'numeric' };
+  return date.toLocaleDateString('en-US', options);
+}
+
+
+
 
  const lastElem = LifeData[LifeData.length -1];
  const firsElem = LifeData[0];
  let perioudFrom = formatDate(firsElem.date);
  let perioudTo = formatDate(lastElem.date);
+ let yetToBe = formatDate2(lastElem.date)
  const exchange = JSON.parse(localStorage.getItem("exchange")) || [0.92 , 18 , 3.87];
  const EUR = exchange[0];
  const MDL = exchange[1];
  const PLN = exchange[2];
-
-
 
 let graphLables = [];
 let averageIncomeArray = [];
@@ -104,7 +113,7 @@ function forEachData() {
     });
     
 };
-forEachData();
+
 
 
 console.log('....MainScript...')
@@ -112,3 +121,4 @@ console.log(LifeData)
 console.log('.................')
 
 
+document.getElementById('actualMoney').innerText = `${lastElem.actualFinanceStatement} USD`

@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="Styles/ChartsStyles.css">
   <link rel="stylesheet" href="Styles/mobileStyles.css">
   <link rel="stylesheet" href="Styles/MonthDaysStyles.css">
+  <link rel="stylesheet" href="Styles/finalStyles.css">
   
 
 
@@ -197,44 +198,55 @@
 
 <div id="MainInformationContainer">
   <div id="infomationBoard">
+    
     <div id="totalResults">
-      <div class="totals">Total<p id="usdTotal"></p></div>
-      <div class="totals">Total <p id="eurTotal"></p></div>
-      <div class="totals">Total <p id="mdlTotal"></p></div>
-      <div class="totals">Total <p id="plnTotal"></p></div>
+      <div class="totals" id="actualMoney">Actual money</div>
+      <p class="totals" id="usdTotal"></p>
+      <p class="totals" id="eurTotal"></p>
+      <p class="totals" id="mdlTotal"></p>
+      <p class="totals" id="plnTotal"></p>
     </div>
   <div id="exchangeRates">
-    <div class="totals">USD/EUR
+    <div class="ExchangeWraper">
+      <div class="totals" id="usd-eur"></div>
       <input class="bankInput" type="number" id="usdToEur" oninput="We.calculateBankTotal()" >
-    </div>
-    <div class="totals">USD/MDL
-    <input class="bankInput" type="number" id="usdToMdl" oninput="We.calculateBankTotal()" >
-    </div>
+  </div>
 
-    <div class="totals">USD/PLN
+  <div class="ExchangeWraper">
+    <div class="totals" id="usd-mdl"></div>
+    <input class="bankInput" type="number" id="usdToMdl" oninput="We.calculateBankTotal()" >
+  </div>
+    
+   <div class="ExchangeWraper">
+    <div class="totals" id="usd-pln"></div>
     <input class="bankInput" type="number" id="usdToPln" oninput="We.calculateBankTotal()">
-    </div>
+   </div>
+    
   </div>
   <div id="bankAccounts">
-    <div class="totals"> USD balance:
+    <div class="balance-contaier">
+      <div id="usd-bank-curency"></div>
       <input class="bankInput" type="number" id="usd" placeholder="Enter USD balance" required
-      oninput="We.calculateBankTotal()"
-      >
+      oninput="We.calculateBankTotal()">
+      <div class="mobias"></div>
     </div>
-      <div class="totals">EUR balance:
+      <div class="balance-contaier">
+        <div id="eur-bank-curency"></div>
         <input class="bankInput" type="number" id="eur" placeholder="Enter EUR balance" required
-        oninput="We.calculateBankTotal()"
-        > 
+        oninput="We.calculateBankTotal()"> 
+        <div class="mobias"></div>
       </div>
-      <div class="totals">MDL balance:
+      <div class="balance-contaier">
+        <div id="mdl-bank-curency"></div>
         <input class="bankInput" type="number" id="mdl" placeholder="Enter MDL balance" required
-        oninput="We.calculateBankTotal()"
-        >
+        oninput="We.calculateBankTotal()">
+        <div class="Victoria"></div>
       </div>
-      <div class="totals">PLN balance:
+      <div class="balance-contaier">
+        <div id="pln-bank-curency"></div>
         <input class="bankInput" type="number" id="pln" placeholder="Enter PLN balance" required
-        oninput="We.calculateBankTotal()"
-        >
+        oninput="We.calculateBankTotal()">
+        <div class="pko"></div>
       </div>
   </div>
   <button onclick="We.openChart('linearContainer', 'incomeVSoutcome')">Open Chart</button>

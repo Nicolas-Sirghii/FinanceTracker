@@ -483,8 +483,15 @@ choosePeriod(from , to){
    perioudTo = formatDate(LifeData[LifeData.length -1].date);
 console.log("lifeData")
 console.log(LifeData)
+
+forEachData();
   
   We.highlightDays();
+  lineChart.data.labels = graphLables;
+  lineChart.data.datasets[0].data = totalIncomeArray;
+  lineChart.data.datasets[1].data = totalOutcomeArray;
+  lineChart.update();
+ 
 },
 highlightDays() {
   const input = LifeData[LifeData.length -1].freedom;
@@ -492,38 +499,45 @@ highlightDays() {
   const endDate = new Date(today);
   const t = (input <= 0)  ? (0) : (input-1);
   endDate.setDate(today.getDate() + t); // Calculate the end date (today + input days)
-  // Clear previous highlights
-  dayElements.forEach(dayElement => {
-      dayElement.classList.remove("highlight");
-      // console.log(dayElement.id)
-  });
-  // Highlight days within the range
+
+  const tod = new Date(today);
+  const i = (input <= 0)  ? (0) : (1);
+  tod.setDate(today.getDate() + i); 
 
   let start = false;
   let secondLoop = false;
+  let overdo = false;
   dayElements.forEach(dayElement => {
-
-      if (`${today}`.slice(4,10) === dayElement.id) {
-          dayElement.classList.add("highlight");
-          start = true;
+    if (dayElement.id === yetToBe) {
+      overdo = true;
+    }
+    if (dayElement.id === `${tod}`.slice(4,10)) {
+      overdo = false;
+    }
+    if (overdo) {
+      if (perioudTo !== `${tod}`.slice(4,10)) {
+        dayElement.classList.add("toBeDone")
       }
+    }
+
+      if (`${tod}`.slice(4,10) === dayElement.id) {
+          start = true;
+        }
       if (start) {
           dayElement.classList.add("highlight"); // Add the highlight class 
       }
-
       if (`${endDate}`.slice(4,10) === dayElement.id) {
           start = false;
       }
       
       if (dayElement.id === 'Dec 31' && start) {
-          console.log('we need second loop')
           secondLoop = true;
       }
   });
   if (secondLoop) {
        dayElements.forEach(dayElement => {
 
-      if (`${today}`.slice(4,10) === dayElement.id) {
+      if (`${tod}`.slice(4,10) === dayElement.id) {
           dayElement.classList.add("highlight");
       }
       if (start) {
