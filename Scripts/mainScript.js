@@ -28,14 +28,14 @@ function calculateSustainability(balance, averageOutcomePerDay) {
       month: 'long',
       year: 'numeric'
   });
+  
+  // console.log(`You can sustain living for ${daysSustain} days, from ${startFormatted}, until ${endFormatted}.`)
 
   return daysSustain
-
-  // Print the message
-  // console.log(`You can sustain living for ${daysSustain} days, from ${startFormatted}, until ${endFormatted}.`);
+ 
+  
 }
 
-// Example usage:
-calculateSustainability(200, 20);  // For $200 and $20 daily expenses
+
 
 

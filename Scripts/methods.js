@@ -487,10 +487,8 @@ console.log(LifeData)
 forEachData();
   
   We.highlightDays();
-  lineChart.data.labels = graphLables;
-  lineChart.data.datasets[0].data = totalIncomeArray;
-  lineChart.data.datasets[1].data = totalOutcomeArray;
-  lineChart.update();
+
+  We.openChart(actualChartId, actualChartType)
  
 },
 highlightDays() {
@@ -552,8 +550,15 @@ highlightDays() {
   }
 },
 openChart(id , typ){
-document.getElementById(id).style.display = "block";
+actualChartId = id;
+actualChartType = typ;
+if (id) {
+  document.getElementById(id).style.display = "block";
 forEachData();
+const greenState = document.getElementById("graphLast");
+const greenCalculate = document.getElementById("GraphLastOperation");
+const redState = document.getElementById("graphLast2");
+const redCalculate = document.getElementById("GraphLastOperation2");
 
 if (typ === "incomeVSoutcome") {
   lineChart.data.labels = graphLables;
@@ -562,13 +567,164 @@ lineChart.data.datasets[1].data = totalOutcomeArray;
 lineChart.update();
 } else if (typ === "average"){
   lineChart.data.labels = graphLables;
-  lineChart.data.datasets[0].data = averageOutcomeArray;
-  lineChart.data.datasets[1].data = averageIncomeArray;
+  lineChart.data.datasets[0].data = averageIncomeArray;
+  lineChart.data.datasets[1].data = averageOutcomeArray;
+
+
+  const a = (averageIncomeArray[averageIncomeArray.length -1] - averageIncomeArray[averageIncomeArray.length -2]);
+  const b = (averageOutcomeArray[averageOutcomeArray.length -1] - averageOutcomeArray[averageOutcomeArray.length -2]);
+
+  greenState.innerText = averageIncomeArray[averageIncomeArray.length -1];
+  greenCalculate.innerText = a > 0 ? `+${a.toFixed(2)}` : a.toFixed(2);
+  greenCalculate.style.color = a > 0 ? "green" : "red";
+
+  redState.innerText = averageOutcomeArray[averageOutcomeArray.length -1];
+  redCalculate.innerText = b > 0 ? `+${b.toFixed(2)}` : b.toFixed(2);
+  redCalculate.style.color = b > 0 ? "red" : "green";
+
+  redState.style.display = "block";
+  redCalculate.style.display = "block";
+
+
+
   lineChart.update();
+}else if (typ === 'actualVSbalance'){
+  lineChart.data.labels = graphLables;
+  lineChart.data.datasets[0].data = actual_statement;
+  lineChart.data.datasets[1].data = balance_usd;
+
+  
+  const a = (actual_statement[actual_statement.length -1] - actual_statement[actual_statement.length -2]);
+  const b = (balance_usd[balance_usd.length -1] - balance_usd[balance_usd.length -2]);
+  
+
+  greenState.innerText = actual_statement[actual_statement.length -1];
+  greenCalculate.innerText = a > 0 ? `+${a.toFixed(2)}` : a.toFixed(2);
+  greenCalculate.style.color = a > 0 ? "green" : "red";
+
+  redState.innerText = balance_usd[balance_usd.length -1];
+  redCalculate.innerText = b > 0 ? `+${b.toFixed(2)}` : b.toFixed(2);
+  redCalculate.style.color = b > 0 ? "green" : "red";
+
+  redState.style.display = "block";
+  redCalculate.style.display = "block";
+
+  lineChart.update();
+}else if (typ === 'plnStatement'){
+  lineChart.data.labels = graphLables;
+  lineChart.data.datasets[0].data = pln_statement;
+  lineChart.data.datasets[1].data = [];
+
+  
+  greenState.innerText = pln_statement[pln_statement.length -1];
+  greenCalculate.innerText = (pln_statement[pln_statement.length -1] - pln_statement[pln_statement.length -2]).toFixed(2);
+  greenCalculate.style.color = Number(greenCalculate.innerText) > 0 ? "green" : "red";
+
+  redState.style.display = "none";
+  redCalculate.style.display = "none";
+  
+
+  lineChart.update();
+}else if (typ === 'mdlStatement'){
+  lineChart.data.labels = graphLables;
+  lineChart.data.datasets[0].data = mdl_statement;
+  lineChart.data.datasets[1].data = [];
+
+  greenState.innerText = mdl_statement[mdl_statement.length -1];
+  greenCalculate.innerText = (mdl_statement[mdl_statement.length -1] - mdl_statement[mdl_statement.length -2]).toFixed(2);
+  greenCalculate.style.color = Number(greenCalculate.innerText) > 0 ? "green" : "red";
+
+  redState.style.display = "none";
+  redCalculate.style.display = "none";
+
+  lineChart.update();
+}else if (typ === 'eruStatement'){
+  lineChart.data.labels = graphLables;
+  lineChart.data.datasets[0].data = eur_statement;
+  lineChart.data.datasets[1].data = [];
+
+  greenState.innerText = eur_statement[eur_statement.length -1];
+  greenCalculate.innerText = (eur_statement[eur_statement.length -1] - eur_statement[eur_statement.length -2]).toFixed(2);
+  greenCalculate.style.color = Number(greenCalculate.innerText) > 0 ? "green" : "red";
+
+  redState.style.display = "none";
+  redCalculate.style.display = "none";
+  lineChart.update();
+}else if (typ === 'usdStatement'){
+  lineChart.data.labels = graphLables;
+  lineChart.data.datasets[0].data = usd_statement;
+  lineChart.data.datasets[1].data = [];
+
+  greenState.innerText = usd_statement[usd_statement.length -1];
+
+  const b = (usd_statement[usd_statement.length -1] - usd_statement[usd_statement.length -2]);
+  greenCalculate.innerText = b > 0 ? `+${b.toFixed(2)}` : b.toFixed(2);
+
+
+  greenCalculate.style.color = Number(b) > 0 ? "green" : "red";
+
+  redState.style.display = "none";
+  redCalculate.style.display = "none";
+  lineChart.update();
+}else if (typ === 'freedome'){
+  lineChart.data.labels = graphLables;
+  lineChart.data.datasets[0].data = free;
+  lineChart.data.datasets[1].data = [];
+
+  const b = (free[free.length -1] - free[free.length -2]);
+
+  greenState.innerText = free[free.length -1];
+  greenCalculate.innerText = b > 0 ? `+${b}` :b;
+  greenCalculate.style.color = Number(b) > 0 ? "green" : "red";
+
+
+  redState.style.display = "none";
+  redCalculate.style.display = "none";
+  lineChart.update();
+}else if (typ === 'hours'){
+  lineChart.data.labels = graphLables;
+  lineChart.data.datasets[0].data = HoursOfWork;
+  lineChart.data.datasets[1].data = [];
+
+  const b = (HoursOfWork[HoursOfWork.length -1] - HoursOfWork[HoursOfWork.length -2]);
+
+  greenState.innerText = totalHoursOf;
+  greenCalculate.innerText = b > 0 ? `+${b}` :b;
+  greenCalculate.style.color = Number(b) > 0 ? "green" : "red";
+
+
+  redState.style.display = "none";
+  redCalculate.style.display = "none";
+  lineChart.update();
+
+}
+
+  
 }
 
 
+
 },
+closeChart(id){
+  this.closePopup(id)
+  actualChartId = '';
+  const a = [
+    'actualMoney','usd-balance','eur-balance','mdl-balance','pln-balance','freedome2','averr2','hourrr2'
+  ]
+  a.forEach(element => {
+    document.getElementById(element).classList.remove('chosenGraph');
+  });
+},
+highlightChosen(id, secId, typ){
+const a = [
+  'actualMoney','usd-balance','eur-balance','mdl-balance','pln-balance'
+]
+a.forEach(element => {
+  document.getElementById(element).classList.remove('chosenGraph');
+});
+ document.getElementById(id).classList.add('chosenGraph');
+ We.openChart(secId, typ)
+}
 
 
 

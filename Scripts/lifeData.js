@@ -66,6 +66,16 @@ let averageOutcomeArray = [];
 let totalIncomeArray = [];
 let totalOutcomeArray = [];
 
+let pln_statement = [];
+let mdl_statement = [];
+let usd_statement = [];
+let eur_statement = [];
+let balance_usd = [];
+let actual_statement = [];
+let free = [];
+let HoursOfWork = [];
+let totalHoursOf = 0;
+
 let pieIncomeData = {};
 let pieOutcomeData = {};
 
@@ -81,6 +91,18 @@ function forEachData() {
     pieIncomeData = {};
     pieOutcomeData = {};
 
+    pln_statement = [];
+    mdl_statement = [];
+    usd_statement = [];
+    eur_statement = [];
+    balance_usd = [];
+    actual_statement = [];
+    free = [];
+    HoursOfWork = [];
+    totalHoursOf = 0;
+
+
+
 
 
     LifeData.forEach(element => {
@@ -90,6 +112,16 @@ function forEachData() {
     
         totalIncomeArray.push(element.totalIncome);
         totalOutcomeArray.push(element.totalOutcome);
+
+        pln_statement.push(element.PLNstatement);
+        mdl_statement.push(element.MDLstatement);
+        usd_statement.push(element.USDstatement);
+        eur_statement.push(element.EURstatement);
+        balance_usd.push(element.balanceInUSD);
+        actual_statement.push(element.actualFinanceStatement);
+        free.push(element.freedom);
+        HoursOfWork.push(element.workHours)
+        totalHoursOf += element.workHours
     
         Object.keys(element.income).forEach(key => {
             // If the key already exists in result, add the value to the existing value
@@ -113,6 +145,7 @@ function forEachData() {
     });
     
 };
+forEachData();
 
 
 

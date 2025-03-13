@@ -169,8 +169,11 @@
 <!--_______________________________________________________________________________-->
 <!--_______________________________________________________________________________-->
 <!--_______________________________________________________________________________-->
-<div class="linearContainer" id="linearContainer" ondblclick="We.closePopup('linearContainer')">
-  <h2>Expence vs Income Chart</h2>
+<div class="linearContainer" id="linearContainer" ondblclick="We.closeChart('linearContainer')">
+  <p id="graphLast">145</p>
+  <p id="GraphLastOperation">+2</p>
+  <p id="graphLast2">234</p>
+  <p id="GraphLastOperation2">+4</p>
   <canvas id="lineChart" width="100" height=" 50"></canvas>
 </div>
 <!--_______________________________________________________________________________-->
@@ -200,11 +203,11 @@
   <div id="infomationBoard">
     
     <div id="totalResults">
-      <div class="totals" id="actualMoney">Actual money</div>
-      <p class="totals" id="usdTotal"></p>
-      <p class="totals" id="eurTotal"></p>
-      <p class="totals" id="mdlTotal"></p>
-      <p class="totals" id="plnTotal"></p>
+      <div class="totals" id="actualMoney" onclick="We.highlightChosen('actualMoney','linearContainer', 'actualVSbalance')"></div>
+      <p class="totals" id="usdTotal" ></p>
+      <p class="totals" id="eurTotal" ></p>
+      <p class="totals" id="mdlTotal" ></p>
+      <p class="totals" id="plnTotal" ></p>
     </div>
   <div id="exchangeRates">
     <div class="ExchangeWraper">
@@ -224,33 +227,53 @@
     
   </div>
   <div id="bankAccounts">
-    <div class="balance-contaier">
-      <div id="usd-bank-curency"></div>
+    <div class="balance-contaier" id="usd-balance">
+      <div id="usd-bank-curency" onclick="We.highlightChosen('usd-balance','linearContainer', 'usdStatement')"></div>
       <input class="bankInput" type="number" id="usd" placeholder="Enter USD balance" required
       oninput="We.calculateBankTotal()">
       <div class="mobias"></div>
     </div>
-      <div class="balance-contaier">
-        <div id="eur-bank-curency"></div>
+      <div class="balance-contaier" id="eur-balance">
+        <div id="eur-bank-curency" onclick="We.highlightChosen('eur-balance','linearContainer', 'eruStatement')"></div>
         <input class="bankInput" type="number" id="eur" placeholder="Enter EUR balance" required
         oninput="We.calculateBankTotal()"> 
         <div class="mobias"></div>
       </div>
-      <div class="balance-contaier">
-        <div id="mdl-bank-curency"></div>
+      <div class="balance-contaier" id="mdl-balance">
+        <div id="mdl-bank-curency" onclick="We.highlightChosen('mdl-balance','linearContainer', 'mdlStatement')"></div>
         <input class="bankInput" type="number" id="mdl" placeholder="Enter MDL balance" required
         oninput="We.calculateBankTotal()">
         <div class="Victoria"></div>
       </div>
-      <div class="balance-contaier">
-        <div id="pln-bank-curency"></div>
+      <div class="balance-contaier" id="pln-balance">
+        <div id="pln-bank-curency" onclick="We.highlightChosen('pln-balance','linearContainer', 'plnStatement')"></div>
         <input class="bankInput" type="number" id="pln" placeholder="Enter PLN balance" required
         oninput="We.calculateBankTotal()">
         <div class="pko"></div>
       </div>
   </div>
-  <button onclick="We.openChart('linearContainer', 'incomeVSoutcome')">Open Chart</button>
-  <button onclick="We.openChart('linearContainer', 'average')">average</button>
+  <div id="graphButtons">
+    <button id="freedome2" onclick="We.highlightChosen('freedome2','linearContainer', 'freedome')">Freedom</button>
+    <button>Perioud Freedom</button>
+    <button id="averr2" onclick="We.highlightChosen('averr2','linearContainer', 'average')">Total Average</button>
+    <button>Perioud Average</button>
+    <button>Expences</button>
+    <button>Income</button>
+    <button id="hourrr2" onclick="We.highlightChosen('hourrr2','linearContainer', 'hours')">Work Hours</button>
+
+  </div>
+  <div id="dayList">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+
   </div>
 <!-- Input for the number of days -->
 <div class="container" id="calendar"></div>

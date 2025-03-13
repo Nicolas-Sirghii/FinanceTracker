@@ -185,3 +185,6 @@ function generateCalendar() {
 
 // Generate the calendar when the page loads
 window.onload = generateCalendar;
+
+
+console.log(lifeMessage)

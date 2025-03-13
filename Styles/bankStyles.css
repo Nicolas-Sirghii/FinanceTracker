@@ -30,3 +30,23 @@ label {
     display: flex;
     align-items: center;
 }
+
+.chosenGraph{
+    scale: 1.1;
+    box-shadow: 0px 0px 20px 5px rgba(0, 255, 255, 0.6); /* Glowing cyan shadow */
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.glowing-box {
+    width: 200px;
+    height: 200px;
+    background-color: #3498db;
+    box-shadow: 0px 0px 20px 5px rgba(0, 255, 255, 0.6); /* Glowing cyan shadow */
+    margin: 50px;
+    transition: box-shadow 0.3s ease-in-out;
+  }
+
+  .glowing-box:hover {
+    box-shadow: 0px 0px 30px 10px rgba(0, 255, 255, 0.9); /* Glow effect on hover */
+  }
+  

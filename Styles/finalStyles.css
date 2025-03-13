@@ -48,6 +48,9 @@ top: 0;
     align-items: center;
 
 }
+.balance-contaier:hover {
+    box-shadow: 0px 0px 30px 10px rgba(0, 255, 255, 0.9); /* Glow effect on hover */
+  }
 
 #usd-bank-curency{
     background-image: url(https://us.123rf.com/450wm/eugenebsov/eugenebsov2311/eugenebsov231100045/217615166-gold-dollar-vconcept-of-web-internet-currency-dollar-medal.jpg?ver=6);
@@ -120,3 +123,50 @@ top: 0;
     color: rgb(0, 115, 128);
     font-weight: 900;
 }
+#actualMoney:hover {
+    box-shadow: 0px 0px 30px 10px rgba(0, 255, 255, 0.9); /* Glow effect on hover */
+  }
+  #graphButtons{
+    position: absolute;
+    right: 315px;
+    width: 200px;
+    height: 385px;
+  }
+  #graphLast{
+    color: green;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+  #GraphLastOperation{
+    color: white;
+    position: absolute;
+    top: 40px;
+    right: 10px;
+  
+  }
+  #graphLast2{
+    color:red;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+  }
+  #GraphLastOperation2{
+    color: white;
+    position: absolute;
+    bottom: 40px;
+    right: 10px;
+  
+  }
+  #dayList{
+    width: 800px;
+    height: 385px;
+    border: 1px solid red;
+    overflow: auto;
+  }
+  #dayList div{
+    margin-top: 10px;
+    width: 100%;
+    height: 45px;
+    background-color: grey;
+  }

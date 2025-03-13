@@ -12,6 +12,10 @@ let startLife = false;
 let chooseSecondLoop = false;
 let amountTobeAdded = 0;
 let chosenButton = ''
+let actualChartId = '';
+let actualChartType = '';
+let lifeMessage = '';
+
 
 
 

@@ -97,8 +97,10 @@ function open2(id,dis,amo,tit,spa){
  let listArray = [];
  if (nam === 'incomeName') {
     listArray = Object.keys(pieIncomeData);
+   
  } else {
     listArray = Object.keys(pieOutcomeData);
+  
  }
  const listOptionsArray = listArray;
  const listOptionsContainer = document.getElementById('list-options');
