@@ -2,7 +2,13 @@
 let dateToday = new Date();
  const todaySDate = dateToday.toISOString().split('T')[0];
  
- 
+ function getShortDayOfWeek() {
+  const today = new Date();
+  const shortDaysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  const dayOfWeek = today.getDay(); // Get the day as a number (0-6)
+  return shortDaysOfWeek[dayOfWeek]; // Return the corresponding shortened day name
+}
+
 let LifeData = JSON.parse(localStorage.getItem('LIFE')) || [
     {
         "countNumber": 1,
@@ -25,8 +31,10 @@ let LifeData = JSON.parse(localStorage.getItem('LIFE')) || [
         USDstatement: parseFloat(document.getElementById('usd').value) || 0,
         balanceInUSD: parseFloat(document.getElementById('usdTotal').value) || 0,
         actualFinanceStatement: parseFloat(document.getElementById('usdTotal').value) || 0,
+        weekDay: getShortDayOfWeek()
     }
 ]
+
 
 
 

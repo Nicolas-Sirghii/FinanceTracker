@@ -25,8 +25,8 @@
 .linearContainer{
   position: absolute;
   left: 5px;
-  height: 70vh;
-  width: 70vw;
+  height: 530px;
+  width:1000px;
   top: 5px;
   background-color: rgb(220, 205, 255);
   display: none;

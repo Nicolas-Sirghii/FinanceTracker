@@ -162,6 +162,7 @@ if (dateToday.toISOString().split('T')[0] === date) {
   lastObject.balanceInUSD = parseFloat(document.getElementById('usdTotal').innerText) || 0;
   lastObject.actualFinanceStatement = actU;
   lastObject.freedom = calculateSustainability(lastObject.actualFinanceStatement, lastObject.averageOutcome);
+
    
 
     
@@ -178,6 +179,7 @@ if (dateToday.toISOString().split('T')[0] === date) {
   let theObj = {
     countNumber : coutDay ,
      date: dateToday.toISOString().split('T')[0],
+     weekDay: getShortDayOfWeek(),
      income: {},
      outcome: {},
      workHours: Number(document.getElementById('workedHours').value) || 0,
@@ -724,7 +726,44 @@ a.forEach(element => {
 });
  document.getElementById(id).classList.add('chosenGraph');
  We.openChart(secId, typ)
+},
+unveilTheDay(element){
+  We.openPopup('dayPopup','flex');
+  const container = document.getElementById('dayPopup');
+
+    const data = element;
+  
+    // Populate the general financial information
+    document.getElementById("date").textContent = data.date;
+    document.getElementById("weekday").textContent = data.weekDay;
+    document.getElementById("countNumber").textContent = data.countNumber;
+    document.getElementById("workHours").textContent = `${data.workHours} hrs`;
+    document.getElementById("ratePerHour").textContent = `${data.ratePerHour}`;
+    document.getElementById("totalIncome").textContent = `$${data.totalIncome}`;
+    document.getElementById("totalOutcome").textContent = `$${data.totalOutcome}`;
+    document.getElementById("allTimeIncome").textContent = `$${data.allTimeIncome}`;
+    document.getElementById("allTimeOutcome").textContent = `$${data.allTimeOutcome}`;
+    document.getElementById("balanceInUSD").textContent = `$${data.balanceInUSD}`;
+    document.getElementById("actualFinanceStatement").textContent = `$${data.actualFinanceStatement}`;
+    document.getElementById("freedom").textContent = `${data.freedom} Days`;
+
+   
+    // Dynamically populate the expenses section with a forEach loop
+    const expensesContainer = document.getElementById("expenses");
+    expensesContainer.innerHTML= '';
+    Object.entries(data.outcome).forEach(([expense, amount]) => {
+        const expenseDiv = document.createElement("div");
+        expenseDiv.style.fontSize = "13px"
+        expenseDiv.innerHTML = `<span>${expense}:</span><span>${amount}$ ${(amount*EUR).toFixed(2)} EUR ${(amount*PLN).toFixed(2)} PLN ${(amount*MDL).toFixed(2)} MDL</span>`;
+        expensesContainer.appendChild(expenseDiv);
+    });
+
+  
+  
+
+
 }
+
 
 
 

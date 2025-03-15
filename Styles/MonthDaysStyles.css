@@ -16,9 +16,11 @@
 #MainInformationContainer{
     position: relative;
     padding: 0;
-    width: 98vw;
-    height: 79vh;
+    width: 1500px;
+    height: 580px;
     border: 1px solid green;
+    position: absolute;
+    left: 0;
 }
 #infomationBoard{
     position: relative;

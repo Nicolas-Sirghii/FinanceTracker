@@ -138,16 +138,16 @@ const ExistingOptions = document.getElementById('ExistingOptions');
 
 
 
-if (window.innerWidth < 800) {
+// if (window.innerWidth < 800) {
 
-  GoalPopup.classList.add('mobGoalPopup');
-  incomePopup.classList.add('mobIncomePopup');
-  linearContainer.classList.add('mobLinearContainer');
-  NewExpencePopup.classList.add('mobNewEspencesPopup');
-  expencePieContainer.classList.add("mobExpencePieContainer");
-  twoCharts.classList.add('mobTwoCharts');
+//   GoalPopup.classList.add('mobGoalPopup');
+//   incomePopup.classList.add('mobIncomePopup');
+//   linearContainer.classList.add('mobLinearContainer');
+//   NewExpencePopup.classList.add('mobNewEspencesPopup');
+//   expencePieContainer.classList.add("mobExpencePieContainer");
+//   twoCharts.classList.add('mobTwoCharts');
   
-}
+// }
 
 
 

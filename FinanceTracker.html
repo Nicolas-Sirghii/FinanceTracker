@@ -18,6 +18,37 @@
 
 
 </head>
+<div class="popup" id="dayPopup">
+  <div class="popup-content">
+      <div><span>Date:</span><span id="date"></span></div>
+      <div><span>Weekday:</span><span id="weekday"></span></div>
+      <div><span>Count Number:</span><span id="countNumber"></span></div>
+      <div><span>Work Hours:</span><span id="workHours"></span></div>
+      <div><span>Rate Per Hour:</span><span id="ratePerHour"></span></div>
+      
+      <div><span>Total Income:</span><span id="totalIncome"></span></div>
+      <div><span>Total Outcome:</span><span id="totalOutcome"></span></div>
+
+      <div><span>All-Time Income:</span><span id="allTimeIncome"></span></div>
+      <div><span>All-Time Outcome:</span><span id="allTimeOutcome"></span></div>
+
+      <div><span>Balance in USD:</span><span id="balanceInUSD"></span></div>
+      <div><span>Actual Finance Statement:</span><span id="actualFinanceStatement"></span></div>
+
+      <div><span>Freedom:</span><span id="freedom"></span></div>
+  </div>
+
+  <!-- Expense Section -->
+  <div class="expense-section">
+      <div class="expenses" id="expenses">
+          <!-- Expenses will be populated here -->
+      </div>
+  </div>
+
+  <div class="popup-footer">
+      <button class="popup-close" onclick="We.closePopup('dayPopup')">Close</button>
+  </div>
+</div>
 <!--_______________________________________________________________________________-->
 <!--___________________________________    LIST    ________________________________-->
 <!--_______________________________________________________________________________-->
@@ -154,6 +185,9 @@
 <!--____________________________________________________________________________------------------------------------___-->
 <header class="header" id="header">
   <div class="veryTop" id="veryTop" onclick="We.showGoalStatus()">
+    <button onclick="ClearLocalStorage()">Clear</button>
+    <button onclick="copyObject()">Copy</button>
+    <input type="text" id="dataInput" oninput="pasteAndLogClipboardData()">
     <button class="ExpenseButton" id="ExpenseButton" onclick="open2('expencePopup','flex','expenceAmount','expTitle','expCurrSpan')">Expese</button>
     <button class="IncomeButton" id="IncomeButton" onclick="open2('incomePopup','flex','incomeAmount','incTitle','incCurrSpan')">Income</button>
     <button onclick="We.storeData()">Save</button>
@@ -263,15 +297,7 @@
 
   </div>
   <div id="dayList">
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
+   
   </div>
 
   </div>

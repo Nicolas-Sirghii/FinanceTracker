@@ -79,7 +79,7 @@ function generateCalendar() {
         });
 
         // Get the first day of the month (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
-        const firstDay = new Date(2023, index, 1).getDay();
+        const firstDay = new Date(2025, index, 1).getDay();
 
         // Add empty spaces before the first day of the month
         for (let i = 0; i < firstDay; i++) {
