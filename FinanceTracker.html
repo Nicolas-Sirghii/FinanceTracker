@@ -214,20 +214,8 @@
 <!--___________________________________   CHARTS   ________________________________-->
 <!--_______________________________________________________________________________-->
 
-<div class="expencePieContainer" id="expencePieContainer">
-   <div class="twoCharts" id="twoCharts">
-    <!--_______________________________________________________________________________-->
-    <div class="expencePieWrapper" id="expencePieWrapper">
-      <h2>Expences</h2>
+<div class="expencePieContainer" id="expencePieContainer" ondblclick="We.closeChart('expencePieContainer')">
       <canvas id="expensePieChart" ></canvas>
-    </div>
-    <!--_______________________________________________________________________________-->
-    <div class="incomePieWrapper" id="incomePieWrapper">
-      <h2>Income</h2>
-      <canvas id="incomePieChart"></canvas>
-    </div>
-    <!--_______________________________________________________________________________-->
-  </div>
 </div>
  <!--_______________________________________________________________________________-->
 <!--_________________________________  INFORMATION  ________________________________-->
@@ -288,12 +276,13 @@
   </div>
   <div id="graphButtons">
     <button id="freedome2" onclick="We.highlightChosen('freedome2','linearContainer', 'freedome')">Freedom</button>
-    <button>Perioud Freedom</button>
+    <button id="freedome3" onclick="We.highlightChosen('freedome3','linearContainer', 'perioudFreedome')">Perioud Freedom</button>
     <button id="averr2" onclick="We.highlightChosen('averr2','linearContainer', 'average')">Total Average</button>
-    <button>Perioud Average</button>
-    <button>Expences</button>
-    <button>Income</button>
+    <button id="averr3" onclick="We.highlightChosen('averr3','linearContainer', 'perioudAverage')">Perioud Average</button>
+    <button id="expence2" onclick="We.highlightChosen('expence2','expencePieContainer', 'expences')">Expences</button>
+    <button id="income2" onclick="We.highlightChosen('income2','expencePieContainer', 'income')">Income</button>
     <button id="hourrr2" onclick="We.highlightChosen('hourrr2','linearContainer', 'hours')">Work Hours</button>
+    <button id="expence/income2" onclick="We.highlightChosen('expence/income2','linearContainer', 'expence/income')">Expences/Income</button>
 
   </div>
   <div id="dayList">

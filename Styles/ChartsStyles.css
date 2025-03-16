@@ -2,11 +2,14 @@
 .expencePieContainer{
   
   position: absolute;
-  height: 50vh;
-  width: 50vw;
-  right: 0;
-  top: 105vh;
+  height: 540px;
+  width: 800px;
+  left: 5px;
+  top: 2px;
+  z-index: 3;
   display: none;
+  justify-content: space-around;
+  background-color: black;
  
 }
 

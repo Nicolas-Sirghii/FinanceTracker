@@ -38,18 +38,6 @@ const pieExpenceChart = new Chart(PieExpence,
           }, 
   }
 );
-const incomePieChart = new Chart(PieIncome, 
-  { type: 'pie',
-    data: {
-      labels: Object.keys(pieIncomeData),
-      datasets: [
-                  {
-                  data: Object.values(pieIncomeData),
-                  backgroundColor: ['red', 'blue', 'green', 'yellow', 'purple']
-                  }
-                ]
-          }, 
-  }
-);
+
 
 

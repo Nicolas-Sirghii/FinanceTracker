@@ -35,6 +35,8 @@ let LifeData = JSON.parse(localStorage.getItem('LIFE')) || [
     }
 ]
 
+let bankAccountNumber = LifeData[LifeData.length -1].actualFinanceStatement;
+
 
 
 
@@ -87,6 +89,10 @@ let totalHoursOf = 0;
 let pieIncomeData = {};
 let pieOutcomeData = {};
 
+let perioudFreedome = [];
+let perioudIncomeAverage = [];
+let perioudOutcomeAverage = [];
+
 function forEachData() {
 
     graphLables = [];
@@ -110,10 +116,29 @@ function forEachData() {
     totalHoursOf = 0;
 
 
+    perioudFreedome = [];
+    perioudIncomeAverage = [];
+    perioudOutcomeAverage = [];
+    
+    let countPerioudFreedome = 0;
+    let countFreedomeDays = 0;
+    let countIncome = 0;
+
 
 
 
     LifeData.forEach(element => {
+
+      countFreedomeDays ++;
+      countPerioudFreedome += element.totalOutcome;
+      countIncome += element.totalIncome;
+      const avInc = parseFloat((countIncome / countFreedomeDays).toFixed(2));
+      const avOut = parseFloat((countPerioudFreedome / countFreedomeDays).toFixed(2))
+      perioudOutcomeAverage.push(avOut)
+      perioudIncomeAverage.push(avInc)
+      perioudFreedome.push(Math.round(element.actualFinanceStatement/avOut))
+   
+
         graphLables.push(element.date)
         averageIncomeArray.push(element.averageIncome)
         averageOutcomeArray.push(element.averageOutcome)
@@ -157,9 +182,7 @@ forEachData();
 
 
 
-console.log('....MainScript...')
-console.log(LifeData)
-console.log('.................')
+
 
 
 document.getElementById('actualMoney').innerText = `${lastElem.actualFinanceStatement} USD`

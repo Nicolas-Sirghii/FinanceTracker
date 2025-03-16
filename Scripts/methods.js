@@ -327,15 +327,30 @@ loadGoalsFromStorage() {
     });
 },
 loadGoalItems(element) {
- 
+  let countIt = bankAccountNumber;
   element.forEach(item => {
-    We.createSpacificGoalItem(item.name, item.imageUrl , Number(item.amount));
+    countIt -=  Number(item.amount) ;
+    We.createSpacificGoalItem(item.name, item.imageUrl , Number(item.amount) , countIt);
   });
 },
-createSpacificGoalItem(name, imageUrl, amount ) {
+createSpacificGoalItem(name, imageUrl, amount , countIt ) {
+
+  
   let container = document.getElementById('goalElementContainer');
   let item = document.createElement('div');
   item.classList.add('item');
+  let inf = document.createElement('div');
+  inf.classList.add('acieving')
+
+  if (countIt >= 0) {
+    inf.innerText = "Achieved" 
+    inf.style.color = 'green'
+    inf.style.fontSize = "25px"
+  } else {
+    const a = Math.abs(countIt);
+    inf.innerText =`${We.calculateEstimateAchieving(a)}. You need  ${a.toFixed(2)}$ more!`  ; 
+    
+  }
   
   item.innerHTML = `
       <img src="${imageUrl}" alt="Image">
@@ -343,8 +358,10 @@ createSpacificGoalItem(name, imageUrl, amount ) {
           <h3>${name}</h3>
           <p>Amount: <span class="amount">${amount}</span></p>
       </div>
+    
       <div class="progress-bar"></div>
   `;
+  item.append(inf)
 
   item.addEventListener("click" , function go (){We.openUpdateSpacificGoal(name)} )
   
@@ -364,6 +381,7 @@ showSpacificsProgress (){
       
       progressBar.style.width = percentage + '%';
       count -= amount;
+      
   });
 },
 addSpacificGoal() {
@@ -483,8 +501,7 @@ choosePeriod(from , to){
 
    perioudFrom = formatDate(LifeData[0].date);
    perioudTo = formatDate(LifeData[LifeData.length -1].date);
-console.log("lifeData")
-console.log(LifeData)
+
 
 forEachData();
   
@@ -555,18 +572,31 @@ openChart(id , typ){
 actualChartId = id;
 actualChartType = typ;
 if (id) {
-  document.getElementById(id).style.display = "block";
+  document.getElementById(id).style.display = "flex";
 forEachData();
 const greenState = document.getElementById("graphLast");
 const greenCalculate = document.getElementById("GraphLastOperation");
 const redState = document.getElementById("graphLast2");
 const redCalculate = document.getElementById("GraphLastOperation2");
 
-if (typ === "incomeVSoutcome") {
+if (typ === "perioudFreedome") {
   lineChart.data.labels = graphLables;
-lineChart.data.datasets[0].data = totalIncomeArray;
-lineChart.data.datasets[1].data = totalOutcomeArray;
-lineChart.update();
+  lineChart.data.datasets[0].data = perioudFreedome;
+  lineChart.data.datasets[1].data = [];
+
+ 
+
+  const b = (perioudFreedome[perioudFreedome.length -1] - perioudFreedome[perioudFreedome.length -2]);
+
+  greenState.innerText = perioudFreedome[perioudFreedome.length -1];
+  greenCalculate.innerText = b > 0 ? `+${b}` :b;
+  greenCalculate.style.color = Number(b) > 0 ? "green" : "red";
+
+
+  redState.style.display = "none";
+  redCalculate.style.display = "none";
+  document.getElementById('expencePieContainer').style.display = "none"
+  lineChart.update();
 } else if (typ === "average"){
   lineChart.data.labels = graphLables;
   lineChart.data.datasets[0].data = averageIncomeArray;
@@ -587,7 +617,7 @@ lineChart.update();
   redState.style.display = "block";
   redCalculate.style.display = "block";
 
-
+document.getElementById('expencePieContainer').style.display = "none"
 
   lineChart.update();
 }else if (typ === 'actualVSbalance'){
@@ -610,7 +640,7 @@ lineChart.update();
 
   redState.style.display = "block";
   redCalculate.style.display = "block";
-
+  document.getElementById('expencePieContainer').style.display = "none"
   lineChart.update();
 }else if (typ === 'plnStatement'){
   lineChart.data.labels = graphLables;
@@ -625,7 +655,7 @@ lineChart.update();
   redState.style.display = "none";
   redCalculate.style.display = "none";
   
-
+document.getElementById('expencePieContainer').style.display = "none"
   lineChart.update();
 }else if (typ === 'mdlStatement'){
   lineChart.data.labels = graphLables;
@@ -638,6 +668,7 @@ lineChart.update();
 
   redState.style.display = "none";
   redCalculate.style.display = "none";
+  document.getElementById('expencePieContainer').style.display = "none"
 
   lineChart.update();
 }else if (typ === 'eruStatement'){
@@ -651,6 +682,7 @@ lineChart.update();
 
   redState.style.display = "none";
   redCalculate.style.display = "none";
+  document.getElementById('expencePieContainer').style.display = "none"
   lineChart.update();
 }else if (typ === 'usdStatement'){
   lineChart.data.labels = graphLables;
@@ -667,6 +699,7 @@ lineChart.update();
 
   redState.style.display = "none";
   redCalculate.style.display = "none";
+  document.getElementById('expencePieContainer').style.display = "none"
   lineChart.update();
 }else if (typ === 'freedome'){
   lineChart.data.labels = graphLables;
@@ -682,6 +715,7 @@ lineChart.update();
 
   redState.style.display = "none";
   redCalculate.style.display = "none";
+  document.getElementById('expencePieContainer').style.display = "none"
   lineChart.update();
 }else if (typ === 'hours'){
   lineChart.data.labels = graphLables;
@@ -697,10 +731,67 @@ lineChart.update();
 
   redState.style.display = "none";
   redCalculate.style.display = "none";
+  document.getElementById('expencePieContainer').style.display = "none"
   lineChart.update();
 
-}
+}else if (typ === 'expences'){
+  pieExpenceChart.data.labels = Object.keys(pieOutcomeData);
+  pieExpenceChart.data.datasets[0].data = Object.values(pieOutcomeData);
+ 
+document.getElementById('linearContainer').style.display = "none"
+  pieExpenceChart.update();
+}else if (typ === 'income'){
+  pieExpenceChart.data.labels = Object.keys(pieIncomeData);
+  pieExpenceChart.data.datasets[0].data = Object.values(pieIncomeData);
+ 
+document.getElementById('linearContainer').style.display = "none"
+  pieExpenceChart.update();
+}else if(typ === 'expence/income') {
+  lineChart.data.labels = graphLables;
+  lineChart.data.datasets[0].data = totalIncomeArray;
+  lineChart.data.datasets[1].data = totalOutcomeArray;
 
+  const a = (totalIncomeArray[totalIncomeArray.length -1] - totalIncomeArray[totalIncomeArray.length -2]);
+  const b = (totalOutcomeArray[totalOutcomeArray.length -1] - totalOutcomeArray[totalOutcomeArray.length -2]);
+  
+
+  greenState.innerText = totalIncomeArray[totalIncomeArray.length -1];
+  greenCalculate.innerText = a > 0 ? `+${a.toFixed(2)}` : a.toFixed(2);
+  greenCalculate.style.color = a > 0 ? "green" : "red";
+
+  redState.innerText = totalOutcomeArray[totalOutcomeArray.length -1];
+  redCalculate.innerText = b > 0 ? `+${b.toFixed(2)}` : b.toFixed(2);
+  redCalculate.style.color = b > 0 ? "red" : "green";
+
+  redState.style.display = "block";
+  redCalculate.style.display = "block";
+  document.getElementById('expencePieContainer').style.display = "none"
+  lineChart.update();
+}else if (typ === 'perioudAverage'){
+  lineChart.data.labels = graphLables;
+  lineChart.data.datasets[0].data = perioudIncomeAverage;
+  lineChart.data.datasets[1].data = perioudOutcomeAverage;
+
+
+  const a = (perioudIncomeAverage[perioudIncomeAverage.length -1] - perioudIncomeAverage[perioudIncomeAverage.length -2]);
+  const b = (perioudOutcomeAverage[perioudOutcomeAverage.length -1] - perioudOutcomeAverage[perioudOutcomeAverage.length -2]);
+
+  greenState.innerText = perioudIncomeAverage[perioudIncomeAverage.length -1];
+  greenCalculate.innerText = a > 0 ? `+${a.toFixed(2)}` : a.toFixed(2);
+  greenCalculate.style.color = a > 0 ? "green" : "red";
+
+  redState.innerText = perioudOutcomeAverage[perioudOutcomeAverage.length -1];
+  redCalculate.innerText = b > 0 ? `+${b.toFixed(2)}` : b.toFixed(2);
+  redCalculate.style.color = b > 0 ? "red" : "green";
+
+  redState.style.display = "block";
+  redCalculate.style.display = "block";
+  
+document.getElementById('expencePieContainer').style.display = "none"
+
+  lineChart.update();
+}
+  
   
 }
 
@@ -711,7 +802,8 @@ closeChart(id){
   this.closePopup(id)
   actualChartId = '';
   const a = [
-    'actualMoney','usd-balance','eur-balance','mdl-balance','pln-balance','freedome2','averr2','hourrr2'
+    'actualMoney','usd-balance','eur-balance','mdl-balance','pln-balance','freedome2','averr2','hourrr2','expence2',
+    'income2','expence/income2',"freedome3",'averr3'
   ]
   a.forEach(element => {
     document.getElementById(element).classList.remove('chosenGraph');
@@ -719,7 +811,7 @@ closeChart(id){
 },
 highlightChosen(id, secId, typ){
 const a = [
-  'actualMoney','usd-balance','eur-balance','mdl-balance','pln-balance'
+  'actualMoney','usd-balance','eur-balance','mdl-balance','pln-balance', 'expence2'
 ]
 a.forEach(element => {
   document.getElementById(element).classList.remove('chosenGraph');
@@ -762,9 +854,41 @@ unveilTheDay(element){
   
 
 
+},
+calculateEstimateAchieving(goalSum){
+   // Calculate daily net income
+ 
+   let dailyNetIncome =LifeData[LifeData.length -1].averageIncome - LifeData[LifeData.length -1].averageOutcome;
+
+   // If daily net income is zero or negative, it's impossible to achieve the goal
+   if (dailyNetIncome <= 0) {
+       return "It is not possible to achieve the goal with the current income and spending.";
+   }
+ 
+   // Calculate the number of days to achieve the goal
+   let daysNeeded = goalSum / dailyNetIncome;
+ 
+   // Get today's date
+   let currentDate = new Date();
+ 
+   // Add the calculated days to today's date
+   currentDate.setDate(currentDate.getDate() + Math.ceil(daysNeeded));
+ 
+   // Format the future date to a readable string (Month Day, Year)
+   let futureDate = currentDate.toLocaleDateString('en-US', {
+       weekday: 'long',
+       year: 'numeric',
+       month: 'long',
+       day: 'numeric'
+   });
+ 
+   // Return the message with the estimated number of days and the final date
+   return `Estimated achieving is in ${Math.ceil(daysNeeded)} days. On ${futureDate}.`;
 }
 
 
 
 
 };
+
+
