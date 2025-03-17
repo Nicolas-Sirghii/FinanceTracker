@@ -100,7 +100,10 @@ createEachDayInfo();
 
 function copyObject() {
   // The object to copy
+  const lastThreeObjects = LifeData.slice(-3);
   const obj = LifeData;
+
+   
 
   // Convert the object to a nicely formatted JSON string with indentation
   const jsonString = JSON.stringify(obj, null, 4); // The 4 here adds indentation
@@ -140,12 +143,9 @@ function copyObject() {
     document.body.removeChild(textArea);
   }
 }
-function pasteAndLogClipboardData() {
-  const data = document.getElementById('dataInput').value;
-  LifeData = JSON.parse(data)
-}
+
 function ClearLocalStorage(){
-  // localStorage.clear()
+  localStorage.clear()
 }
- 
+
 

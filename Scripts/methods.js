@@ -57,8 +57,10 @@ deleteSpacificGoal(){
 },
 openPopup(id , dis) {
   document.getElementById(id).style.display = `${dis}`;
+  
 },
 closePopup(id){
+ 
   document.getElementById(id).style.display = "none";
 },
 addSomething(nam , amo , typ , id){
@@ -68,9 +70,6 @@ const amount = document.getElementById(`${amo}`).value;
 const selectedCurrencyBtn = document.querySelector('.currency-buttons .selected');
 let salaryVal = document.getElementById("salaryId").value;
  
-
-
-
 
 
   if((!name || !amount || !selectedCurrencyBtn)){
@@ -97,6 +96,7 @@ if (typ === "outcome") {
    parseFloat(document.getElementById(chosenButton).value) - parseFloat(amountTobeAdded);
    actU =parseFloat((takeActual - parseFloat(amount)).toFixed(2));
 } else {
+  
   if (name === "Job") {
    actU = parseFloat((takeActual + parseFloat(amount)).toFixed(2));
   } else {
@@ -264,11 +264,14 @@ createGoalElement(id, imageUrl, amount) {
     We.unvailGoalsDetales(id)
   });
 
+  const textInsideCircle = document.createElement("div");
+  textInsideCircle.innerText = amount;
+  textInsideCircle.classList.add('textInsideTheCircle');
+
   // Circle with Background Image
   const circle = document.createElement("div");
   circle.classList.add("circle");
   circle.style.backgroundImage = `url(${imageUrl})`;
-  circle.innerText = amount;
   circle.style.zIndex = "4";
  
   
@@ -295,6 +298,7 @@ createGoalElement(id, imageUrl, amount) {
 
   // Append elements
   circleWrapper.appendChild(circle);
+  circleWrapper.appendChild(textInsideCircle);
   circleWrapper.appendChild(progressCircleWrapper);
   document.getElementById("circleContainer").appendChild(circleWrapper);
 },
@@ -348,7 +352,7 @@ createSpacificGoalItem(name, imageUrl, amount , countIt ) {
     inf.style.fontSize = "25px"
   } else {
     const a = Math.abs(countIt);
-    inf.innerText =`${We.calculateEstimateAchieving(a)}. You need  ${a.toFixed(2)}$ more!`  ; 
+    inf.innerText =`${We.calculateEstimateAchieving(a , imageUrl)}. You need  ${a.toFixed(2)}$ more!`  ; 
     
   }
   
@@ -811,7 +815,8 @@ closeChart(id){
 },
 highlightChosen(id, secId, typ){
 const a = [
-  'actualMoney','usd-balance','eur-balance','mdl-balance','pln-balance', 'expence2'
+  'actualMoney','usd-balance','eur-balance','mdl-balance','pln-balance','freedome2','averr2','hourrr2','expence2',
+    'income2','expence/income2',"freedome3",'averr3'
 ]
 a.forEach(element => {
   document.getElementById(element).classList.remove('chosenGraph');
@@ -855,7 +860,7 @@ unveilTheDay(element){
 
 
 },
-calculateEstimateAchieving(goalSum){
+calculateEstimateAchieving(goalSum , imgUrl){
    // Calculate daily net income
  
    let dailyNetIncome =LifeData[LifeData.length -1].averageIncome - LifeData[LifeData.length -1].averageOutcome;
@@ -881,10 +886,37 @@ calculateEstimateAchieving(goalSum){
        month: 'long',
        day: 'numeric'
    });
+
+   let secondFutureDate = currentDate.toLocaleDateString('en-US', {
+    month: 'short',
+    day: '2-digit'
+});
+
+   
+   document.getElementById(secondFutureDate).classList.add('goalToAcheve');
+// Select the existing element
+const existingElement = document.getElementById(secondFutureDate);
+existingElement.classList.add('tooltip-item');
+
+// Create the tooltip element
+
+const tooltip = document.createElement('div');
+tooltip.classList.add('tooltip');
+tooltip.innerText =
+`You need ${goalSum.toFixed(2)} $ 
+ to achieve this gool!` ;  // The text you want for the tooltip
+tooltip.style.backgroundImage = `url(${imgUrl})`; 
+
+// Append the tooltip to the existing element
+existingElement.appendChild(tooltip);
+
+
+
  
    // Return the message with the estimated number of days and the final date
    return `Estimated achieving is in ${Math.ceil(daysNeeded)} days. On ${futureDate}.`;
-}
+},
+
 
 
 

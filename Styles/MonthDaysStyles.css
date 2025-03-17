@@ -29,7 +29,7 @@
    
 }
 .month {
-    background-color: #fff;
+   
     border: 1px solid #ccc;
     padding: 3px;
     width: 120px;
@@ -50,14 +50,16 @@
     grid-template-rows: repeat(7, 1fr);
     gap: 1px;
     height: 160px;
+    
 }
 .day {
     text-align: center;
     padding: 1px;
     cursor: pointer;
-    background-color: #fff;
+    background-color: #878585;
     border: 1px solid #ddd;
     font-size: 0.5em;
+    
 }
 .day:hover {
     background-color: #f0f0f0;

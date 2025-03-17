@@ -161,7 +161,6 @@ top: 0;
   #dayList{
     width: 800px;
     height: 385px;
-    border: 1px solid red;
     overflow: auto;
   }
   .dayContainer{
@@ -229,8 +228,8 @@ top: 0;
     position: absolute;
     top: 20vh;
     left: 1vw;
-    width: 1500px;
-    height: 580px;
+    width: 1400px;
+    height: 560px;
     /* transform: translate(-50%, -50%); */
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
@@ -311,3 +310,56 @@ top: 0;
  #dataInput{
   width: 50px;
  }
+
+ .tooltip-item {
+  position: relative;
+  cursor: pointer;
+  
+}
+
+.tooltip {
+  visibility: hidden;
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  height: 100px;
+  width: 100px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: bottom;
+  
+  transform: translateX(-50%);
+  background-color: #333;
+  color: rgb(183, 255, 0);
+  font-weight: 600;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 10px;
+  white-space: nowrap;
+}
+
+.tooltip-item:hover .tooltip {
+  visibility: visible;
+ 
+}
+.tooltip:hover {
+  border: 3px solid red;
+  position: absolute;
+  font-size: 12px;
+  font-weight: 900;
+  width: 150px;
+  height: 150px;
+  bottom: -70px;
+  z-index: 7;
+}
+.goalToAcheve{
+  background-color: red;
+}
+
+#ExpenseButton{
+background-color: blue;
+}
+#IncomeButton{
+background-color: blue;
+}
+

@@ -35,6 +35,11 @@ let LifeData = JSON.parse(localStorage.getItem('LIFE')) || [
     }
 ]
 
+    
+
+    
+
+
 let bankAccountNumber = LifeData[LifeData.length -1].actualFinanceStatement;
 
 

@@ -106,6 +106,7 @@ let goals = JSON.parse(localStorage.getItem("GOOOOL")) || goals1;
 let newLife = JSON.parse(localStorage.getItem("LIFE")) || [];
 
 
+
 const firstLinearChart = document.getElementById('lineChart').getContext('2d');
 const PieExpence = document.getElementById('expensePieChart').getContext('2d');
 

@@ -1,37 +1,3 @@
-   // Array of month names
-  
-//    function convertToDate(dateStr) {
-//     // Get the current year
-//     const currentYear = new Date().getFullYear();
-    
-//     // Month abbreviations
-//     const monthMap = {
-//       Jan: 1,
-//       Feb: 2,
-//       Mar: 3,
-//       Apr: 4,
-//       May: 5,
-//       Jun: 6,
-//       Jul: 7,
-//       Aug: 8,
-//       Sep: 9,
-//       Oct: 10,
-//       Nov: 11,
-//       Dec: 12
-//     };
-    
-//     // Split the input string by space and extract month and day
-//     const [monthAbbr, day] = dateStr.split(' ');
-  
-//     // Get the numeric month value from the abbreviation
-//     const month = monthMap[monthAbbr];
-  
-//     // Format the day to ensure it's two digits (e.g., '05' instead of '5')
-//     const formattedDay = day.padStart(2, '0');
-    
-//     // Return the date in the format "YYYY-MM-DD"
-//     return `${currentYear}-${month.toString().padStart(2, '0')}-${formattedDay}`;
-//   }
 
 
 
@@ -78,8 +44,11 @@ function generateCalendar() {
             daysContainer.appendChild(dayName);
         });
 
+        const currentYear = new Date().getFullYear();
+        
+
         // Get the first day of the month (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
-        const firstDay = new Date(2025, index, 1).getDay();
+        const firstDay = new Date(currentYear, index, 1).getDay();
 
         // Add empty spaces before the first day of the month
         for (let i = 0; i < firstDay; i++) {
@@ -187,4 +156,3 @@ function generateCalendar() {
 window.onload = generateCalendar;
 
 
-console.log(lifeMessage)
