@@ -892,11 +892,15 @@ calculateEstimateAchieving(goalSum , imgUrl){
     day: '2-digit'
 });
 
-   
-   document.getElementById(secondFutureDate).classList.add('goalToAcheve');
+  
+document.getElementById(secondFutureDate) && document.getElementById(secondFutureDate).classList.add('goalToAcheve');
 // Select the existing element
-const existingElement = document.getElementById(secondFutureDate);
-existingElement.classList.add('tooltip-item');
+let existingElement ;
+if (document.getElementById(secondFutureDate)) {
+  existingElement = document.getElementById(secondFutureDate);
+  existingElement.classList.add('tooltip-item');
+}
+
 
 // Create the tooltip element
 
@@ -908,7 +912,9 @@ tooltip.innerText =
 tooltip.style.backgroundImage = `url(${imgUrl})`; 
 
 // Append the tooltip to the existing element
-existingElement.appendChild(tooltip);
+
+
+existingElement && existingElement.appendChild(tooltip);
 
 
 
