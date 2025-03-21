@@ -362,4 +362,12 @@ background-color: blue;
 #IncomeButton{
 background-color: blue;
 }
+#pieNumber{
+ position: absolute;
+ bottom: 10px;
+ right: 50px;
+ 
+}
+
+
 

@@ -741,12 +741,32 @@ document.getElementById('expencePieContainer').style.display = "none"
 }else if (typ === 'expences'){
   pieExpenceChart.data.labels = Object.keys(pieOutcomeData);
   pieExpenceChart.data.datasets[0].data = Object.values(pieOutcomeData);
- 
+
+  const sum = Object.values(pieOutcomeData).reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+
+  const a = document.getElementById('pieNumber')
+  a.innerText = 
+  `${sum.toFixed(2)} $ 
+  ${(sum*EUR).toFixed(2)} EUR 
+  ${(sum*PLN).toFixed(2)} PLN 
+  ${(sum*MDL).toFixed(2)} MDL`;
+  a.style.color = "red";
+
 document.getElementById('linearContainer').style.display = "none"
   pieExpenceChart.update();
 }else if (typ === 'income'){
   pieExpenceChart.data.labels = Object.keys(pieIncomeData);
   pieExpenceChart.data.datasets[0].data = Object.values(pieIncomeData);
+
+  const sum = Object.values(pieIncomeData).reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+
+  const a = document.getElementById('pieNumber')
+  a.innerText = 
+  `${sum.toFixed(2)} $ 
+  ${(sum*EUR).toFixed(2)} EUR 
+  ${(sum*PLN).toFixed(2)} PLN 
+  ${(sum*MDL).toFixed(2)} MDL`;
+  a.style.color = "Green";
  
 document.getElementById('linearContainer').style.display = "none"
   pieExpenceChart.update();
