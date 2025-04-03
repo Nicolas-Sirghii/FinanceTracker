@@ -37,7 +37,20 @@ let LifeData = JSON.parse(localStorage.getItem('LIFE')) || [
 
     
 
-    
+
+
+let InvestData = JSON.parse(localStorage.getItem('INVEST')) || [
+  {
+    date: '2025-03-31',
+    tradeAmount: 0,
+    win: true,
+    comment : "first comment",
+    url: "url(this)",
+    target: 200,
+    actualStatus: 200
+    }
+]
+
 
 
 let bankAccountNumber = LifeData[LifeData.length -1].actualFinanceStatement;

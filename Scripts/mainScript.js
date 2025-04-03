@@ -144,8 +144,4 @@ function copyObject() {
   }
 }
 
-function ClearLocalStorage(){
-  localStorage.clear()
-}
-
 

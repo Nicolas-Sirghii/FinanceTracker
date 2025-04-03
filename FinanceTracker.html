@@ -14,6 +14,8 @@
   <link rel="stylesheet" href="Styles/mobileStyles.css">
   <link rel="stylesheet" href="Styles/MonthDaysStyles.css">
   <link rel="stylesheet" href="Styles/finalStyles.css">
+  <link rel="stylesheet" href="Styles/investStyles.css">
+  
   
 
 
@@ -51,6 +53,27 @@
       <button class="popup-close" onclick="We.closePopup('dayPopup')">Close</button>
   </div>
 </div>
+<!--_______________________________________________________________________________-->
+<!--_______________________________   Investments  ________________________________-->
+<!--_______________________________________________________________________________-->
+
+<div id="investPopup">
+  <input type="text" placeholder="Comment" id="Comment">
+  <input type="text" placeholder="Image url" id="image_url_invest">
+  <input type="number" placeholder="Amount" id="investementAmount">
+  <button id="win" onclick="We.investCalculations('win')">Win</button>
+  <button id="Loose" onclick="We.investCalculations('loose')">Loose</button>
+</div>
+<!--_______________________________________________________________________________-->
+<!--________________________   Investments Coment  ________________________________-->
+<!--_______________________________________________________________________________-->
+
+ <div id="investmentComentContainer">
+  <div id="list_of_comments"></div>
+  <button id="closeInvestComentContainer" onclick="We.closePopup('investmentComentContainer')">close</button>
+ </div>
+
+
 <!--_______________________________________________________________________________-->
 <!--___________________________________    LIST    ________________________________-->
 <!--_______________________________________________________________________________-->
@@ -187,9 +210,9 @@
 <!--____________________________________________________________________________------------------------------------___-->
 <header class="header" id="header">
   <div class="veryTop" id="veryTop" onclick="We.showGoalStatus()">
-    <button ondblclick="ClearLocalStorage()">Clear</button>
     <button onclick="copyObject()">Copy</button>
     <button class="ExpenseButton" id="ExpenseButton" onclick="open2('expencePopup','flex','expenceAmount','expTitle','expCurrSpan')">Expese</button>
+    <button id="investButton" onclick="open2('investPopup','flex','incomeAmount','incTitle','incCurrSpan')">Invest</button>
     <button class="IncomeButton" id="IncomeButton" onclick="open2('incomePopup','flex','incomeAmount','incTitle','incCurrSpan')">Income</button>
     <button onclick="We.storeData()">Save</button>
   </div>
@@ -282,9 +305,11 @@
     <button id="averr2" onclick="We.highlightChosen('averr2','linearContainer', 'average')">Total Average</button>
     <button id="averr3" onclick="We.highlightChosen('averr3','linearContainer', 'perioudAverage')">Perioud Average</button>
     <button id="expence2" onclick="We.highlightChosen('expence2','expencePieContainer', 'expences')">Expences</button>
+    <button id="investGraphButton" onclick="We.highlightChosen('investGraphButton','linearContainer', 'invest')">Investments</button>
     <button id="income2" onclick="We.highlightChosen('income2','expencePieContainer', 'income')">Income</button>
     <button id="hourrr2" onclick="We.highlightChosen('hourrr2','linearContainer', 'hours')">Work Hours</button>
     <button id="expence/income2" onclick="We.highlightChosen('expence/income2','linearContainer', 'expence/income')">Expences/Income</button>
+    <button id="investComentsOpen" onclick="We.openInvestComents()">Invest Coments</button>
 
   </div>
   <div id="dayList">

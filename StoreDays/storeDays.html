@@ -50,11 +50,12 @@
         <input type="date" id="fromDate">
         <label for="toDate">To:</label>
         <input type="date" id="toDate">
-        <button onclick="storeData()">Store</button>
+        <button onclick="storeData()">Store Finances</button>
+        <button  onclick="storeGoals()">Store Goals</button>
     </div>
 
     <script>
-// "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"
+
 const daysArray = [
     {
         "countNumber": 1,
@@ -601,7 +602,7 @@ const daysArray = [
     {
         "countNumber": 21,
         "date": "2025-03-29",
-        "weekDay": "Sun",
+        "weekDay": "Sat",
         "income": {
             "Job": 38.76
         },
@@ -651,15 +652,152 @@ const daysArray = [
         "USDstatement": 515.24,
         "balanceInUSD": 1818.13,
         "actualFinanceStatement": 3127.84,
-        "freedom": 151
+        "freedom": 151,
+        actualStatus: 200,
+        comment: "first comment",
+        prrrocent: "0.3%",
+        "investTarget": 200,
+        tradeAmount: 0,
+        "investUrl": "2025-03-31"
+    },
+    {
+        "countNumber": 23,
+        "date": "2025-03-31",
+        "weekDay": "Mon",
+        "income": {},
+        "outcome": {
+            "Food": 8.29
+        },
+        "workHours": 0,
+        "ratePerHour": 30,
+        "averageOutcome": 20.16,
+        "averageIncome": 55.42,
+        "salary": 0,
+        "allTimeIncome": 1274.56,
+        "allTimeOutcome": 463.64,
+        "totalIncome": 0,
+        "totalOutcome": 8.29,
+        "MDLstatement": 10100.03,
+        "PLNstatement": 658.83,
+        "EURstatement": 516.34,
+        "USDstatement": 515.24,
+        "balanceInUSD": 1809.84,
+        "actualFinanceStatement": 3119.55,
+        "freedom": 154,
+        actualStatus: 199.62,
+        comment: "first day was a disaster",
+        date: "2025-03-31",
+        prrrocent: "0.3%",
+        "investTarget": 202,
+        tradeAmount: 0.38,
+        "investUrl": ""
+
+    },
+    {
+        "countNumber": 24,
+        "date": "2025-04-01",
+        "weekDay": "Tue",
+        "income": {
+            "Job": 217.62
+        },
+        "outcome": {
+            "Internet": 2.59,
+            "Food": 14.12
+        },
+        "workHours": 28,
+        "ratePerHour": 30,
+        "averageOutcome": 20.01,
+        "averageIncome": 62.17,
+        "salary": 0,
+        "allTimeIncome": 1492.18,
+        "allTimeOutcome": 480.35,
+        "totalIncome": 217.62,
+        "totalOutcome": 16.71,
+        "MDLstatement": 10100.03,
+        "PLNstatement": 594.34,
+        "EURstatement": 516.34,
+        "USDstatement": 515.24,
+        "balanceInUSD": 1793.13,
+        "actualFinanceStatement": 3320.46,
+        "freedom": 165,
+        actualStatus: 173.84,
+        comment: "second DAy",
+        prrrocent: "0.3%",
+        "investTarget": 204.02,
+        tradeAmount: 25.78,
+        "investUrl": ""
+    },
+    {
+        "countNumber": 25,
+        "date": "2025-04-02",
+        "weekDay": "Wed",
+        "income": {
+            "Job": 46.63,
+            "Victoria bonus": 2.79
+        },
+        "outcome": {
+            "Internet": 2.59,
+            "Food": 36.26,
+            "maib fee": 2.4,
+            "Cigarets": 5.18
+        },
+        "workHours": 6,
+        "ratePerHour": 30,
+        "averageOutcome": 21.07,
+        "averageIncome": 61.66,
+        "salary": 0,
+        "allTimeIncome": 1541.6,
+        "allTimeOutcome": 526.78,
+        "totalIncome": 49.42,
+        "totalOutcome": 46.43,
+        "MDLstatement": 10150.03,
+        "PLNstatement": 424.38,
+        "EURstatement": 514.59,
+        "USDstatement": 514.74,
+        "balanceInUSD": 1749.48,
+        "actualFinanceStatement": 3323.45,
+        "freedom": 157,
+        "actualStatus": 176.21,
+        comment: "Let's goo !!",
+        prrrocent: "1.36%",
+        "investTarget": 206.06,
+        tradeAmount: 2.37,
+        "investUrl": "2025-04-02"
+    },
+    {
+        "countNumber": 26,
+        "date": "2025-04-03",
+        "weekDay": "Thu",
+        "income": {
+            "Job": 46.63
+        },
+        "outcome": {
+            "Food": 0.73
+        },
+        "workHours": 6,
+        "ratePerHour": 30,
+        "averageOutcome": 20.29,
+        "averageIncome": 61.09,
+        "salary": 0,
+        "allTimeIncome": 1588.23,
+        "allTimeOutcome": 527.51,
+        "totalIncome": 46.63,
+        "totalOutcome": 0.73,
+        "MDLstatement": 10150.03,
+        "PLNstatement": 421.58,
+        "EURstatement": 514.59,
+        "USDstatement": 514.74,
+        "balanceInUSD": 1748.76,
+        "actualFinanceStatement": 3369.35,
+        "freedom": 166,
+        "prrrocent": "3.56%",
+        "comment": "Great  !! the Gold seems to be at the very low point where it will be great to buy it ! But I am still afraid of doint long term trade on it , it is too dangerous. I don't have enoutgh means.",
+        "tradeAmount": 6.27,
+        "actualStatus": 182.48,
+        "investUrl": "2025-04-03",
+        "investTarget": 208.12
     }
 ]
-
-
-
-
-
-
 
 const goals = [
     {
@@ -820,11 +958,30 @@ const goals = [
             }
             
             localStorage.setItem("LIFE", JSON.stringify(storedArray));
-            alert("Data stored in local storage!");
+            alert("Finances stored in local storage!");
             console.log("------------------stored Array-----------------")
             console.log(storedArray)
             console.log("-----------------------------------------------")
         }
+        function storeGoals(){
+            let fromDate = document.getElementById("fromDate").value;
+            let toDate = document.getElementById("toDate").value;
+            let storedArray;
+            
+            if (fromDate && toDate) {
+                let filteredArray = goals.filter(day => day.date >= fromDate && day.date <= toDate);
+                storedArray = filteredArray;
+            } else {
+                storedArray = goals;
+            }
+            
+            localStorage.setItem("GOOOOL", JSON.stringify(storedArray));
+            alert("Goals stored in local storage!");
+            console.log("------------------stored Array-----------------")
+            console.log(storedArray)
+            console.log("-----------------------------------------------")
+        }
+       
     </script>
 </body>
 </html>

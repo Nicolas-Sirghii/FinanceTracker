@@ -814,6 +814,35 @@ document.getElementById('linearContainer').style.display = "none"
 document.getElementById('expencePieContainer').style.display = "none"
 
   lineChart.update();
+}else if (typ === 'invest'){
+  let lables = [];
+  let statusS = [];
+  let targetLine = [];
+  LifeData.forEach(element => {
+    if (element.investTarget) {
+      lables.push(element.date);
+    statusS.push(element.actualStatus);
+    targetLine.push(element.investTarget);
+    }
+    
+  });
+
+  lineChart.data.labels = lables;
+  lineChart.data.datasets[0].data = statusS;
+  lineChart.data.datasets[1].data = targetLine;
+
+  greenState.innerText = LifeData[LifeData.length -1].actualStatus;
+
+  
+    greenCalculate.innerText = (LifeData[LifeData.length -1].actualStatus - LifeData[LifeData.length -2].actualStatus).toFixed(2);
+ 
+  
+  greenCalculate.style.color = Number(greenCalculate.innerText) > 0 ? "green" : "red";
+
+  redState.style.display = "none";
+  redCalculate.style.display = "none";
+  document.getElementById('expencePieContainer').style.display = "none"
+  lineChart.update();
 }
   
   
@@ -827,7 +856,7 @@ closeChart(id){
   actualChartId = '';
   const a = [
     'actualMoney','usd-balance','eur-balance','mdl-balance','pln-balance','freedome2','averr2','hourrr2','expence2',
-    'income2','expence/income2',"freedome3",'averr3'
+    'income2','expence/income2',"freedome3",'averr3','investGraphButton'
   ]
   a.forEach(element => {
     document.getElementById(element).classList.remove('chosenGraph');
@@ -836,7 +865,7 @@ closeChart(id){
 highlightChosen(id, secId, typ){
 const a = [
   'actualMoney','usd-balance','eur-balance','mdl-balance','pln-balance','freedome2','averr2','hourrr2','expence2',
-    'income2','expence/income2',"freedome3",'averr3'
+    'income2','expence/income2',"freedome3",'averr3','investGraphButton'
 ]
 a.forEach(element => {
   document.getElementById(element).classList.remove('chosenGraph');
@@ -942,8 +971,115 @@ existingElement && existingElement.appendChild(tooltip);
    // Return the message with the estimated number of days and the final date
    return `Estimated achieving is in ${Math.ceil(daysNeeded)} days. On ${futureDate}.`;
 },
+investCalculations(typ){
+  
+  const coment = document.getElementById('Comment');
+  const url = document.getElementById('image_url_invest');
+  const amount = document.getElementById('investementAmount');
+  function addOnePercent(num) {
+    let result = num + (num * 0.01);
+    return Math.round(result * 100) / 100; // Ensures only 2 decimal places
+}
+function procentCalculated(total, part) {
+  if (total === 0) return "0%"; // Avoid division by zero
+  let percentage = (part / total) * 100;
+  return percentage.toFixed(2) + "%";
+}
 
 
+  We.closePopup('investPopup')
+
+  
+  const segodnea = (dateToday.toISOString().split('T')[0] !== InvestData[InvestData.length -1].date)
+  if (typ === "win") {
+    const a = LifeData[LifeData.length -1].tradeAmount + Number(amount.value);
+    LifeData[LifeData.length -1].prrrocent =  procentCalculated(LifeData[LifeData.length -2].actualStatus,a);
+    LifeData[LifeData.length -1].comment = coment.value || LifeData[LifeData.length -1].comment;
+    LifeData[LifeData.length -1].tradeAmount = Number(a.toFixed(2));
+    LifeData[LifeData.length -1].actualStatus = Number((LifeData[LifeData.length -1].actualStatus + Number(amount.value)).toFixed(2));
+    LifeData[LifeData.length -1].investUrl =  url.value ? dateToday.toISOString().split('T')[0] : '';
+    LifeData[LifeData.length -1].investTarget = segodnea ? addOnePercent(LifeData[LifeData.length -1].investTarget) : LifeData[LifeData.length -1].investTarget;
+
+    
+  } else {4
+    const a = LifeData[LifeData.length -1].tradeAmount - Number(amount.value);
+    LifeData[LifeData.length -1].prrrocent =  procentCalculated(LifeData[LifeData.length -2].actualStatus,a);
+    LifeData[LifeData.length -1].comment = coment.value || LifeData[LifeData.length -1].comment;
+    LifeData[LifeData.length -1].tradeAmount = Number(a.toFixed(2));
+    LifeData[LifeData.length -1].actualStatus = Number((LifeData[LifeData.length -1].actualStatus - Number(amount.value)).toFixed(2));
+    LifeData[LifeData.length -1].investUrl =  url.value ? dateToday.toISOString().split('T')[0] : '';
+    LifeData[LifeData.length -1].investTarget =  segodnea ? addOnePercent(LifeData[LifeData.length -1].investTarget) : LifeData[LifeData.length -1].investTarget;
+    
+  }
+
+  
+ 
+  
+  
+},
+openInvestComents(){
+  We.openPopup('investmentComentContainer' , 'block')
+
+  
+    
+
+
+
+    
+
+
+
+
+
+  const container = document.getElementById('list_of_comments');
+  container.innerHTML = ''
+   let countId = 0;
+
+
+  
+  LifeData.forEach(element => {
+
+    if (element.investTarget) {
+      countId ++;
+      const uniqueId = "element-" + countId ;
+      const d = document.createElement("div");
+      const c = document.createElement('div');
+      const f = document.createElement('div');
+      const am7 = document.createElement('div');
+      f.classList.add('commentItemCont');
+      c.id = `${uniqueId}`;
+      d.classList.add("comentItem");
+      am7.classList.add('commentAmount');
+      am7.innerText = 
+      `${element.date} ${element.tradeAmount}
+       ${element.prrrocent}`;
+      if (element.investUrl) {
+       c.style.backgroundImage = `url('./investImages/${element.investUrl}.png')`;
+       c.addEventListener("click" ,function(){We.scaleThePicture(`${uniqueId}`)})
+       
+      } else {
+       c.style.backgroundImage = 'url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSkdGbj-QrUuNqhXP7DtY3-t8yD6H1Tk4uFg&s)';
+      }
+      
+      c.classList.add('itemImageCom');
+      f.innerText = element.comment;
+      d.append(c , f , am7);
+      container.append(d)
+      if (element.tradeAmount >= 0) {
+       d.style.backgroundColor = "green";
+      } else {
+       d.style.backgroundColor = 'brown';
+      }
+    }
+    
+  
+  
+  });
+},
+scaleThePicture(id){
+  console.log(id)
+  document.getElementById(id).classList.toggle('opendFinanceImage')
+}
 
 
 

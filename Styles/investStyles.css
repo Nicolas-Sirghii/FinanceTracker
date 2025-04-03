@@ -1,0 +1,96 @@
+#investPopup{
+    position: absolute;
+    display: none;
+    z-index: 5;
+    background-color: rgb(66, 57, 57);
+    padding: 30px;
+    border: 1px solid red;
+    border-radius: 10px;
+    flex-direction: column;
+    gap: 10px;
+
+}
+#win{
+    background-color: green;
+}
+#Loose{
+    background-color: rgb(97, 72, 72);
+}
+#investButton{
+    background-color: green;
+}
+#investGraphButton{
+    position: absolute;
+    top: 0;
+    left: -100px;
+}
+#investComentsOpen{
+    position: absolute;
+    top: 50px;
+    left: -140px; 
+}
+#investmentComentContainer{
+    z-index: 4;
+    display: none;
+    position: absolute;
+    left: 10px;
+    width: 800px;
+    height: 500px;
+    background-color: black;
+    border: 1px solid red;
+}
+#closeInvestComentContainer{
+    position: absolute;
+    bottom: 0;
+    background-color: brown;
+}
+.comentItem{
+    width: 790px;
+    height: 100px;
+   background-color: black;
+    margin: 5px;
+    display: flex;
+}
+.itemImageCom{
+    width: 100px;
+    height: 100px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    background-color: green;
+}
+#list_of_comments{
+   
+    
+    display: flex;
+    /* flex-direction: column-reverse; */
+    flex-direction: column;
+    align-items:baseline;
+    overflow-y: auto;
+    max-height: 90%; /* Set a max-height */
+
+    
+    
+}
+.opendFinanceImage{
+    position: absolute;
+    left: 0;
+    top: -150px;
+    width: 1500px;
+    height: 700px;
+}
+.commentItemCont{
+    position: relative;
+    width: 90%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+
+}
+.commentAmount{
+    right: 0;
+    top: 0;
+}
