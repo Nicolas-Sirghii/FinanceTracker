@@ -94,3 +94,9 @@
     right: 0;
     top: 0;
 }
+#gapBetween{
+    position: absolute;
+    bottom: 65px;
+    right: 10px;
+   
+}

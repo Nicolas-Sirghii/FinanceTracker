@@ -826,15 +826,24 @@ document.getElementById('expencePieContainer').style.display = "none"
     }
     
   });
+  function procentCalculated2(total, part) {
+    if (total === 0) return "0%"; // Avoid division by zero
+    let percentage = (part / total) * 100;
+    return  - percentage.toFixed(2) + "%";
+  }
+
+  
 
   lineChart.data.labels = lables;
   lineChart.data.datasets[0].data = statusS;
   lineChart.data.datasets[1].data = targetLine;
 
-  greenState.innerText = LifeData[LifeData.length -1].actualStatus;
+  greenState.innerText = LifeData[LifeData.length -1].actualStatus ? LifeData[LifeData.length -1].actualStatus : LifeData[LifeData.length -2].actualStatus;
 
   
-    greenCalculate.innerText = (LifeData[LifeData.length -1].actualStatus - LifeData[LifeData.length -2].actualStatus).toFixed(2);
+    greenCalculate.innerText = LifeData[LifeData.length -1].actualStatus ?
+      (LifeData[LifeData.length -1].actualStatus - LifeData[LifeData.length -2].actualStatus).toFixed(2)
+      : (LifeData[LifeData.length -2].actualStatus - LifeData[LifeData.length -3].actualStatus).toFixed(2);
  
   
   greenCalculate.style.color = Number(greenCalculate.innerText) > 0 ? "green" : "red";
@@ -842,6 +851,26 @@ document.getElementById('expencePieContainer').style.display = "none"
   redState.style.display = "none";
   redCalculate.style.display = "none";
   document.getElementById('expencePieContainer').style.display = "none"
+
+
+  
+    const putGap = document.getElementById('linearContainer');
+  const gap = document.createElement("div");
+  gap.id = "gapBetween";
+  gap.innerText = 
+  `Gap
+  ${-(targetLine[targetLine.length-1] - statusS[statusS.length - 1]).toFixed(2)}$
+  ${procentCalculated2(targetLine[targetLine.length-1],(targetLine[targetLine.length-1] - statusS[statusS.length - 1]))}`  ;
+  putGap.append(gap);
+  
+    const gggapStyle = document.getElementById("gapBetween");
+    if ((-(targetLine[targetLine.length-1] - statusS[statusS.length - 1])) > 0) {
+      gggapStyle.style.color = "rgb(160, 235, 160)"
+    } else {
+      gggapStyle.style.color = "rgb(243, 156, 145)"
+    }
+  
+
   lineChart.update();
 }
   
@@ -861,6 +890,7 @@ closeChart(id){
   a.forEach(element => {
     document.getElementById(element).classList.remove('chosenGraph');
   });
+  document.getElementById('gapBetween').style.display = "none";
 },
 highlightChosen(id, secId, typ){
 const a = [
@@ -989,28 +1019,54 @@ function procentCalculated(total, part) {
 
   We.closePopup('investPopup')
 
-  
-  const segodnea = (dateToday.toISOString().split('T')[0] !== InvestData[InvestData.length -1].date)
-  if (typ === "win") {
-    const a = LifeData[LifeData.length -1].tradeAmount + Number(amount.value);
-    LifeData[LifeData.length -1].prrrocent =  procentCalculated(LifeData[LifeData.length -2].actualStatus,a);
-    LifeData[LifeData.length -1].comment = coment.value || LifeData[LifeData.length -1].comment;
-    LifeData[LifeData.length -1].tradeAmount = Number(a.toFixed(2));
-    LifeData[LifeData.length -1].actualStatus = Number((LifeData[LifeData.length -1].actualStatus + Number(amount.value)).toFixed(2));
-    LifeData[LifeData.length -1].investUrl =  url.value ? dateToday.toISOString().split('T')[0] : '';
-    LifeData[LifeData.length -1].investTarget = segodnea ? addOnePercent(LifeData[LifeData.length -1].investTarget) : LifeData[LifeData.length -1].investTarget;
 
+  if (LifeData[LifeData.length -1].investTarget) {
+    if (typ === "win") {
+      const a = LifeData[LifeData.length -1].tradeAmount + Number(amount.value);
+      LifeData[LifeData.length -1].prrrocent =  procentCalculated(LifeData[LifeData.length -2].actualStatus,a);
+      LifeData[LifeData.length -1].comment = coment.value || LifeData[LifeData.length -1].comment;
+      LifeData[LifeData.length -1].tradeAmount = Number(a.toFixed(2));
+      LifeData[LifeData.length -1].actualStatus = Number((LifeData[LifeData.length -1].actualStatus + Number(amount.value)).toFixed(2));
+      LifeData[LifeData.length -1].investUrl =  url.value ? dateToday.toISOString().split('T')[0] : '';
+      LifeData[LifeData.length -1].investTarget = segodnea ? addOnePercent(LifeData[LifeData.length -1].investTarget) : LifeData[LifeData.length -1].investTarget;
+  
+      
+    } else {
+      const a = LifeData[LifeData.length -1].tradeAmount - Number(amount.value);
+      LifeData[LifeData.length -1].prrrocent =  procentCalculated(LifeData[LifeData.length -2].actualStatus,a);
+      LifeData[LifeData.length -1].comment = coment.value || LifeData[LifeData.length -1].comment;
+      LifeData[LifeData.length -1].tradeAmount = Number(a.toFixed(2));
+      LifeData[LifeData.length -1].actualStatus = Number((LifeData[LifeData.length -1].actualStatus - Number(amount.value)).toFixed(2));
+      LifeData[LifeData.length -1].investUrl =  url.value ? dateToday.toISOString().split('T')[0] : '';
+      LifeData[LifeData.length -1].investTarget =  segodnea ? addOnePercent(LifeData[LifeData.length -1].investTarget) : LifeData[LifeData.length -1].investTarget;
+      
+    }
     
-  } else {4
-    const a = LifeData[LifeData.length -1].tradeAmount - Number(amount.value);
-    LifeData[LifeData.length -1].prrrocent =  procentCalculated(LifeData[LifeData.length -2].actualStatus,a);
-    LifeData[LifeData.length -1].comment = coment.value || LifeData[LifeData.length -1].comment;
-    LifeData[LifeData.length -1].tradeAmount = Number(a.toFixed(2));
-    LifeData[LifeData.length -1].actualStatus = Number((LifeData[LifeData.length -1].actualStatus - Number(amount.value)).toFixed(2));
-    LifeData[LifeData.length -1].investUrl =  url.value ? dateToday.toISOString().split('T')[0] : '';
-    LifeData[LifeData.length -1].investTarget =  segodnea ? addOnePercent(LifeData[LifeData.length -1].investTarget) : LifeData[LifeData.length -1].investTarget;
+  } else {
+    const firstAmount = Number(amount.value)
+    if (typ === "win") {
+      const a = LifeData[LifeData.length -2].tradeAmount + Number(amount.value);
+      LifeData[LifeData.length -1].prrrocent =  procentCalculated(LifeData[LifeData.length -3].actualStatus,firstAmount);
+      LifeData[LifeData.length -1].comment = coment.value || 'No Comment !';
+      LifeData[LifeData.length -1].tradeAmount = Number(firstAmount.toFixed(2));
+      LifeData[LifeData.length -1].actualStatus = Number((LifeData[LifeData.length -2].actualStatus + Number(amount.value)).toFixed(2));
+      LifeData[LifeData.length -1].investUrl =  url.value ? dateToday.toISOString().split('T')[0] : '';
+      LifeData[LifeData.length -1].investTarget = addOnePercent(LifeData[LifeData.length -2].investTarget);
+  
+      
+    } else {
+      const a = LifeData[LifeData.length -2].tradeAmount - Number(amount.value);
+      LifeData[LifeData.length -1].prrrocent =  procentCalculated(LifeData[LifeData.length -3].actualStatus,firstAmount);
+      LifeData[LifeData.length -1].comment = coment.value || 'No Comment !';
+      LifeData[LifeData.length -1].tradeAmount = Number(firstAmount.toFixed(2));
+      LifeData[LifeData.length -1].actualStatus = Number((LifeData[LifeData.length -2].actualStatus - Number(amount.value)).toFixed(2));
+      LifeData[LifeData.length -1].investUrl =  url.value ? dateToday.toISOString().split('T')[0] : '';
+      LifeData[LifeData.length -1].investTarget = addOnePercent(LifeData[LifeData.length -2].investTarget);
+      
+    }
     
   }
+ 
 
   
  
