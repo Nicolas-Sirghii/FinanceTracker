@@ -840,10 +840,28 @@ document.getElementById('expencePieContainer').style.display = "none"
 
   greenState.innerText = LifeData[LifeData.length -1].actualStatus ? LifeData[LifeData.length -1].actualStatus : LifeData[LifeData.length -2].actualStatus;
 
+  function getLasValue(arr , keyName) {
+    for (let i = arr.length - 1; i >= 0; i--) {
+      if (arr[i][keyName]) {
+        return arr[i][keyName];
+      }
+    }
+  }
+    function getSecondLastValue(arr , keyName) {
+      let count = 0;
+      for (let i = arr.length - 1; i >= 0; i--) {
+        if (arr[i][keyName]) {
+          count++;
+          if (count === 2) {
+            return arr[i][keyName];
+          }
+        }
+      }
+      
+    }
   
-    greenCalculate.innerText = LifeData[LifeData.length -1].actualStatus ?
-      (LifeData[LifeData.length -1].actualStatus - LifeData[LifeData.length -2].actualStatus).toFixed(2)
-      : (LifeData[LifeData.length -2].actualStatus - LifeData[LifeData.length -3].actualStatus).toFixed(2);
+    greenCalculate.innerText = getLasValue(LifeData , 'actualStatus') - getSecondLastValue(LifeData , 'actualStatus')
+    
  
   
   greenCalculate.style.color = Number(greenCalculate.innerText) > 0 ? "green" : "red";
@@ -1043,15 +1061,25 @@ function procentCalculated(total, part) {
     }
     
   } else {
+
+    function getLasValue(arr , keyName) {
+      for (let i = arr.length - 1; i >= 0; i--) {
+        if (arr[i][keyName]) {
+          return arr[i][keyName];
+        }
+      }
+      
+    }
+    
     const firstAmount = Number(amount.value)
     if (typ === "win") {
       const a = LifeData[LifeData.length -2].tradeAmount + Number(amount.value);
       LifeData[LifeData.length -1].prrrocent =  procentCalculated(LifeData[LifeData.length -3].actualStatus,firstAmount);
       LifeData[LifeData.length -1].comment = coment.value || 'No Comment !';
       LifeData[LifeData.length -1].tradeAmount = Number(firstAmount.toFixed(2));
-      LifeData[LifeData.length -1].actualStatus = Number((LifeData[LifeData.length -2].actualStatus + Number(amount.value)).toFixed(2));
+      LifeData[LifeData.length -1].actualStatus = Number((getLasValue(LifeData , 'actualStatus') + Number(amount.value)).toFixed(2));
       LifeData[LifeData.length -1].investUrl =  url.value ? dateToday.toISOString().split('T')[0] : '';
-      LifeData[LifeData.length -1].investTarget = addOnePercent(LifeData[LifeData.length -2].investTarget);
+      LifeData[LifeData.length -1].investTarget = addOnePercent(getLasValue(LifeData, 'investTarget'));
   
       
     } else {
@@ -1059,11 +1087,13 @@ function procentCalculated(total, part) {
       LifeData[LifeData.length -1].prrrocent =  procentCalculated(LifeData[LifeData.length -3].actualStatus,firstAmount);
       LifeData[LifeData.length -1].comment = coment.value || 'No Comment !';
       LifeData[LifeData.length -1].tradeAmount = Number(firstAmount.toFixed(2));
-      LifeData[LifeData.length -1].actualStatus = Number((LifeData[LifeData.length -2].actualStatus - Number(amount.value)).toFixed(2));
+      LifeData[LifeData.length -1].actualStatus = Number((getLasValue(LifeData, 'actualStatus') - Number(amount.value)).toFixed(2));
       LifeData[LifeData.length -1].investUrl =  url.value ? dateToday.toISOString().split('T')[0] : '';
-      LifeData[LifeData.length -1].investTarget = addOnePercent(LifeData[LifeData.length -2].investTarget);
+      LifeData[LifeData.length -1].investTarget = addOnePercent(getLasValue(LifeData, 'investTarget'));
       
     }
+
+   
     
   }
  
