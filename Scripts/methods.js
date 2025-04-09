@@ -1091,7 +1091,7 @@ function procentCalculated(total, part) {
       LifeData[LifeData.length -1].tradeAmount = Number(firstAmount.toFixed(2));
       LifeData[LifeData.length -1].actualStatus = Number((getLasValue(LifeData , 'actualStatus') + Number(amount.value)).toFixed(2));
       LifeData[LifeData.length -1].investUrl =  url.value ? dateToday.toISOString().split('T')[0] : '';
-      LifeData[LifeData.length -1].investTarget = addOnePercent(getSecondLastValue(LifeData, 'actualStatus'));
+      LifeData[LifeData.length -1].investTarget = addOnePercent(getLasValue(LifeData, 'investTarget'));
   
       
     } else {
@@ -1101,8 +1101,8 @@ function procentCalculated(total, part) {
       LifeData[LifeData.length -1].tradeAmount = Number(firstAmount.toFixed(2));
       LifeData[LifeData.length -1].actualStatus = Number((getLasValue(LifeData, 'actualStatus') - Number(amount.value)).toFixed(2));
       LifeData[LifeData.length -1].investUrl =  url.value ? dateToday.toISOString().split('T')[0] : '';
-      LifeData[LifeData.length -1].investTarget = addOnePercent(getSecondLastValue(LifeData, 'investTarget'));
-      
+      LifeData[LifeData.length -1].investTarget = addOnePercent(getLasValue(LifeData, 'investTarget'));
+
     }
 
    
