@@ -99,6 +99,7 @@ let pieOutcomeData = {};
 let perioudFreedome = [];
 let perioudIncomeAverage = [];
 let perioudOutcomeAverage = [];
+let actualPlus = [];
 
 function forEachData() {
 
@@ -121,6 +122,7 @@ function forEachData() {
     free = [];
     HoursOfWork = [];
     totalHoursOf = 0;
+    actualPlus = []
 
 
     perioudFreedome = [];
@@ -132,7 +134,17 @@ function forEachData() {
     let countIncome = 0;
 
 
+    let amma = 0;
 
+
+    function getLasValue4(arr , keyName) {
+      for (let i = arr.length - 1; i >= 0; i--) {
+        if (arr[i][keyName]) {
+          return arr[i][keyName];
+        }
+      }
+      
+    }
 
     LifeData.forEach(element => {
 
@@ -144,6 +156,14 @@ function forEachData() {
       perioudOutcomeAverage.push(avOut)
       perioudIncomeAverage.push(avInc)
       perioudFreedome.push(Math.round(element.actualFinanceStatement/avOut))
+
+      
+      if (element.tradeAmount) {
+        amma = Number((element.actualFinanceStatement + element.actualStatus).toFixed(2))
+      } else {
+        amma = Number((element.actualFinanceStatement + getLasValue4(LifeData , 'actualStatus')).toFixed(2))
+      }
+      actualPlus.push(amma)
    
 
         graphLables.push(element.date)

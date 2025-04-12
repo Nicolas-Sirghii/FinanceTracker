@@ -890,6 +890,28 @@ document.getElementById('expencePieContainer').style.display = "none"
   
 
   lineChart.update();
+}else if (typ === 'ActualPlus'){
+  lineChart.data.labels = graphLables;
+  lineChart.data.datasets[0].data = actual_statement;
+  lineChart.data.datasets[1].data = actualPlus;
+
+  
+  const a = (actual_statement[actual_statement.length -1] - actual_statement[actual_statement.length -2]);
+  const b = (actualPlus[actualPlus.length -1] - actualPlus[actualPlus.length -2]);
+  
+
+  greenState.innerText = '';
+  greenCalculate.innerText = '';
+
+
+  redState.innerText = actualPlus[actualPlus.length -1];
+  redCalculate.innerText = b > 0 ? `+${b.toFixed(2)}` : b.toFixed(2);
+  redCalculate.style.color = b > 0 ? "green" : "red";
+
+  redState.style.display = "block";
+  redCalculate.style.display = "block";
+  document.getElementById('expencePieContainer').style.display = "none"
+  lineChart.update();
 }
   
   
@@ -903,7 +925,7 @@ closeChart(id){
   actualChartId = '';
   const a = [
     'actualMoney','usd-balance','eur-balance','mdl-balance','pln-balance','freedome2','averr2','hourrr2','expence2',
-    'income2','expence/income2',"freedome3",'averr3','investGraphButton'
+    'income2','expence/income2',"freedome3",'averr3','investGraphButton','ActualPlus'
   ]
   a.forEach(element => {
     document.getElementById(element).classList.remove('chosenGraph');
@@ -913,7 +935,7 @@ closeChart(id){
 highlightChosen(id, secId, typ){
 const a = [
   'actualMoney','usd-balance','eur-balance','mdl-balance','pln-balance','freedome2','averr2','hourrr2','expence2',
-    'income2','expence/income2',"freedome3",'averr3','investGraphButton'
+    'income2','expence/income2',"freedome3",'averr3','investGraphButton','ActualPlus'
 ]
 a.forEach(element => {
   document.getElementById(element).classList.remove('chosenGraph');
