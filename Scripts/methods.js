@@ -583,6 +583,7 @@ const greenCalculate = document.getElementById("GraphLastOperation");
 const redState = document.getElementById("graphLast2");
 const redCalculate = document.getElementById("GraphLastOperation2");
 
+
 if (typ === "perioudFreedome") {
   lineChart.data.labels = graphLables;
   lineChart.data.datasets[0].data = perioudFreedome;
@@ -838,7 +839,9 @@ document.getElementById('expencePieContainer').style.display = "none"
   lineChart.data.datasets[0].data = statusS;
   lineChart.data.datasets[1].data = targetLine;
 
-  greenState.innerText = LifeData[LifeData.length -1].actualStatus ? LifeData[LifeData.length -1].actualStatus : LifeData[LifeData.length -2].actualStatus;
+  greenState.innerText = getLasValue(LifeData , 'actualStatus');
+
+  
 
   function getLasValue(arr , keyName) {
     for (let i = arr.length - 1; i >= 0; i--) {
@@ -887,7 +890,6 @@ document.getElementById('expencePieContainer').style.display = "none"
     } else {
       gggapStyle.style.color = "rgb(243, 156, 145)"
     }
-  
 
   lineChart.update();
 }else if (typ === 'ActualPlus'){
@@ -898,6 +900,7 @@ document.getElementById('expencePieContainer').style.display = "none"
   
   const a = (actual_statement[actual_statement.length -1] - actual_statement[actual_statement.length -2]);
   const b = (actualPlus[actualPlus.length -1] - actualPlus[actualPlus.length -2]);
+  console.log(actualPlus)
   
 
   greenState.innerText = '';
@@ -912,8 +915,71 @@ document.getElementById('expencePieContainer').style.display = "none"
   redCalculate.style.display = "block";
   document.getElementById('expencePieContainer').style.display = "none"
   lineChart.update();
+
+  const barContainer = document.createElement("div");
+  const inicialPart = document.createElement('div');
+  const secondPart = document.createElement('div');
+  barContainer.classList.add('line-container');
+  inicialPart.classList.add('part');
+  inicialPart.id = 'bluePart';
+  secondPart.classList.add('part');
+  secondPart.id = 'otherPart';
+
+  const percentageContainer = document.createElement('div');
+  const JobIncome = document.createElement('div');
+  const InvestIncome = document.createElement('div');
+  percentageContainer.classList.add('percentages');
+  JobIncome.id = 'blueText';
+  InvestIncome.id = 'otherText';
+  JobIncome.innerText = "Job Income";
+  InvestIncome.innerText = 'Invest Income';
+
+  percentageContainer.append(JobIncome, InvestIncome)
+  barContainer.append(inicialPart, secondPart);
+  document.getElementById('linearContainer').append(barContainer , percentageContainer);
+
+  function drawLine() {
+   const first = jobProcent1 || 0;
+   const second = IncomeProcent2 || 0;
+
+
+   const absFirst = Math.abs(first);
+   const absSecond = Math.abs(second);
+   const total = absFirst + absSecond;
+
+   let bluePercent = 0;
+   let otherPercent = 0;
+
+   if (total > 0) {
+     bluePercent = (absFirst / total) * 100;
+     otherPercent = (absSecond / total) * 100;
+   }
+
+   const bluePart = document.getElementById('bluePart');
+   const otherPart = document.getElementById('otherPart');
+
+   // Update bar widths
+   bluePart.style.width = bluePercent + '%';
+   bluePart.style.left = '0%';
+   otherPart.style.width = otherPercent + '%';
+   otherPart.style.left = bluePercent + '%';
+
+   // Change color based on whether second number is negative
+   if (second < 0) {
+     otherPart.className = 'part yellow-part';
+     document.getElementById('otherText').textContent = 'Yellow: ' + otherPercent.toFixed(2) + '%';
+   } else {
+     otherPart.className = 'part red-part';
+     document.getElementById('otherText').textContent = 'Invest: ' + otherPercent.toFixed(2) + '%';
+   }
+
+   document.getElementById('blueText').textContent = 'Job: ' + bluePercent.toFixed(2) + '%';
+ }
+
+ drawLine();
+ 
 }
-  
+ 
   
 }
 
@@ -930,7 +996,9 @@ closeChart(id){
   a.forEach(element => {
     document.getElementById(element).classList.remove('chosenGraph');
   });
-  document.getElementById('gapBetween').style.display = "none";
+  
+  
+  document.getElementById('gapBetween') && (document.getElementById('gapBetween').style.display = "none");
 },
 highlightChosen(id, secId, typ){
 const a = [
@@ -1084,11 +1152,11 @@ function procentCalculated(total, part) {
   
       
     } else {
-      const a = LifeData[LifeData.length -1].tradeAmount - Number(amount.value);
+      const a = LifeData[LifeData.length -1].tradeAmount + Number(amount.value);
       LifeData[LifeData.length -1].prrrocent =  procentCalculated(LifeData[LifeData.length -2].actualStatus,a);
       LifeData[LifeData.length -1].comment = coment.value || LifeData[LifeData.length -1].comment;
       LifeData[LifeData.length -1].tradeAmount = Number(a.toFixed(2));
-      LifeData[LifeData.length -1].actualStatus = Number((LifeData[LifeData.length -1].actualStatus - Number(amount.value)).toFixed(2));
+      LifeData[LifeData.length -1].actualStatus = Number((LifeData[LifeData.length -1].actualStatus + Number(amount.value)).toFixed(2));
       LifeData[LifeData.length -1].investUrl =  url.value ? dateToday.toISOString().split('T')[0] : '';
       LifeData[LifeData.length -1].investTarget =  segodnea ? addOnePercent(LifeData[LifeData.length -1].investTarget) : LifeData[LifeData.length -1].investTarget;
       
@@ -1121,7 +1189,7 @@ function procentCalculated(total, part) {
       LifeData[LifeData.length -1].prrrocent =  procentCalculated(getLasValue(LifeData, 'actualStatus'),firstAmount);
       LifeData[LifeData.length -1].comment = coment.value || 'No Comment !';
       LifeData[LifeData.length -1].tradeAmount = Number(firstAmount.toFixed(2));
-      LifeData[LifeData.length -1].actualStatus = Number((getLasValue(LifeData, 'actualStatus') - Number(amount.value)).toFixed(2));
+      LifeData[LifeData.length -1].actualStatus = Number((getLasValue(LifeData, 'actualStatus') + Number(amount.value)).toFixed(2));
       LifeData[LifeData.length -1].investUrl =  url.value ? dateToday.toISOString().split('T')[0] : '';
       LifeData[LifeData.length -1].investTarget = addOnePercent(getLasValue(LifeData, 'investTarget'));
 

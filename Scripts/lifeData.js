@@ -100,6 +100,8 @@ let perioudFreedome = [];
 let perioudIncomeAverage = [];
 let perioudOutcomeAverage = [];
 let actualPlus = [];
+let jobProcent1 = 0;
+let IncomeProcent2 = 0;
 
 function forEachData() {
 
@@ -122,7 +124,10 @@ function forEachData() {
     free = [];
     HoursOfWork = [];
     totalHoursOf = 0;
-    actualPlus = []
+    actualPlus = [];
+    jobProcent1 = 0;
+    IncomeProcent2 = 0;
+    
 
 
     perioudFreedome = [];
@@ -159,9 +164,13 @@ function forEachData() {
 
       
       if (element.tradeAmount) {
-        amma = Number((element.actualFinanceStatement + element.actualStatus).toFixed(2))
+        jobProcent1 = element.totalIncome - element.totalOutcome;
+        IncomeProcent2 = element.tradeAmount;
+        amma = Number((element.actualFinanceStatement + element.actualStatus).toFixed(2));
       } else {
         amma = Number((element.actualFinanceStatement + getLasValue4(LifeData , 'actualStatus')).toFixed(2))
+        jobProcent1 = element.totalIncome - element.totalOutcome;
+        IncomeProcent2 = 0;
       }
       actualPlus.push(amma)
    
@@ -182,6 +191,8 @@ function forEachData() {
         free.push(element.freedom);
         HoursOfWork.push(element.workHours)
         totalHoursOf += element.workHours
+
+        
     
         Object.keys(element.income).forEach(key => {
             // If the key already exists in result, add the value to the existing value

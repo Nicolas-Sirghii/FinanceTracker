@@ -1,0 +1,54 @@
+
+  .line-container {
+    width: 100%;
+    max-width: 600px;
+    height: 10px;
+    background-color: green;
+    margin: 40px auto 10px auto;
+    position: absolute;
+    border-radius: 5px;
+    overflow: hidden;
+    z-index: 4;
+    top: 0;
+    left: 40px;
+  }
+
+  .part {
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .blue-part {
+    background-color: blue;
+    z-index: 2;
+  }
+
+  .red-part {
+    background-color: red;
+    z-index: 1;
+  }
+
+  .yellow-part {
+    background-color: yellow;
+    z-index: 1;
+  }
+
+  .percentages {
+    font-size: 18px;
+    margin-top: 10px;
+    width: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    position: absolute;
+    left: 40px;
+    z-index: 4;
+  }
+  #blueText{
+    color: green;
+  }
+  #otherText{
+    color: rgb(128, 96, 0);
+  }
