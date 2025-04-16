@@ -900,7 +900,6 @@ document.getElementById('expencePieContainer').style.display = "none"
   
   const a = (actual_statement[actual_statement.length -1] - actual_statement[actual_statement.length -2]);
   const b = (actualPlus[actualPlus.length -1] - actualPlus[actualPlus.length -2]);
-  console.log(actualPlus)
   
 
   greenState.innerText = '';
@@ -967,7 +966,7 @@ document.getElementById('expencePieContainer').style.display = "none"
    // Change color based on whether second number is negative
    if (second < 0) {
      otherPart.className = 'part yellow-part';
-     document.getElementById('otherText').textContent = 'Yellow: ' + otherPercent.toFixed(2) + '%';
+     document.getElementById('otherText').textContent = 'Invest: ' + otherPercent.toFixed(2) + '%';
    } else {
      otherPart.className = 'part red-part';
      document.getElementById('otherText').textContent = 'Invest: ' + otherPercent.toFixed(2) + '%';
@@ -991,7 +990,7 @@ closeChart(id){
   actualChartId = '';
   const a = [
     'actualMoney','usd-balance','eur-balance','mdl-balance','pln-balance','freedome2','averr2','hourrr2','expence2',
-    'income2','expence/income2',"freedome3",'averr3','investGraphButton','ActualPlus'
+    'income2','expence/income2',"freedome3",'averr3','investGraphButton','ActualPlus','investComentsOpen','investmentComentContainer'
   ]
   a.forEach(element => {
     document.getElementById(element).classList.remove('chosenGraph');
@@ -1003,7 +1002,7 @@ closeChart(id){
 highlightChosen(id, secId, typ){
 const a = [
   'actualMoney','usd-balance','eur-balance','mdl-balance','pln-balance','freedome2','averr2','hourrr2','expence2',
-    'income2','expence/income2',"freedome3",'averr3','investGraphButton','ActualPlus'
+    'income2','expence/income2',"freedome3",'averr3','investGraphButton','ActualPlus','investComentsOpen'
 ]
 a.forEach(element => {
   document.getElementById(element).classList.remove('chosenGraph');
@@ -1207,7 +1206,7 @@ function procentCalculated(total, part) {
 },
 openInvestComents(){
   We.openPopup('investmentComentContainer' , 'block')
-
+We.highlightChosen('investComentsOpen','investmentComentContainer','block' )
   
     
 

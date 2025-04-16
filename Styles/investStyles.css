@@ -19,16 +19,8 @@
 #investButton{
     background-color: green;
 }
-#investGraphButton{
-    position: absolute;
-    top: 0;
-    left: -100px;
-}
-#investComentsOpen{
-    position: absolute;
-    top: 50px;
-    left: -140px; 
-}
+
+
 #investmentComentContainer{
     z-index: 4;
     display: none;
@@ -99,10 +91,4 @@
     bottom: 65px;
     right: 10px;
    
-}
-#ActualPlus{
-    position: absolute;
-    top: 95px;
-    left: -100px; 
-
 }

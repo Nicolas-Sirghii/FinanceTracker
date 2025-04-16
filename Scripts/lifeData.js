@@ -102,7 +102,7 @@ let perioudOutcomeAverage = [];
 let actualPlus = [];
 let jobProcent1 = 0;
 let IncomeProcent2 = 0;
-
+let traktor = 0;
 function forEachData() {
 
     graphLables = [];
@@ -150,7 +150,7 @@ function forEachData() {
       }
       
     }
-
+     
     LifeData.forEach(element => {
 
       countFreedomeDays ++;
@@ -167,8 +167,11 @@ function forEachData() {
         jobProcent1 = element.totalIncome - element.totalOutcome;
         IncomeProcent2 = element.tradeAmount;
         amma = Number((element.actualFinanceStatement + element.actualStatus).toFixed(2));
+        traktor = element.actualStatus
+        
       } else {
-        amma = Number((element.actualFinanceStatement + getLasValue4(LifeData , 'actualStatus')).toFixed(2))
+        
+        amma = Number((element.actualFinanceStatement + traktor).toFixed(2))
         jobProcent1 = element.totalIncome - element.totalOutcome;
         IncomeProcent2 = 0;
       }

@@ -129,8 +129,16 @@ top: 0;
   #graphButtons{
     position: absolute;
     right: 315px;
-    width: 200px;
+    width: 145px;
     height: 385px;
+  
+  }
+  #graphButtons button{
+    height: 25px;
+    font-size: 16px;
+    padding: 0;
+    background-color: rgb(26, 61, 47);
+    
   }
   #graphLast{
     color: green;
